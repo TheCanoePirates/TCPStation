@@ -100,4 +100,4 @@ jobs:
         skip_cleanup: true
         local_dir: dmdoc
         token: $DMDOC_GITHUB_TOKEN
-        fqdn: thecanoepirates.github.io/TCPStation/
+        fqdn: dmdocs.tcpcommunity.net
