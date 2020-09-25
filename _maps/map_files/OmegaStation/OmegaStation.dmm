@@ -34970,20 +34970,7 @@
 /turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "rve" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/structure/cable,
+/obj/machinery/medical_kiosk,
 /turf/open/floor/plasteel,
 /area/medical/medbay)
 "rvA" = (
@@ -36039,7 +36026,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "sEb" = (
-/obj/effect/turf_decal/tile/blue,
+/obj/machinery/vending/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
 "sEc" = (
