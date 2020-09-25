@@ -78183,6 +78183,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"vTn" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 6
+	},
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -23
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "vTD" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer4{
@@ -100581,7 +100591,7 @@ cLa
 cMI
 cQa
 cOP
-qns
+vTn
 cRG
 cMI
 aaa
