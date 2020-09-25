@@ -34975,6 +34975,7 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/machinery/medical_kiosk,
 /turf/open/floor/plasteel,
 /area/medical/medbay)
 "rvA" = (
@@ -36031,6 +36032,7 @@
 /area/hallway/primary/central)
 "sEb" = (
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/vending/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
 "sEc" = (
