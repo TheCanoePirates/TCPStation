@@ -24178,8 +24178,8 @@
 /obj/structure/cable,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "0";
-	req_one_access_txt = "8;12"
+	req_access_txt = "29";
+	req_one_access_txt = "0"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -34994,7 +34994,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/aft)
 "ryK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
