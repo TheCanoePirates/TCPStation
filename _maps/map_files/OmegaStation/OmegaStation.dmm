@@ -25523,6 +25523,9 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
 "csX" = (
@@ -26736,10 +26739,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	name = "Station Intercom";
-	pixel_y = 26
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
 "ehG" = (
@@ -27335,20 +27334,12 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "fmh" = (
-/obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
-/obj/item/gun/syringe,
-/obj/item/reagent_containers/hypospray,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/shower{
+	dir = 4;
+	name = "emergency shower"
+	},
 /turf/open/floor/plasteel,
 /area/medical/medbay)
 "fnp" = (
@@ -27606,15 +27597,8 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "fGN" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/machinery/camera{
-	c_tag = "Library 1";
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/library)
+/turf/closed/wall,
+/area/medical)
 "fHr" = (
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
@@ -31520,7 +31504,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/closet/crate/bin,
+/obj/machinery/camera{
+	c_tag = "Library 1";
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "mpG" = (
@@ -33002,25 +32992,6 @@
 /obj/machinery/status_display/ai,
 /turf/closed/wall,
 /area/hallway/secondary/entry)
-"owq" = (
-/obj/machinery/camera{
-	c_tag = "Medbay Storage";
-	dir = 2
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/structure/bed/dogbed/runtime,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/cable,
-/mob/living/simple_animal/pet/cat/runtime,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay)
 "ozp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/landmark/blobstart,
@@ -35165,7 +35136,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "rKb" = (
-/obj/machinery/holopad,
+/obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "rLi" = (
@@ -39374,6 +39345,21 @@
 /obj/structure/bookcase/random/fiction,
 /turf/open/floor/plasteel/dark,
 /area/library)
+"utb" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/medical3,
+/obj/item/gun/syringe,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/item/storage/box/beakers,
+/obj/item/storage/box/syringes,
+/obj/item/reagent_containers/hypospray,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/turf/open/floor/plasteel,
+/area/medical/medbay)
 "uua" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /turf/closed/wall/r_wall,
@@ -41545,6 +41531,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/machinery/holopad,
 /turf/open/floor/wood,
 /area/library)
 "xEl" = (
@@ -41795,6 +41782,30 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"xWs" = (
+/obj/item/radio/intercom{
+	name = "Station Intercom";
+	pixel_x = 0;
+	pixel_y = 28
+	},
+/obj/machinery/camera{
+	c_tag = "Medbay Storage";
+	dir = 2
+	},
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/simple_animal/pet/cat/runtime,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay)
 "xWC" = (
 /obj/machinery/newscaster{
 	pixel_x = 32
@@ -72523,7 +72534,7 @@ oQk
 hMq
 uBC
 fGN
-sMZ
+xWs
 egS
 xJG
 fmh
@@ -72780,8 +72791,8 @@ sLB
 sLB
 sLB
 sMZ
-sMZ
-owq
+utb
+pIh
 sGP
 eTP
 sMZ
