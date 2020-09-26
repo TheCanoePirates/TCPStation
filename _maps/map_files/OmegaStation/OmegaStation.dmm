@@ -12874,6 +12874,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/brown,
+/obj/machinery/button/door{
+	id = "dorm3";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = 28;
+	specialfunctions = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "aIa" = (
@@ -12882,6 +12889,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/black,
+/obj/machinery/button/door{
+	id = "dorm4";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = 28;
+	specialfunctions = 4
+	},
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
 "aIb" = (
@@ -16420,6 +16434,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/blue,
+/obj/machinery/button/door{
+	id = "dorm1";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = -28;
+	specialfunctions = 4
+	},
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
 "aRO" = (
@@ -16431,6 +16452,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/red,
+/obj/machinery/button/door{
+	id = "dorm2";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = -28;
+	specialfunctions = 4
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/dorms)
 "aRS" = (
@@ -16902,6 +16930,7 @@
 "aSY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
+	id_tag = "dorm1";
 	name = "Cabin"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -31376,6 +31405,20 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"lZS" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	id_tag = "dorm3";
+	name = "Cabin"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "mae" = (
 /obj/structure/table,
 /obj/structure/reagent_dispensers/servingdish,
@@ -32520,6 +32563,20 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/maintenance/port)
+"nSf" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	id_tag = "dorm4";
+	name = "Cabin"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "nSV" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -38690,6 +38747,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"tqM" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	id_tag = "dorm2";
+	name = "Cabin"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "tqN" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -73540,7 +73611,7 @@ aRL
 aSY
 axS
 cFK
-aSY
+lZS
 aHY
 aOq
 sJG
@@ -74308,10 +74379,10 @@ aKE
 sJG
 aQR
 aRO
-aSY
+tqM
 axS
 aUT
-aSY
+nSf
 aRL
 aOt
 sJG
