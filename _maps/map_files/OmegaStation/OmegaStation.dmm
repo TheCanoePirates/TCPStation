@@ -8227,19 +8227,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Bridge - Captain's Quarters";
-	dir = 4;
-	name = "command camera"
-	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "auE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Captain's Quarters";
 	dir = 1
 	},
 /turf/open/floor/wood{
@@ -14523,7 +14514,7 @@
 /area/engine/engineering)
 "aMC" = (
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 1.5e+006
 	},
 /obj/structure/cable,
 /turf/open/floor/circuit/green,
@@ -14900,7 +14891,7 @@
 /area/maintenance/starboard)
 "aNA" = (
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 1.5e+006
 	},
 /obj/item/radio/intercom{
 	name = "Station Intercom";
@@ -29810,7 +29801,7 @@
 	},
 /obj/machinery/power/apc{
 	areastring = "/area/hydroponics";
-	dir = 4;
+	dir = 8;
 	name = "Hydroponics APC";
 	pixel_x = -26
 	},
@@ -34970,6 +34961,20 @@
 /turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "rve" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/cable,
 /obj/machinery/medical_kiosk,
 /turf/open/floor/plasteel,
 /area/medical/medbay)
@@ -36026,6 +36031,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "sEb" = (
+/obj/effect/turf_decal/tile/blue,
 /obj/machinery/vending/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
@@ -40146,7 +40152,9 @@
 /turf/open/floor/plating,
 /area/chapel/main)
 "vBU" = (
-/obj/machinery/telecomms/message_server,
+/obj/machinery/telecomms/message_server{
+	network = "tcommsat"
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "vCj" = (
@@ -41652,7 +41660,7 @@
 	},
 /obj/machinery/power/apc{
 	areastring = "/area/medical/medbay";
-	dir = 4;
+	dir = 8;
 	name = "Medbay APC";
 	pixel_x = -26
 	},
