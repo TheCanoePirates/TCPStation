@@ -12874,6 +12874,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/brown,
+/obj/machinery/button/door{
+	id = "dorm3";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = 28;
+	specialfunctions = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "aIa" = (
@@ -12882,6 +12889,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/black,
+/obj/machinery/button/door{
+	id = "dorm4";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = 28;
+	specialfunctions = 4
+	},
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
 "aIb" = (
@@ -16420,6 +16434,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/blue,
+/obj/machinery/button/door{
+	id = "dorm1";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = -28;
+	specialfunctions = 4
+	},
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
 "aRO" = (
@@ -16431,6 +16452,13 @@
 	pixel_x = 32
 	},
 /obj/item/bedsheet/red,
+/obj/machinery/button/door{
+	id = "dorm2";
+	name = "Dorm Door Lock";
+	normaldoorcontrol = 1;
+	pixel_y = -28;
+	specialfunctions = 4
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/dorms)
 "aRS" = (
@@ -16902,6 +16930,7 @@
 "aSY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
+	id_tag = "dorm1";
 	name = "Cabin"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -24179,7 +24208,7 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
 	req_access_txt = "0";
-	req_one_access_txt = "8;12"
+	req_one_access_txt = "47"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -24984,6 +25013,10 @@
 /area/hallway/secondary/entry)
 "bCV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/camera{
+	c_tag = "Library 1";
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/library)
 "bEf" = (
@@ -25522,6 +25555,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 24;
 	pixel_y = 24
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
@@ -26736,10 +26772,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	name = "Station Intercom";
-	pixel_y = 26
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
 "ehG" = (
@@ -27335,20 +27367,12 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "fmh" = (
-/obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
-/obj/item/gun/syringe,
-/obj/item/reagent_containers/hypospray,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/shower{
+	dir = 4;
+	name = "emergency shower"
+	},
 /turf/open/floor/plasteel,
 /area/medical/medbay)
 "fnp" = (
@@ -27606,15 +27630,8 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "fGN" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/machinery/camera{
-	c_tag = "Library 1";
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/library)
+/turf/closed/wall,
+/area/medical)
 "fHr" = (
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
@@ -28554,7 +28571,8 @@
 "hzA" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "0";
+	req_one_access_txt = "12;47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -31270,9 +31288,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/structure/sink{
+/obj/machinery/shower{
 	dir = 4;
-	pixel_x = -12
+	name = "emergency shower"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
@@ -31392,6 +31410,20 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"lZS" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	id_tag = "dorm3";
+	name = "Cabin"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "mae" = (
 /obj/structure/table,
 /obj/structure/reagent_dispensers/servingdish,
@@ -31520,9 +31552,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/closet/crate/bin,
-/turf/open/floor/plasteel/dark,
-/area/library)
+/turf/closed/wall,
+/area/medical)
 "mpG" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/brute{
@@ -32530,6 +32561,20 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/maintenance/port)
+"nSf" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	id_tag = "dorm4";
+	name = "Cabin"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "nSV" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -33002,25 +33047,6 @@
 /obj/machinery/status_display/ai,
 /turf/closed/wall,
 /area/hallway/secondary/entry)
-"owq" = (
-/obj/machinery/camera{
-	c_tag = "Medbay Storage";
-	dir = 2
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/structure/bed/dogbed/runtime,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/cable,
-/mob/living/simple_animal/pet/cat/runtime,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay)
 "ozp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/landmark/blobstart,
@@ -35010,7 +35036,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Robotics Lab Maintenance";
-	req_access_txt = "29"
+	req_access_txt = "0";
+	req_one_access_txt = "29"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -35023,7 +35050,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard/aft)
 "ryK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
@@ -35165,7 +35192,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "rKb" = (
-/obj/machinery/holopad,
+/obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "rLi" = (
@@ -38719,6 +38746,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"tqM" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	id_tag = "dorm2";
+	name = "Cabin"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "tqN" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -39374,6 +39415,21 @@
 /obj/structure/bookcase/random/fiction,
 /turf/open/floor/plasteel/dark,
 /area/library)
+"utb" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/medical3,
+/obj/item/gun/syringe,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/item/storage/box/beakers,
+/obj/item/storage/box/syringes,
+/obj/item/reagent_containers/hypospray,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/turf/open/floor/plasteel,
+/area/medical/medbay)
 "uua" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /turf/closed/wall/r_wall,
@@ -40490,7 +40546,8 @@
 "wbi" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "0";
+	req_one_access_txt = "12;47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -41361,7 +41418,8 @@
 "xvr" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "0";
+	req_one_access_txt = "12;47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -41545,6 +41603,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/machinery/holopad,
 /turf/open/floor/wood,
 /area/library)
 "xEl" = (
@@ -41795,6 +41854,30 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"xWs" = (
+/obj/item/radio/intercom{
+	name = "Station Intercom";
+	pixel_x = 0;
+	pixel_y = 28
+	},
+/obj/machinery/camera{
+	c_tag = "Medbay Storage";
+	dir = 2
+	},
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/simple_animal/pet/cat/runtime,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay)
 "xWC" = (
 /obj/machinery/newscaster{
 	pixel_x = 32
@@ -72523,7 +72606,7 @@ oQk
 hMq
 uBC
 fGN
-sMZ
+xWs
 egS
 xJG
 fmh
@@ -72780,8 +72863,8 @@ sLB
 sLB
 sLB
 sMZ
-sMZ
-owq
+utb
+pIh
 sGP
 eTP
 sMZ
@@ -73529,7 +73612,7 @@ aRL
 aSY
 axS
 cFK
-aSY
+lZS
 aHY
 aOq
 sJG
@@ -74297,10 +74380,10 @@ aKE
 sJG
 aQR
 aRO
-aSY
+tqM
 axS
 aUT
-aSY
+nSf
 aRL
 aOt
 sJG
