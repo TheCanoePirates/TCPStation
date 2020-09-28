@@ -24207,8 +24207,8 @@
 /obj/structure/cable,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "29";
-	req_one_access_txt = "0"
+	req_access_txt = "0";
+	req_one_access_txt = "47"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -25013,6 +25013,10 @@
 /area/hallway/secondary/entry)
 "bCV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/camera{
+	c_tag = "Library 1";
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/library)
 "bEf" = (
@@ -28567,7 +28571,8 @@
 "hzA" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "0";
+	req_one_access_txt = "12;47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -31283,9 +31288,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/structure/sink{
+/obj/machinery/shower{
 	dir = 4;
-	pixel_x = -12
+	name = "emergency shower"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
@@ -31547,15 +31552,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Library 1";
-	dir = 8
-	},
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/open/floor/plasteel/dark,
-/area/library)
+/turf/closed/wall,
+/area/medical)
 "mpG" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/brute{
@@ -35038,7 +35036,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Robotics Lab Maintenance";
-	req_access_txt = "29"
+	req_access_txt = "0";
+	req_one_access_txt = "29"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -40547,7 +40546,8 @@
 "wbi" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "0";
+	req_one_access_txt = "12;47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -41418,7 +41418,8 @@
 "xvr" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "0";
+	req_one_access_txt = "12;47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
