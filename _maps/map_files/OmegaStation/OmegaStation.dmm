@@ -28930,6 +28930,10 @@
 	name = "Solar Maintenance APC";
 	pixel_y = -24
 	},
+/obj/machinery/camera{
+	c_tag = "Solars Control";
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars)
 "iaZ" = (
@@ -30472,6 +30476,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"kNc" = (
+/obj/machinery/camera{
+	c_tag = "Solars External";
+	dir = 8;
+	network = list("ss13","engine")
+	},
+/turf/open/space/basic,
+/area/space)
 "kNM" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -35483,6 +35495,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"sjf" = (
+/obj/structure/cable,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/solars)
 "sjl" = (
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -60499,7 +60518,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kNc
 akX
 aaa
 ahE
@@ -62298,7 +62317,7 @@ aad
 aad
 aaa
 anL
-apn
+sjf
 apn
 iaJ
 arr
