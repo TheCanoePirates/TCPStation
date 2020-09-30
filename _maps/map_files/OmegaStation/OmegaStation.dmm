@@ -112,7 +112,7 @@
 "aaC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
+	id = "aicorewindow";
 	name = "AI core shutters"
 	},
 /turf/open/floor/plating,
