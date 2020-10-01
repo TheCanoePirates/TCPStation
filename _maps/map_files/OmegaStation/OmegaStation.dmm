@@ -112,7 +112,7 @@
 "aaC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
+	id = "aicorewindow";
 	name = "AI core shutters"
 	},
 /turf/open/floor/plating,
@@ -5291,7 +5291,6 @@
 /area/engine/atmos)
 "amj" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/box/lights/mixed,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
@@ -5306,6 +5305,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/clothing/gloves/color/fyellow,
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "amk" = (
@@ -22520,13 +22520,13 @@
 	dir = 4
 	},
 /turf/closed/wall,
-/area/science/research)
+/area/science/server)
 "bir" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/science/research)
+/area/science/server)
 "bit" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -22547,7 +22547,7 @@
 	dir = 1
 	},
 /turf/closed/wall/r_wall,
-/area/science/research)
+/area/science/server)
 "bix" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -22744,7 +22744,7 @@
 	pressure_checks = 0
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/science/research)
+/area/science/server)
 "biV" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -22757,7 +22757,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark/telecomms,
-/area/science/research)
+/area/science/server)
 "biW" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -22901,7 +22901,7 @@
 	dir = 8
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/science/research)
+/area/science/server)
 "bjo" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
@@ -22917,7 +22917,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark/telecomms,
-/area/science/research)
+/area/science/server)
 "bjp" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
@@ -23055,7 +23055,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/plating,
-/area/science/research)
+/area/science/server)
 "bjC" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "rdxeno";
@@ -23081,7 +23081,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/research)
+/area/science/server)
 "bjD" = (
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
@@ -23158,7 +23158,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/research)
+/area/science/server)
 "bjP" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -23235,7 +23235,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/research)
+/area/science/server)
 "bjV" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -23258,7 +23258,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/research)
+/area/science/server)
 "bjX" = (
 /turf/closed/wall/r_wall,
 /area/science/robotics/lab)
@@ -27426,7 +27426,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/research)
+/area/science/server)
 "fsJ" = (
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -28409,15 +28409,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/research)
-"hjF" = (
-/obj/item/radio/intercom{
-	name = "Station Intercom";
-	pixel_x = -26
-	},
-/obj/structure/closet/secure_closet/lethalshots,
-/turf/open/floor/plasteel/dark,
-/area/asteroid/nearstation)
+/area/science/server)
 "hkn" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -28923,6 +28915,10 @@
 	name = "Solar Maintenance APC";
 	pixel_y = -24
 	},
+/obj/machinery/camera{
+	c_tag = "Solars Control";
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars)
 "iaZ" = (
@@ -29205,6 +29201,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"ivG" = (
+/turf/closed/wall,
+/area/science/server)
 "iwV" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -30162,7 +30161,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/research)
+/area/science/server)
 "kkJ" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/poppy{
@@ -30477,6 +30476,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"kNc" = (
+/obj/machinery/camera{
+	c_tag = "Solars External";
+	dir = 8;
+	network = list("ss13","engine")
+	},
+/turf/open/space/basic,
+/area/space)
 "kNM" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -32868,7 +32875,7 @@
 	name = "Xenobiology Containment Door"
 	},
 /turf/open/floor/plating,
-/area/science/research)
+/area/science/server)
 "ola" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -34615,7 +34622,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/science/research)
+/area/science/server)
 "qLF" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -35499,6 +35506,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"sjf" = (
+/obj/structure/cable,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/solars)
 "sjl" = (
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -39015,7 +39029,7 @@
 "tIz" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall,
-/area/science/research)
+/area/science/server)
 "tIB" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix,
 /turf/open/floor/engine,
@@ -39912,7 +39926,7 @@
 	dir = 9
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/science/research)
+/area/science/server)
 "ver" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -40882,13 +40896,13 @@
 	name = "server vent"
 	},
 /obj/machinery/camera{
-	c_tag = "Server Room";
+	c_tag = "R&D Server Room";
 	dir = 2;
 	network = list("ss13","rd");
 	pixel_x = 22
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/science/research)
+/area/science/server)
 "wCx" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
@@ -60561,7 +60575,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kNc
 akX
 aaa
 ahE
@@ -62360,7 +62374,7 @@ aad
 aad
 aaa
 anL
-apn
+sjf
 apn
 iaJ
 arr
@@ -81402,9 +81416,9 @@ sLV
 hMm
 bhy
 bio
-wtK
-wtK
-wtK
+ivG
+ivG
+ivG
 qKH
 bio
 bjX
