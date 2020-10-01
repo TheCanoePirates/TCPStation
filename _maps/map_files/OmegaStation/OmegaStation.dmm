@@ -27121,6 +27121,16 @@
 	},
 /turf/open/floor/plating,
 /area/science/mixing)
+"eSV" = (
+/obj/machinery/status_display/evac{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "eTP" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/toxin{
@@ -28409,7 +28419,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/server)
+/area/science/research)
 "hkn" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -34501,6 +34511,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "qDm" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
 /obj/structure/rack,
 /obj/item/storage/box/firingpins,
 /obj/item/storage/box/firingpins,
@@ -34551,15 +34564,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/engine,
 /area/science/mixing)
-"qHs" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/obj/structure/closet{
-	name = "Contraband Closet"
-	},
-/turf/open/floor/plasteel/dark,
-/area/asteroid/nearstation)
 "qIp" = (
 /obj/structure/dresser,
 /obj/machinery/camera{
@@ -34661,7 +34665,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/item/gun/ballistic/shotgun/riot,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "qOK" = (
@@ -39615,13 +39618,13 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "uBJ" = (
+/obj/machinery/computer/security{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/computer/prisoner/management{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "uCz" = (
@@ -40478,16 +40481,6 @@
 /obj/item/storage/bag/trash,
 /turf/open/floor/plasteel,
 /area/security/prison)
-"vOJ" = (
-/obj/machinery/status_display/evac{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/asteroid/nearstation)
 "vSr" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -41583,6 +41576,10 @@
 /obj/item/gun/energy/disabler{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/radio/intercom{
+	name = "Station Intercom";
+	pixel_x = -26
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -68527,9 +68524,9 @@ wWz
 wWz
 wWz
 wWz
-xrf
-xrf
-xrf
+aad
+aad
+aad
 uvg
 aad
 uoy
@@ -68784,9 +68781,9 @@ ybo
 bpY
 tPS
 wWz
-qHs
-vOJ
-hjF
+xrf
+xrf
+xrf
 xrf
 xrf
 xrf
@@ -69042,7 +69039,7 @@ ooT
 lgu
 wWz
 qDm
-kiw
+eSV
 xAi
 yba
 kUS
