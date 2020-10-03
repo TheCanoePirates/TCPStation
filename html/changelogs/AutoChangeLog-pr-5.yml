@@ -1,6 +1,0 @@
-author: "D00MGUY"
-delete-after: True
-changes: 
-  - rscadd: "Adds HoS Office to OmegaStation"
-  - tweak: "Detective Office in place of Lawyer Office on OmegaStation"
-  - rscdel: "Removed Lawyer on OmegaStation"
