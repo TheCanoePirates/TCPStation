@@ -40268,9 +40268,7 @@
 /turf/open/floor/plating,
 /area/chapel/main)
 "vBU" = (
-/obj/machinery/telecomms/message_server{
-	network = "tcommsat"
-	},
+/obj/machinery/telecomms/message_server/preset,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "vCj" = (
