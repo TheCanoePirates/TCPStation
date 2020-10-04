@@ -1922,9 +1922,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "ael" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -1939,16 +1936,6 @@
 	dir = 4
 	},
 /mob/living/simple_animal/sloth/citrus,
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
-"aem" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "aeo" = (
@@ -2145,6 +2132,9 @@
 	dir = 5;
 	id = "cargoload"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "aeH" = (
@@ -2152,7 +2142,9 @@
 	dir = 4;
 	id = "cargoload"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
@@ -3237,12 +3229,18 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "ahq" = (
-/obj/machinery/firealarm{
-	dir = 1;
+/obj/structure/table,
+/obj/machinery/light_switch{
+	pixel_x = 24;
 	pixel_y = -24
 	},
-/obj/machinery/light,
+/obj/item/stack/package_wrap,
+/obj/item/stack/cable_coil,
+/obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -4118,7 +4116,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "ajD" = (
-/obj/machinery/autolathe,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -26
 	},
@@ -7737,7 +7734,7 @@
 	dir = 4
 	},
 /turf/closed/wall,
-/area/quartermaster/qm)
+/area/quartermaster/storage)
 "atg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -8338,9 +8335,6 @@
 	},
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/structure/sign/warning/nosmoking{
-	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
@@ -9717,6 +9711,9 @@
 /area/quartermaster/storage)
 "ayH" = (
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "ayI" = (
@@ -9726,6 +9723,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -11372,7 +11372,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "aDP" = (
@@ -11810,25 +11809,10 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "aEW" = (
-/obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -24
-	},
 /obj/item/radio/intercom{
-	name = "Station Intercom";
-	pixel_x = 28
+	pixel_x = 27
 	},
-/obj/item/stack/package_wrap,
-/obj/item/stack/cable_coil,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
+/obj/machinery/autolathe,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "aFb" = (
@@ -28970,8 +28954,8 @@
 	pixel_y = -26
 	},
 /obj/machinery/computer/security/hos{
-	icon_state = "computer";
-	dir = 8
+	dir = 8;
+	icon_state = "computer"
 	},
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/heads/hos)
@@ -29191,6 +29175,9 @@
 "irG" = (
 /turf/open/floor/plating,
 /area/science/storage)
+"ist" = (
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "iuA" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable,
@@ -29251,6 +29238,10 @@
 	heat_capacity = 1e+006
 	},
 /area/hallway/primary/port)
+"iyz" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "izN" = (
 /turf/closed/mineral/random/labormineral,
 /area/science/test_area)
@@ -31012,6 +31003,10 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"lza" = (
+/obj/machinery/rnd/bepis,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "lze" = (
 /turf/closed/wall/r_wall,
 /area/science/robotics/mechbay)
@@ -34905,9 +34900,6 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "rkJ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -36098,6 +36090,9 @@
 "sEc" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "sEl" = (
@@ -40662,6 +40657,21 @@
 "weW" = (
 /turf/open/floor/plating,
 /area/science/test_area)
+"wfa" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/cable,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "wfA" = (
 /turf/closed/wall,
 /area/medical/virology)
@@ -40876,6 +40886,10 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/medical/psychology)
+"wzX" = (
+/obj/structure/cable,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "wAb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/blue,
@@ -41310,9 +41324,6 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
 "xdM" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -82133,12 +82144,12 @@ aad
 aad
 aad
 aad
-aqZ
-aqZ
+asc
+asc
 asc
 asc
 atf
-asc
+aDP
 avb
 awg
 bxF
@@ -82390,16 +82401,16 @@ aad
 aac
 aac
 aad
-aad
-aad
 asc
 asb
 atg
 hVg
+wzX
+wzX
 avc
 awh
 awS
-sFP
+wfa
 sEc
 azG
 aAM
@@ -82647,12 +82658,12 @@ aaa
 aaa
 aad
 aad
-aad
-aad
 asc
 mTL
 ath
 dyX
+iyz
+iyz
 avf
 vgF
 sDn
@@ -82904,12 +82915,12 @@ aaa
 aaa
 aaa
 aad
-aad
-aad
 asc
 jtK
 wLM
 asc
+lza
+ist
 ave
 awj
 aCS
@@ -83161,12 +83172,12 @@ aaa
 aaa
 aaa
 aaa
-aac
-aac
 asc
 asc
 asc
 asc
+aDP
+aDP
 kOP
 awi
 adV
@@ -83427,7 +83438,7 @@ aDP
 adh
 adn
 bxG
-aem
+adn
 aeH
 aeX
 axP
