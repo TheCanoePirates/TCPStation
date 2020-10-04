@@ -32184,6 +32184,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/security/prison)
+"nfS" = (
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -23
+	},
+/turf/open/floor/plasteel/grimy,
+/area/tcommsat/server)
 "nfT" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
@@ -41066,10 +41073,6 @@
 /area/library)
 "wRs" = (
 /obj/machinery/telecomms/receiver/preset_left/birdstation,
-/obj/machinery/airalarm/server{
-	dir = 4;
-	pixel_x = -23
-	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "wSw" = (
@@ -64455,7 +64458,7 @@ bsQ
 eyu
 lvt
 pLb
-sFq
+nfS
 sJj
 sLY
 sNk
