@@ -3230,7 +3230,7 @@
 "ahq" = (
 /obj/structure/table,
 /obj/machinery/light_switch{
-	pixel_x = 24;
+	pixel_x = 11;
 	pixel_y = -24
 	},
 /obj/item/stack/package_wrap,
