@@ -41980,10 +41980,10 @@
 	dir = 8
 	},
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/runtime,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
+/mob/living/simple_animal/pet/cat/runtime,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "xWC" = (
@@ -76571,8 +76571,8 @@ bew
 sBW
 sIN
 sLL
-sLM
 sLL
+sLM
 sLM
 sLL
 sLM
