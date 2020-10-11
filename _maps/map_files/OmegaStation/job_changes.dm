@@ -138,6 +138,5 @@
 	supervisors = "nobody but yourself" //Honk
 
 MAP_REMOVE_JOB(lawyer)
-MAP_REMOVE_JOB(chief_engineer)
 MAP_REMOVE_JOB(cmo)
 MAP_REMOVE_JOB(rd)
