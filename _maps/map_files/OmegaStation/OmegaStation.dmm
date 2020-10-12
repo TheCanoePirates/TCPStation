@@ -12496,6 +12496,10 @@
 	dir = 8;
 	pixel_x = 25
 	},
+/obj/machinery/light_switch{
+	pixel_x = -8;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "aUM" = (
@@ -19857,6 +19861,10 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
