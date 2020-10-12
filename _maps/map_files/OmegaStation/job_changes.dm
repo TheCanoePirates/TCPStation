@@ -52,7 +52,6 @@
 /datum/job/doctor/New()
 	..()
 	MAP_JOB_CHECK
-	selection_color = "#ffffff"
 	total_positions = 3
 	spawn_positions = 3
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
