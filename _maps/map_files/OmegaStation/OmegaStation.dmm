@@ -14112,6 +14112,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "baN" = (
@@ -18022,6 +18023,7 @@
 /area/engine/engineering)
 "bOJ" = (
 /obj/machinery/power/apc/auto_name/west,
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bOW" = (
@@ -29012,6 +29014,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "sLx" = (
