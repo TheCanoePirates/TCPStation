@@ -2106,19 +2106,14 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	areastring = "/area/engine/gravity_generator";
-	dir = 8;
-	name = "Gravity Generator APC";
-	pixel_x = -25;
-	pixel_y = 1
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -22
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "afe" = (
 /obj/machinery/holopad,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
 	dir = 6
 	},
@@ -2323,7 +2318,7 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/machinery/power/port_gen/pacman,
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "afz" = (
@@ -4393,6 +4388,7 @@
 	dir = 8
 	},
 /obj/machinery/meter,
+/obj/structure/cable,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aoC" = (
@@ -4479,6 +4475,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 10
 	},
+/obj/structure/cable,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aoP" = (
@@ -4510,13 +4507,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"aoS" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/components/trinary/filter/critical{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/engine/engineering)
 "aoZ" = (
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -4534,13 +4524,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
-"apf" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
-	dir = 4
-	},
-/turf/open/floor/engine,
-/area/engine/engineering)
 "apg" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -5857,6 +5840,7 @@
 "avZ" = (
 /obj/machinery/computer/station_alert,
 /obj/machinery/camera/autoname,
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "awa" = (
@@ -6165,6 +6149,7 @@
 /area/security/brig)
 "axn" = (
 /obj/machinery/modular_computer/console/preset/engineering,
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "axo" = (
@@ -6721,7 +6706,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "ayT" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/components/binary/valve{
 	name = "Output to Waste"
 	},
@@ -8058,9 +8042,6 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
-"aFd" = (
-/turf/open/floor/plating/asteroid/airless,
-/area/space/nearstation)
 "aFe" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 8
@@ -13920,6 +13901,7 @@
 /area/crew_quarters/bar/atrium)
 "aZC" = (
 /obj/structure/closet/crate/solarpanel_small,
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "aZD" = (
@@ -16867,6 +16849,7 @@
 "blH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "blI" = (
@@ -19953,6 +19936,11 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/port)
+"eRU" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/structure/cable,
+/turf/open/floor/engine,
+/area/engine/engineering)
 "eSt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -21273,7 +21261,6 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/security/prison/safe)
 "hwt" = (
-/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "hwF" = (
@@ -21378,9 +21365,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"hGX" = (
-/turf/closed/mineral/random/labormineral,
-/area/space/nearstation)
 "hHu" = (
 /obj/structure/chair/stool,
 /obj/machinery/light{
@@ -25608,6 +25592,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/library)
+"oCE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "oCN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -26398,7 +26395,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "pSU" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer4{
 	dir = 4
 	},
@@ -27044,6 +27040,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
+/obj/structure/cable,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "qSq" = (
@@ -27797,13 +27794,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint)
-"smo" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 25
-	},
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 "sos" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/plasteel,
@@ -30210,10 +30200,7 @@
 /turf/open/floor/plating,
 /area/security/checkpoint)
 "tgm" = (
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "tgp" = (
@@ -31975,6 +31962,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "vSr" = (
@@ -52962,7 +52950,7 @@ ask
 aRT
 aKf
 aKf
-aFd
+aac
 aad
 aac
 aaa
@@ -53219,7 +53207,7 @@ ayx
 ayx
 jPI
 aRT
-hGX
+aad
 aad
 aac
 ajd
@@ -53476,7 +53464,7 @@ axw
 avs
 fqZ
 aJK
-hGX
+aad
 aad
 aac
 ajd
@@ -53733,7 +53721,7 @@ ayx
 ayx
 jPI
 aRT
-hGX
+aad
 aad
 aad
 aac
@@ -53990,7 +53978,7 @@ aFL
 ulU
 baH
 xCn
-hGX
+aad
 aad
 aad
 aad
@@ -55779,7 +55767,7 @@ aad
 sMg
 and
 aoN
-aoS
+aPY
 aAC
 aPY
 aAC
@@ -56035,8 +56023,8 @@ aad
 aad
 sMg
 anj
-aqi
-apf
+eRU
+aVP
 aqi
 aVP
 aqi
@@ -60675,7 +60663,7 @@ kRl
 aUM
 wxg
 azb
-rrA
+oCE
 mDx
 mDx
 aZj
@@ -61186,7 +61174,7 @@ amT
 aoh
 aWR
 aVv
-smo
+aUM
 aUM
 tBd
 eIt
