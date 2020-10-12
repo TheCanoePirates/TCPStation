@@ -250,6 +250,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "aba" = (
@@ -5193,6 +5194,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
+"atD" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "atI" = (
 /obj/structure/mirror{
 	pixel_x = -26
@@ -10839,9 +10846,19 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "aON" = (
-/obj/machinery/blackbox_recorder,
-/turf/open/floor/plasteel/dark,
-/area/space)
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "aOO" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/assistant,
@@ -17047,9 +17064,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bnL" = (
-/obj/machinery/telecomms/receiver/preset_left,
-/turf/open/floor/plasteel/dark,
-/area/space)
+/obj/machinery/telecomms/message_server/preset,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "bnN" = (
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -17125,6 +17142,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/cafeteria,
 /area/security/prison/safe)
+"brZ" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "bsk" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/blood/random,
@@ -17873,7 +17906,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/space)
+/area/tcommsat/server)
 "bAI" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line,
@@ -19749,6 +19782,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
+"edA" = (
+/obj/machinery/telecomms/server/presets/common/birdstation,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "eea" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -19804,6 +19841,10 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
+"egr" = (
+/obj/machinery/blackbox_recorder,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "egS" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/blue{
@@ -20230,6 +20271,27 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay)
+"eVW" = (
+/obj/machinery/airalarm/server{
+	dir = 8;
+	pixel_x = 22
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "eVY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 4
@@ -20356,6 +20418,11 @@
 	},
 /turf/open/floor/plating,
 /area/science/test_area)
+"fhc" = (
+/obj/machinery/light/small,
+/obj/structure/cable,
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "fiC" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
@@ -21452,9 +21519,43 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "gXB" = (
-/obj/machinery/telecomms/message_server/preset,
-/turf/open/floor/plasteel/dark,
-/area/space)
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
+"gXG" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "gXY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -23816,6 +23917,16 @@
 "kQX" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/science/test_area)
+"kRj" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4
+	},
+/obj/machinery/door/airlock/command{
+	name = "Telecomms Server Room";
+	req_access_txt = "61"
+	},
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "kRl" = (
 /obj/machinery/vending/engivend,
 /obj/effect/turf_decal/tile/yellow{
@@ -25038,6 +25149,22 @@
 	},
 /turf/open/floor/circuit/green,
 /area/space)
+"mqR" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "mrH" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
@@ -25084,6 +25211,10 @@
 /obj/structure/cable,
 /turf/open/floor/circuit/green,
 /area/space)
+"mtc" = (
+/obj/machinery/telecomms/hub/preset,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "mtn" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
@@ -25203,6 +25334,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
+"mzN" = (
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "mAe" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/plasteel/grimy,
@@ -25808,6 +25943,9 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/security/checkpoint)
+"nma" = (
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "noE" = (
 /obj/structure/chair{
 	dir = 4
@@ -25876,6 +26014,10 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
+"nts" = (
+/obj/machinery/telecomms/processor/preset_one/birdstation,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "ntH" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -26066,6 +26208,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"nOE" = (
+/obj/machinery/announcement_system,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "nQN" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
@@ -26139,6 +26285,11 @@
 /turf/open/floor/plasteel/dark,
 /area/space)
 "nVx" = (
+/obj/structure/cable,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecomms Control Room";
+	req_one_access_txt = "19; 61"
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "nVO" = (
@@ -26504,6 +26655,16 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"oyV" = (
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -22
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "ozp" = (
 /obj/effect/landmark/blobstart,
 /obj/structure/cable,
@@ -26749,6 +26910,13 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"oMP" = (
+/obj/machinery/computer/telecomms/monitor{
+	dir = 4;
+	network = "tcommsat"
+	},
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "oMR" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box{
@@ -27188,6 +27356,16 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"pBt" = (
+/obj/machinery/power/apc{
+	areastring = "/area/tcommsat/server";
+	dir = 8;
+	name = "Telecomms Server Room APC";
+	pixel_x = -26
+	},
+/obj/structure/cable,
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "pBI" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -27498,6 +27676,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"pUE" = (
+/obj/structure/cable,
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "pVi" = (
 /obj/item/storage/box/chemimp{
 	pixel_x = 6
@@ -28232,6 +28414,13 @@
 /obj/machinery/air_sensor/atmos/toxin_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
+"qUe" = (
+/obj/machinery/telecomms/broadcaster/preset_left/birdstation,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "qUL" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -28280,7 +28469,7 @@
 "qZY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/space)
+/area/tcommsat/server)
 "rae" = (
 /obj/machinery/status_display/ai{
 	pixel_y = 32
@@ -28354,6 +28543,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat_interior)
 "rex" = (
@@ -28482,6 +28672,9 @@
 "rnu" = (
 /turf/closed/wall,
 /area/science/misc_lab/range)
+"roz" = (
+/turf/closed/wall/r_wall,
+/area/tcommsat/server)
 "rqk" = (
 /obj/item/assembly/signaler{
 	pixel_y = 8
@@ -28685,6 +28878,23 @@
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/plating,
 /area/science/storage)
+"rCN" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "rED" = (
 /obj/structure/cable,
 /turf/open/floor/wood,
@@ -28776,6 +28986,26 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"rML" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "rMS" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
@@ -28917,9 +29147,21 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "scs" = (
-/obj/machinery/telecomms/hub/preset,
-/turf/open/floor/plasteel/dark,
-/area/space)
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "sdL" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/port)
@@ -29043,8 +29285,9 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint)
 "skK" = (
-/turf/open/floor/plasteel/dark,
-/area/space)
+/obj/machinery/telecomms/receiver/preset_left/birdstation,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "sos" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/plasteel,
@@ -32553,6 +32796,13 @@
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood,
 /area/maintenance/port)
+"uFG" = (
+/obj/machinery/computer/message_monitor{
+	dir = 8
+	},
+/obj/item/paper/monitorkey,
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "uGg" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral,
@@ -32878,6 +33128,10 @@
 /obj/machinery/rnd/server,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
+"vcs" = (
+/obj/machinery/announcement_system,
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "vdO" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
@@ -33351,6 +33605,13 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"vLD" = (
+/obj/machinery/computer/telecomms/server{
+	dir = 4;
+	network = "tcommsat"
+	},
+/turf/open/floor/plasteel/dark,
+/area/tcommsat/server)
 "vLZ" = (
 /obj/structure/sign/departments/xenobio,
 /turf/closed/wall,
@@ -33680,6 +33941,26 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"wew" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "weR" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer2,
 /obj/effect/turf_decal/stripes/line,
@@ -34418,9 +34699,22 @@
 /turf/open/space/basic,
 /area/space)
 "xdu" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
-/turf/open/floor/plasteel/dark,
-/area/space)
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "xdM" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -34521,6 +34815,10 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/r_wall,
 /area/engine/engine_smes)
+"xqe" = (
+/obj/machinery/telecomms/bus/preset_one/birdstation,
+/turf/open/floor/circuit/green/telecomms,
+/area/tcommsat/server)
 "xrf" = (
 /turf/closed/wall/r_wall,
 /area/asteroid/nearstation)
@@ -34871,6 +35169,25 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"xPg" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "xPu" = (
 /obj/machinery/light{
 	dir = 8
@@ -35003,6 +35320,26 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"xWN" = (
+/obj/machinery/atmospherics/pipe/manifold/general/visible,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "xXj" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/stripes/line{
@@ -73651,12 +73988,12 @@ aeu
 ahe
 ahe
 ahe
-aei
+roz
 bzw
 bzw
 bzw
-aei
-aei
+roz
+roz
 aaa
 aaa
 wdt
@@ -73908,12 +74245,12 @@ aex
 abH
 afY
 ahe
-skK
-skK
-skK
-skK
-skK
-aei
+oyV
+nma
+vLD
+oMP
+pBt
+roz
 aaa
 aaa
 wdt
@@ -74165,12 +74502,12 @@ bnN
 rdU
 aaT
 nVx
-skK
-skK
-skK
-skK
-skK
-aei
+pUE
+pUE
+pUE
+pUE
+fhc
+roz
 aaa
 aaa
 abJ
@@ -74422,12 +74759,12 @@ abz
 afm
 aga
 ahe
-skK
-skK
-skK
-skK
-skK
-aei
+vcs
+uFG
+nma
+atD
+mzN
+roz
 aaa
 aaa
 ajd
@@ -74682,9 +75019,9 @@ ahe
 qZY
 qZY
 qZY
-skK
+kRj
 qZY
-aei
+roz
 aaa
 aaa
 ajd
@@ -74936,12 +75273,12 @@ aex
 afo
 ahe
 aON
-skK
-skK
-skK
-skK
+nts
+edA
+xqe
+rML
 bnL
-aei
+roz
 aaa
 aaa
 ajd
@@ -75193,12 +75530,12 @@ abA
 abI
 ahe
 scs
-skK
-skK
-skK
-skK
-skK
-aei
+gXG
+rCN
+rCN
+xWN
+mqR
+roz
 aaa
 aaa
 ajd
@@ -75450,12 +75787,12 @@ vpX
 bxx
 ahe
 gXB
-skK
-skK
-skK
-skK
+xPg
+brZ
+brZ
+wew
 xdu
-aei
+roz
 aaa
 aaa
 ajd
@@ -75707,12 +76044,12 @@ ahe
 ahe
 ahe
 skK
-skK
-skK
-skK
-skK
-skK
-aei
+mtc
+nOE
+qUe
+eVW
+egr
+roz
 aaa
 aaa
 ajd
@@ -75962,14 +76299,14 @@ aad
 abp
 aad
 aad
-aei
-aei
-aei
-aei
-aei
-aei
-aei
-aei
+roz
+roz
+roz
+roz
+roz
+roz
+roz
+roz
 ajd
 ajd
 ahB
