@@ -26780,6 +26780,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay)
+"olt" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "olu" = (
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port"
@@ -60797,7 +60803,7 @@ aad
 aad
 aac
 aoj
-xZO
+olt
 dNx
 vho
 xiH
