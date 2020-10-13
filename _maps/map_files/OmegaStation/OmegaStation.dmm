@@ -26506,7 +26506,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "nOE" = (
-/obj/machinery/announcement_system,
+/obj/machinery/ntnet_relay,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "nQN" = (
@@ -29638,6 +29638,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
+/obj/structure/closet/crate/solarpanel_small,
 /turf/open/floor/plating,
 /area/maintenance/solars)
 "shD" = (
