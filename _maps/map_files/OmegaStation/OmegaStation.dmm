@@ -4383,6 +4383,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"aoU" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/maintenance/disposal/incinerator)
 "aoZ" = (
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -8019,6 +8025,9 @@
 "aFk" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /obj/structure/closet/radiation,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "aFq" = (
@@ -13372,6 +13381,9 @@
 	id = "atmoslock";
 	name = "Atmospherics Lockdown Blast door"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "aXK" = (
@@ -13382,7 +13394,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "aXL" = (
@@ -17340,6 +17354,9 @@
 "bsD" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "bsE" = (
@@ -20134,11 +20151,11 @@
 /area/science/mixing)
 "eAr" = (
 /obj/effect/landmark/start/atmospheric_technician,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
@@ -25620,6 +25637,11 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/heads/hos)
+"mBR" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
+/turf/open/floor/plasteel,
+/area/maintenance/disposal/incinerator)
 "mBZ" = (
 /obj/structure/table/wood,
 /obj/item/stack/spacecash/c500,
@@ -29675,6 +29697,9 @@
 /area/engine/atmos)
 "soC" = (
 /obj/machinery/computer/turbine_computer,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 10
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "spw" = (
@@ -57515,7 +57540,7 @@ bsD
 aLj
 mJg
 aTW
-arm
+aoU
 bbN
 bgu
 bjc
@@ -58026,7 +58051,7 @@ aYf
 aYf
 sMg
 soC
-oKz
+mBR
 eAr
 rNB
 aXK
