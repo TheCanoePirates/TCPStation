@@ -25886,6 +25886,13 @@
 	},
 /turf/closed/wall,
 /area/hallway/secondary/entry)
+"mTB" = (
+/obj/structure/cable,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "mTL" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -27668,6 +27675,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"pzr" = (
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "pAx" = (
 /obj/item/assembly/prox_sensor{
 	pixel_x = -4;
@@ -28741,6 +28754,9 @@
 /area/maintenance/port)
 "qSY" = (
 /obj/structure/chair/stool,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "qTa" = (
@@ -35478,6 +35494,12 @@
 /obj/structure/girder,
 /turf/open/floor/plating/airless,
 /area/asteroid/nearstation)
+"xGu" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "xGH" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -58747,14 +58769,14 @@ sgG
 wUz
 kvH
 yly
-xZO
+pzr
 aoj
 mCE
 xZO
 xZO
 qEo
 aoj
-xZO
+xGu
 sMg
 anq
 avr
@@ -59775,7 +59797,7 @@ aac
 aoj
 aoj
 aoj
-aNT
+mTB
 aoj
 afb
 ggF
