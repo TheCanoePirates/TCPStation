@@ -37638,7 +37638,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
-/obj/structure/cable,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "vRv" = (
