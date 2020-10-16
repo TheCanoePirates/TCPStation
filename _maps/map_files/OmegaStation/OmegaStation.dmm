@@ -6057,9 +6057,9 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "avZ" = (
-/obj/machinery/computer/station_alert,
 /obj/machinery/camera/autoname,
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "awa" = (
@@ -6397,6 +6397,7 @@
 "axn" = (
 /obj/machinery/modular_computer/console/preset/engineering,
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "axo" = (
@@ -8469,8 +8470,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "aFc" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
@@ -9967,8 +9966,10 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "aJE" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable,
+/obj/machinery/computer/station_alert{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "aJF" = (
@@ -14783,7 +14784,6 @@
 /area/crew_quarters/bar/atrium)
 "aZC" = (
 /obj/structure/closet/crate/solarpanel_small,
-/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -17871,7 +17871,6 @@
 "blH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
-/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -22623,6 +22622,13 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/r_wall,
 /area/science/robotics/lab)
+"fZR" = (
+/obj/structure/cable,
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/engine_smes)
 "gap" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -22763,8 +22769,6 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "glO" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable,
 /obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	pixel_x = 24
@@ -23654,6 +23658,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "hwF" = (
@@ -28912,6 +28920,10 @@
 "nIj" = (
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/xenobiology)
+"nIp" = (
+/obj/structure/cable,
+/turf/closed/wall/r_wall,
+/area/engine/engine_smes)
 "nIY" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
@@ -30642,6 +30654,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "pSZ" = (
@@ -35073,6 +35086,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/machinery/power/terminal{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
@@ -65922,7 +65938,7 @@ aWI
 axn
 sRb
 glO
-aJE
+fZR
 aWI
 aPL
 aUM
@@ -66176,7 +66192,7 @@ aNT
 aoe
 aod
 aWI
-aWI
+nIp
 aWI
 aWI
 aWI
