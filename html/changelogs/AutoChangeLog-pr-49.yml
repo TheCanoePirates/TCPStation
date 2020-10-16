@@ -1,0 +1,4 @@
+author: "Kei-Shin"
+delete-after: True
+changes: 
+  - bugfix: "OmegaStation: Supermatter emitters now can fire without the assistance of a PACMAN"
