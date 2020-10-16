@@ -19491,6 +19491,9 @@
 "cem" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/medical,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "cen" = (
@@ -32441,6 +32444,13 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
+"saJ" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/engine/engineering)
 "scs" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -61547,7 +61557,7 @@ sMg
 mgJ
 auk
 aTg
-auk
+saJ
 sMg
 aYf
 aZy
