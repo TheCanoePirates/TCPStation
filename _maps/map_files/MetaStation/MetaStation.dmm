@@ -80435,24 +80435,8 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
 	},
-<<<<<<< HEAD
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
-"vTn" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
-	dir = 6
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
-"vTD" = (
-=======
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer2,
->>>>>>> 3d1a0a5b367a080c42fba0e85ce0382b2cbcb284
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/security/brig)
@@ -103400,20 +103384,6 @@ xpZ
 cdm
 cKn
 cLb
-<<<<<<< HEAD
-cRT
-cMD
-cNu
-cOb
-cOF
-cLa
-cMI
-cQa
-cOP
-vTn
-cRG
-cMI
-=======
 iEL
 lej
 ccH
@@ -103426,7 +103396,6 @@ rAV
 iST
 oza
 wRK
->>>>>>> 3d1a0a5b367a080c42fba0e85ce0382b2cbcb284
 aaa
 aaa
 aaa
