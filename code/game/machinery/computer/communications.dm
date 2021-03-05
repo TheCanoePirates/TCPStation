@@ -23,7 +23,7 @@
 	var/state = STATE_MAIN
 
 	/// The current state of the UI for AIs
-	var/ai_state = STATE_MAIN
+	var/cyborg_state = STATE_MAIN
 
 	/// The name of the user who logged in
 	var/authorize_name
@@ -44,22 +44,23 @@
 /obj/machinery/computer/communications/Initialize()
 	. = ..()
 	GLOB.shuttle_caller_list += src
+	AddComponent(/datum/component/gps, "Secured Communications Signal")
 
-/// Are we NOT the AI, AND we're logged in as the captain?
-/obj/machinery/computer/communications/proc/authenticated_as_non_ai_captain(mob/user)
-	if (isAI(user))
+/// Are we NOT a silicon, AND we're logged in as the captain?
+/obj/machinery/computer/communications/proc/authenticated_as_non_silicon_captain(mob/user)
+	if (issilicon(user))
 		return FALSE
 	return ACCESS_CAPTAIN in authorize_access
 
-/// Are we the AI, OR we're logged in as the captain?
-/obj/machinery/computer/communications/proc/authenticated_as_ai_or_captain(mob/user)
-	if (isAI(user))
+/// Are we a silicon, OR we're logged in as the captain?
+/obj/machinery/computer/communications/proc/authenticated_as_silicon_or_captain(mob/user)
+	if (issilicon(user))
 		return TRUE
 	return ACCESS_CAPTAIN in authorize_access
 
-/// Are we the AI, OR logged in?
+/// Are we a silicon, OR logged in?
 /obj/machinery/computer/communications/proc/authenticated(mob/user)
-	if (isAI(user))
+	if (issilicon(user))
 		return TRUE
 	return authenticated
 
@@ -74,7 +75,7 @@
 		return
 	obj_flags |= EMAGGED
 	if (authenticated)
-		authorize_access = get_all_accesses()
+		authorize_access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 	to_chat(user, "<span class='danger'>You scramble the communication routing circuits!</span>")
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)
 
@@ -86,14 +87,24 @@
 	if (.)
 		return
 
+	if (!has_communication())
+		return
+
 	. = TRUE
 
 	switch (action)
 		if ("answerMessage")
 			if (!authenticated(usr))
 				return
-			var/answer_index = text2num(params["answer"])
-			var/message_index = text2num(params["message"])
+
+			var/answer_index = params["answer"]
+			var/message_index = params["message"]
+
+			// If either of these aren't numbers, then bad voodoo.
+			if(!isnum(answer_index) || !isnum(message_index))
+				message_admins("[ADMIN_LOOKUPFLW(usr)] provided an invalid index type when replying to a message on [src] [ADMIN_JMP(src)]. This should not happen. Please check with a maintainer and/or consult tgui logs.")
+				CRASH("Non-numeric index provided when answering comms console message.")
+
 			if (!answer_index || !message_index || answer_index < 1 || message_index < 1)
 				return
 			var/datum/comm_message/message = messages[message_index]
@@ -110,11 +121,11 @@
 			SSshuttle.requestEvac(usr, reason)
 			post_status("shuttle")
 		if ("changeSecurityLevel")
-			if (!authenticated_as_ai_or_captain(usr))
+			if (!authenticated_as_silicon_or_captain(usr))
 				return
 
 			// Check if they have
-			if (!isAI(usr))
+			if (!issilicon(usr))
 				var/obj/item/held_item = usr.get_active_held_item()
 				var/obj/item/card/id/id_card = held_item?.GetID()
 				if (!istype(id_card))
@@ -151,11 +162,11 @@
 				return
 			LAZYREMOVE(messages, LAZYACCESS(messages, message_index))
 		if ("makePriorityAnnouncement")
-			if (!authenticated_as_ai_or_captain(usr))
+			if (!authenticated_as_silicon_or_captain(usr))
 				return
 			make_announcement(usr)
 		if ("messageAssociates")
-			if (!authenticated_as_non_ai_captain(usr))
+			if (!authenticated_as_non_silicon_captain(usr))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -194,7 +205,7 @@
 			SSshuttle.shuttle_purchased = SHUTTLEPURCHASE_PURCHASED
 			SSshuttle.unload_preview()
 			SSshuttle.existing_shuttle = SSshuttle.emergency
-			SSshuttle.action_load(shuttle)
+			SSshuttle.action_load(shuttle, replace = TRUE)
 			bank_account.adjust_money(-shuttle.credit_cost)
 			minor_announce("[usr.real_name] has purchased [shuttle.name] for [shuttle.credit_cost] credits.[shuttle.extra_desc ? " [shuttle.extra_desc]" : ""]" , "Shuttle Purchase")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [shuttle.name].")
@@ -203,11 +214,11 @@
 			state = STATE_MAIN
 		if ("recallShuttle")
 			// AIs cannot recall the shuttle
-			if (!authenticated(usr) || isAI(usr))
+			if (!authenticated(usr) || issilicon(usr))
 				return
 			SSshuttle.cancelEvac(usr)
 		if ("requestNukeCodes")
-			if (!authenticated_as_non_ai_captain(usr))
+			if (!authenticated_as_non_silicon_captain(usr))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -215,11 +226,11 @@
 			nuke_request(reason, usr)
 			to_chat(usr, "<span class='notice'>Request sent.</span>")
 			usr.log_message("has requested the nuclear codes from CentCom with reason \"[reason]\"", LOG_SAY)
-			priority_announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self-Destruct Codes Requested", 'sound/ai/commandreport.ogg')
+			priority_announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self-Destruct Codes Requested", SSstation.announcer.get_rand_report_sound())
 			playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 		if ("restoreBackupRoutingData")
-			if (!authenticated_as_non_ai_captain(usr))
+			if (!authenticated_as_non_silicon_captain(usr))
 				return
 			if (!(obj_flags & EMAGGED))
 				return
@@ -227,7 +238,7 @@
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			obj_flags &= ~EMAGGED
 		if ("sendToOtherSector")
-			if (!authenticated_as_non_ai_captain(usr))
+			if (!authenticated_as_non_silicon_captain(usr))
 				return
 			if (!can_send_messages_to_other_sectors(usr))
 				return
@@ -246,6 +257,7 @@
 			var/network_name = CONFIG_GET(string/cross_comms_network)
 			if (network_name)
 				payload["network"] = network_name
+			payload["sender_ckey"] = usr.ckey
 
 			send2otherserver(station_name(), message, "Comms_Console", destination == "all" ? null : list(destination), additional_data = payload)
 			minor_announce(message, title = "Outgoing message to allied station")
@@ -291,21 +303,22 @@
 
 			if (obj_flags & EMAGGED)
 				authenticated = TRUE
-				authorize_access = get_all_accesses()
+				authorize_access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 				authorize_name = "Unknown"
 				to_chat(usr, "<span class='warning'>[src] lets out a quiet alarm as its login is overridden.</span>")
 				playsound(src, 'sound/machines/terminal_alert.ogg', 25, FALSE)
-			else
-				var/obj/item/card/id/id_card = usr.get_idcard(hand_first = TRUE)
+			else if(isliving(usr))
+				var/mob/living/L = usr
+				var/obj/item/card/id/id_card = L.get_idcard(hand_first = TRUE)
 				if (check_access(id_card))
 					authenticated = TRUE
-					authorize_access = id_card.access
+					authorize_access = id_card.access.Copy()
 					authorize_name = "[id_card.registered_name] - [id_card.assignment]"
 
 			state = STATE_MAIN
 			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 		if ("toggleEmergencyAccess")
-			if (!authenticated_as_ai_or_captain(usr))
+			if (!authenticated_as_silicon_or_captain(usr))
 				return
 			if (GLOB.emergency_access)
 				revoke_maint_all_access()
@@ -322,13 +335,14 @@
 	var/list/data = list(
 		"authenticated" = FALSE,
 		"emagged" = FALSE,
+		"hasConnection" = has_communication(),
 	)
 
-	var/ui_state = isAI(user) ? ai_state : state
+	var/ui_state = issilicon(user) ? cyborg_state : state
 
-	if (authenticated || isAI(user))
+	if (authenticated || issilicon(user))
 		data["authenticated"] = TRUE
-		data["canLogOut"] = !isAI(user)
+		data["canLogOut"] = !issilicon(user)
 		data["page"] = ui_state
 
 		if (obj_flags & EMAGGED)
@@ -339,6 +353,7 @@
 				data["canBuyShuttles"] = can_buy_shuttles(user)
 				data["canMakeAnnouncement"] = FALSE
 				data["canMessageAssociates"] = FALSE
+				data["canRecallShuttles"] = !issilicon(user)
 				data["canRequestNuke"] = FALSE
 				data["canSendToSectors"] = FALSE
 				data["canSetAlertLevel"] = FALSE
@@ -349,10 +364,10 @@
 
 				data["alertLevel"] = get_security_level()
 				data["authorizeName"] = authorize_name
-				data["canLogOut"] = !isAI(user)
+				data["canLogOut"] = !issilicon(user)
 				data["shuttleCanEvacOrFailReason"] = SSshuttle.canEvac(user)
 
-				if (authenticated_as_non_ai_captain(user))
+				if (authenticated_as_non_silicon_captain(user))
 					data["canMessageAssociates"] = TRUE
 					data["canRequestNuke"] = TRUE
 
@@ -369,13 +384,13 @@
 
 					data["sectors"] = sectors
 
-				if (authenticated_as_ai_or_captain(user))
+				if (authenticated_as_silicon_or_captain(user))
 					data["canToggleEmergencyAccess"] = TRUE
 					data["emergencyAccess"] = GLOB.emergency_access
 
 					data["alertLevelTick"] = alert_level_tick
 					data["canMakeAnnouncement"] = TRUE
-					data["canSetAlertLevel"] = isAI(user) ? "NO_SWIPE_NEEDED" : "SWIPE_NEEDED"
+					data["canSetAlertLevel"] = issilicon(user) ? "NO_SWIPE_NEEDED" : "SWIPE_NEEDED"
 
 				if (SSshuttle.emergency.mode != SHUTTLE_IDLE && SSshuttle.emergency.mode != SHUTTLE_RECALL)
 					data["shuttleCalled"] = TRUE
@@ -434,9 +449,15 @@
 		"maxMessageLength" = MAX_MESSAGE_LEN,
 	)
 
+/// Returns whether or not the communications console can communicate with the station
+/obj/machinery/computer/communications/proc/has_communication()
+	var/turf/current_turf = get_turf(src)
+	var/z_level = current_turf.z
+	return is_station_level(z_level) || is_centcom_level(z_level)
+
 /obj/machinery/computer/communications/proc/set_state(mob/user, new_state)
-	if (isAI(user))
-		ai_state = new_state
+	if (issilicon(user))
+		cyborg_state = new_state
 	else
 		state = new_state
 
@@ -445,7 +466,7 @@
 /obj/machinery/computer/communications/proc/can_buy_shuttles(mob/user)
 	if (!SSmapping.config.allow_custom_shuttles)
 		return FALSE
-	if (!authenticated_as_non_ai_captain(user))
+	if (!authenticated_as_non_silicon_captain(user))
 		return FALSE
 	if (SSshuttle.emergency.mode != SHUTTLE_RECALL && SSshuttle.emergency.mode != SHUTTLE_IDLE)
 		return "The shuttle is already in transit."
@@ -456,13 +477,13 @@
 	return TRUE
 
 /obj/machinery/computer/communications/proc/can_send_messages_to_other_sectors(mob/user)
-	if (!authenticated_as_non_ai_captain(user))
+	if (!authenticated_as_non_silicon_captain(user))
 		return
 
 	return length(CONFIG_GET(keyed_list/cross_server)) > 0
 
 /obj/machinery/computer/communications/proc/make_announcement(mob/living/user)
-	var/is_ai = isAI(user)
+	var/is_ai = issilicon(user)
 	if(!SScommunications.can_announce(user, is_ai))
 		to_chat(user, "<span class='alert'>Intercomms recharging. Please stand by.</span>")
 		return
@@ -493,7 +514,6 @@
 			status_signal.data["picture_state"] = data1
 
 	frequency.post_signal(src, status_signal)
-
 
 /obj/machinery/computer/communications/Destroy()
 	GLOB.shuttle_caller_list -= src

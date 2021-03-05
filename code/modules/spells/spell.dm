@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(msg)
 		to_chat(ranged_ability_user, msg)
 	active = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/effect/proc_holder/proc/remove_ranged_ability(msg)
 	if(!ranged_ability_user || !ranged_ability_user.client || (ranged_ability_user.ranged_ability && ranged_ability_user.ranged_ability != src)) //To avoid removing the wrong ability
@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		to_chat(ranged_ability_user, msg)
 	ranged_ability_user = null
 	active = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/effect/proc_holder/spell
 	name = "Spell"
@@ -287,13 +287,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	return
 
 /**
-  * can_target: Checks if we are allowed to cast the spell on a target.
-  *
-  * Arguments:
-  * * target The atom that is being targeted by the spell.
-  * * user The mob using the spell.
-  * * silent If the checks should not give any feedback messages.
-  */
+ * can_target: Checks if we are allowed to cast the spell on a target.
+ *
+ * Arguments:
+ * * target The atom that is being targeted by the spell.
+ * * user The mob using the spell.
+ * * silent If the checks should not give any feedback messages.
+ */
 /obj/effect/proc_holder/spell/proc/can_target(atom/target, mob/user, silent = FALSE)
 	return TRUE
 

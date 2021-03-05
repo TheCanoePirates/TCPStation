@@ -36,10 +36,22 @@
 	///Delete this port after ship fly off.
 	var/delete_after = FALSE
 
+	///are we registered in SSshuttles?
+	var/registered = FALSE
+
+	///register to SSshuttles
 /obj/docking_port/proc/register()
+	if(registered)
+		WARNING("docking_port registered multiple times")
+		unregister()
+	registered = TRUE
 	return
 
+	///unregister from SSshuttles
 /obj/docking_port/proc/unregister()
+	if(!registered)
+		WARNING("docking_port unregistered multiple times")
+	registered = FALSE
 	return
 
 /obj/docking_port/proc/Check_id()
@@ -185,7 +197,8 @@
 	var/datum/map_template/shuttle/roundstart_template
 	var/json_key
 
-/obj/docking_port/stationary/register()
+/obj/docking_port/stationary/register(replace = FALSE)
+	. = ..()
 	if(!id)
 		id = "dock"
 	else
@@ -195,13 +208,14 @@
 		name = "dock"
 
 	var/counter = SSshuttle.assoc_stationary[id]
-	if(counter)
-		counter++
-		SSshuttle.assoc_stationary[id] = counter
-		id = "[id]_[counter]"
-		name = "[name] [counter]"
-	else
-		SSshuttle.assoc_stationary[id] = 1
+	if(!replace || !counter)
+		if(counter)
+			counter++
+			SSshuttle.assoc_stationary[id] = counter
+			id = "[id]_[counter]"
+			name = "[name] [counter]"
+		else
+			SSshuttle.assoc_stationary[id] = 1
 
 	if(!port_destinations)
 		port_destinations = id
@@ -217,13 +231,14 @@
 
 	if(mapload)
 		for(var/turf/T in return_turfs())
-			T.flags_1 |= NO_RUINS_1
+			T.turf_flags |= NO_RUINS
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
 	#endif
 
 /obj/docking_port/stationary/unregister()
+	. = ..()
 	SSshuttle.stationary -= src
 
 /obj/docking_port/stationary/Destroy(force)
@@ -351,25 +366,29 @@
 	var/list/hidden_turfs = list()
 
 /obj/docking_port/mobile/register(replace = FALSE)
+	. = ..()
 	if(!id)
 		id = "shuttle"
 
 	if(!name)
 		name = "shuttle"
 
-	if(!replace)
-		var/counter = SSshuttle.assoc_mobile[id]
+	var/counter = SSshuttle.assoc_mobile[id]
+	if(!replace || !counter)
 		if(counter)
 			counter++
 			SSshuttle.assoc_mobile[id] = counter
 			id = "[id]_[counter]"
 			name = "[name] [counter]"
+			//Re link machinery to new shuttle id
+			linkup()
 		else
 			SSshuttle.assoc_mobile[id] = 1
 
 	SSshuttle.mobile += src
 
 /obj/docking_port/mobile/unregister()
+	. = ..()
 	SSshuttle.mobile -= src
 
 /obj/docking_port/mobile/Destroy(force)
@@ -377,7 +396,7 @@
 		unregister()
 		destination = null
 		previous = null
-		QDEL_NULL(assigned_transit)		//don't need it where we're goin'!
+		QDEL_NULL(assigned_transit) //don't need it where we're goin'!
 		shuttle_areas = null
 		remove_ripples()
 	. = ..()
@@ -413,13 +432,13 @@
 	#endif
 
 // Called after the shuttle is loaded from template
-/obj/docking_port/mobile/proc/linkup(datum/map_template/shuttle/template, obj/docking_port/stationary/dock)
+/obj/docking_port/mobile/proc/linkup(obj/docking_port/stationary/dock)
 	for(var/place in shuttle_areas)
 		var/area/area = place
-		area.connect_to_shuttle(src, dock, id, FALSE)
+		area.connect_to_shuttle(src, dock)
 		for(var/each in place)
 			var/atom/atom = each
-			atom.connect_to_shuttle(src, dock, id, FALSE)
+			atom.connect_to_shuttle(src, dock)
 
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
@@ -514,7 +533,7 @@
 	mode = SHUTTLE_RECALL
 
 /obj/docking_port/mobile/proc/enterTransit()
-	if((SSshuttle.lockdown && is_station_level(z)) || !canMove())	//emp went off, no escape
+	if((SSshuttle.lockdown && is_station_level(z)) || !canMove()) //emp went off, no escape
 		mode = SHUTTLE_IDLE
 		return
 	previous = null
@@ -576,7 +595,7 @@
 		var/turf/T = t
 		for(var/mob/living/M in T.GetAllContents())
 			// If they have a mind and they're not in the brig, they escaped
-			if(M.mind && !istype(t, /turf/open/floor/plasteel/shuttle/red) && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
+			if(M.mind && !istype(t, /turf/open/floor/iron/shuttle/red) && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
 				M.mind.force_escaped = TRUE
 			// Ghostize them and put them in nullspace stasis (for stat & possession checks)
 			M.notransform = TRUE
@@ -779,8 +798,8 @@
 		return "00:00"
 
 /**
-  * Gets shuttle location status in a form of string for tgui interfaces
-  */
+ * Gets shuttle location status in a form of string for tgui interfaces
+ */
 /obj/docking_port/mobile/proc/get_status_text_tgui()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
 	var/docked_at = dockedAt?.name || "Unknown"
@@ -872,7 +891,7 @@
 		for(var/mob/M in SSmobs.clients_by_zlevel[z])
 			var/dist_far = get_dist(M, distant_source)
 			if(dist_far <= long_range && dist_far > range)
-				M.playsound_local(distant_source, "sound/runtime/hyperspace/[selected_sound]_distance.ogg", 100, falloff = 20)
+				M.playsound_local(distant_source, "sound/runtime/hyperspace/[selected_sound]_distance.ogg", 100)
 			else if(dist_far <= range)
 				var/source
 				if(engine_list.len == 0)
@@ -884,7 +903,7 @@
 						if(dist_near < closest_dist)
 							source = O
 							closest_dist = dist_near
-				M.playsound_local(source, "sound/runtime/hyperspace/[selected_sound].ogg", 100, falloff = range / 2)
+				M.playsound_local(source, "sound/runtime/hyperspace/[selected_sound].ogg", 100)
 
 // Losing all initial engines should get you 2
 // Adding another set of engines at 0.5 time
