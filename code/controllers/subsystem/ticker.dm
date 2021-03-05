@@ -701,21 +701,16 @@ SUBSYSTEM_DEF(ticker)
 	update_everything_flag_in_db()
 	if(!round_end_sound)
 		round_end_sound = pick(\
-		'sound/roundend/newroundsexy.ogg',
 		'sound/roundend/apcdestroyed.ogg',
 		'sound/roundend/bangindonk.ogg',
+		'sound/roundend/bully2.ogg',
 		'sound/roundend/gameover.ogg',
-		'sound/roundend/its_only_game.ogg',
-		'sound/roundend/yeehaw.ogg',
-		'sound/roundend/disappointed.ogg',
-		'sound/roundend/scrunglartiy.ogg',
-<<<<<<< HEAD
-		'sound/roundend/hippiedisappointed.ogg',
 		'sound/roundend/heresy.ogg',
-=======
-		'sound/roundend/petersondisappointed.ogg',
-		'sound/roundend/bully2.ogg'\
->>>>>>> 3d1a0a5b367a080c42fba0e85ce0382b2cbcb284
+		'sound/roundend/hippiedisappointed.ogg',
+		'sound/roundend/its_only_game.ogg',
+		'sound/roundend/newroundsexy.ogg',
+		'sound/roundend/scrunglartiy.ogg',
+		'sound/roundend/yeehaw.ogg'\
 		)
 	///The reference to the end of round sound that we have chosen.
 	var/sound/end_of_round_sound_ref = sound(round_end_sound)
