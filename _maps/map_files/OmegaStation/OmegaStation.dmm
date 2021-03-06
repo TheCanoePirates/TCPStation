@@ -3707,10 +3707,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "ahq" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -24
-	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -9183,6 +9179,10 @@
 	pixel_x = 32
 	},
 /obj/structure/table,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 24
+	},
 /turf/open/floor/iron,
 /area/cargo/storage)
 "aFb" = (
@@ -26429,6 +26429,14 @@
 /obj/item/storage/firstaid,
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
+"kJy" = (
+/obj/effect/turf_decal/tile/yellow,
+/obj/machinery/bounty_board{
+	dir = 8;
+	pixel_x = 32
+	},
+/turf/open/floor/iron,
+/area/engineering/main)
 "kLd" = (
 /obj/item/radio/intercom{
 	pixel_y = 25
@@ -31736,6 +31744,21 @@
 	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
+"qUk" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/bounty_board{
+	pixel_y = 32
+	},
+/turf/open/floor/iron,
+/area/commons/dorms)
 "qUL" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -35454,14 +35477,6 @@
 	},
 /turf/closed/wall,
 /area/medical/virology)
-"tod" = (
-/obj/effect/turf_decal/tile/yellow,
-/obj/machinery/bounty_board{
-	dir = 8;
-	pixel_x = 32
-	},
-/turf/open/floor/iron,
-/area/engineering/main)
 "toX" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -36753,21 +36768,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/xenobiology)
-"uOH" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/bounty_board{
-	pixel_y = 32
-	},
-/turf/open/floor/iron,
-/area/commons/dorms)
 "uSe" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
@@ -67379,7 +67379,7 @@ amT
 aoh
 aWR
 aVv
-tod
+kJy
 rNy
 tBd
 eIt
@@ -70979,7 +70979,7 @@ sJG
 sJG
 sJG
 sJG
-uOH
+qUk
 aBe
 sJG
 sJG
