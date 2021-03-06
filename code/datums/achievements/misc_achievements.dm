@@ -141,3 +141,33 @@
 	desc = "You've summoned a piece of the Hill of rust, and so the Hills welcome you."
 	database_id = MEDAL_RUST_ASCENSION
 	icon = "rustascend"
+
+/datum/award/achievement/misc/void_ascension
+	name = "All that perish"
+	desc = "Place of a different being, different time. Everything ends there... but maybe it is just the beginning?"
+	database_id = MEDAL_VOID_ASCENSION
+	icon = "voidascend"
+
+/datum/award/achievement/misc/toolbox_soul
+	name = "SOUL'd Out"
+	desc = "My eternal soul was destroyed to make a toolbox look funny and all I got was this achievement..."
+	database_id = MEDAL_TOOLBOX_SOUL
+	icon = "toolbox_soul"
+
+/datum/award/achievement/misc/chemistry_tut
+	name = "Perfect chemistry blossom"
+	desc = "Passed the chemistry tutorial with perfect purity!"
+	database_id = MEDAL_CHEM_TUT
+	icon = "chem_tut"
+
+/datum/award/achievement/misc/hot_damn
+	name = "Hot Damn!"
+	desc = "Sometimes you need to make some noise to make a point."
+	database_id = MEDAL_HOT_DAMN
+	icon = "hotdamn"
+
+/datum/award/achievement/misc/cayenne_disk
+	name = "Very Important Piscis"
+	desc = "You can rest well now."
+	database_id = MEDAL_CAYENNE_DISK
+	icon = "cayenne_disk"

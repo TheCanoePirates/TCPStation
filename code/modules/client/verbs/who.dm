@@ -42,7 +42,7 @@
 				Lines += entry
 		else//If they don't have +ADMIN, only show hidden admins
 			for(var/client/C in GLOB.clients)
-				var/entry = "\t[C.key]"
+				var/entry = "[C.key]"
 				if(C.holder && C.holder.fakekey)
 					entry += " <i>(as [C.holder.fakekey])</i>"
 				entry += " ([round(C.avgping, 1)]ms)"
@@ -66,7 +66,7 @@
 	msg += "</tr></table>"
 
 	msg += "<b>Total Players: [length(Lines)]</b>"
-	to_chat(src, msg)
+	to_chat(src, "<span class='infoplain'>[msg]</span>")
 
 /client/verb/adminwho()
 	set category = "Admin"

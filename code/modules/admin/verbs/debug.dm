@@ -38,7 +38,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status In Location") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set name = "Make Robot"
 
 	if(!SSticker.HasRoundStarted())
@@ -53,7 +53,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Invalid mob")
 
 /client/proc/cmd_admin_blobize(mob/M in GLOB.mob_list)
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set name = "Make Blob"
 
 	if(!SSticker.HasRoundStarted())
@@ -68,7 +68,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 
 /client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set name = "Make Simple Animal"
 
 	if(!SSticker.HasRoundStarted())
@@ -88,7 +88,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 
 /client/proc/makepAI(turf/T in GLOB.mob_list)
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set name = "Make pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
 
@@ -121,7 +121,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_alienize(mob/M in GLOB.mob_list)
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set name = "Make Alien"
 
 	if(!SSticker.HasRoundStarted())
@@ -136,7 +136,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Invalid mob")
 
 /client/proc/cmd_admin_slimeize(mob/M in GLOB.mob_list)
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set name = "Make slime"
 
 	if(!SSticker.HasRoundStarted())
@@ -195,30 +195,32 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/mob/living/carbon/human/H = M
 		var/obj/item/worn = H.wear_id
 		var/obj/item/card/id/id = null
+
 		if(worn)
 			id = worn.GetID()
 		if(id)
-			id.icon_state = "gold"
-			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-		else
-			id = new /obj/item/card/id/gold(H.loc)
-			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-			id.registered_name = H.real_name
-			id.assignment = "Captain"
-			id.update_label()
+			if(id == worn)
+				worn = null
+			qdel(id)
 
-			if(worn)
-				if(istype(worn, /obj/item/pda))
-					var/obj/item/pda/PDA = worn
-					PDA.id = id
-					id.forceMove(PDA)
-				else if(istype(worn, /obj/item/storage/wallet))
-					var/obj/item/storage/wallet/W = worn
-					W.front_id = id
-					id.forceMove(W)
-					W.update_icon()
-			else
-				H.equip_to_slot(id,ITEM_SLOT_ID)
+		id = new /obj/item/card/id/advanced/debug()
+
+		id.registered_name = H.real_name
+		id.update_label()
+		id.update_icon()
+
+		if(worn)
+			if(istype(worn, /obj/item/pda))
+				var/obj/item/pda/PDA = worn
+				PDA.id = id
+				id.forceMove(PDA)
+			else if(istype(worn, /obj/item/storage/wallet))
+				var/obj/item/storage/wallet/W = worn
+				W.front_id = id
+				id.forceMove(W)
+				W.update_icon()
+		else
+			H.equip_to_slot(id,ITEM_SLOT_ID)
 
 	else
 		alert("Invalid mob")
@@ -227,7 +229,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] has granted [M.key] full access.</span>")
 
 /client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
-	set category = "Admin - Game"
+	set category = "Admin.Game"
 	set name = "Assume direct control"
 	set desc = "Direct intervention"
 
@@ -249,7 +251,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_give_direct_control(mob/M in GLOB.mob_list)
-	set category = "Admin - Game"
+	set category = "Admin.Game"
 	set name = "Give direct control"
 
 	if(!M)
@@ -325,7 +327,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/areas_with_LS = list()
 	var/list/areas_with_intercom = list()
 	var/list/areas_with_camera = list()
-	var/list/station_areas_blacklist = typecacheof(list(/area/holodeck/rec_center, /area/shuttle, /area/engine/supermatter, /area/science/test_area, /area/space, /area/solar, /area/mine, /area/ruin, /area/asteroid))
+	var/list/station_areas_blacklist = typecacheof(list(/area/holodeck/rec_center, /area/shuttle, /area/engineering/supermatter, /area/science/test_area, /area/space, /area/solars, /area/mine, /area/ruin, /area/asteroid))
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		to_chat(usr, "Game still loading, please hold!", confidential = TRUE)
@@ -494,7 +496,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	cmd_admin_areatest(FALSE)
 
 /client/proc/cmd_admin_dress(mob/M in GLOB.mob_list)
-	set category = "Admin - Events"
+	set category = "Admin.Events"
 	set name = "Select equipment"
 	if(!(ishuman(M) || isobserver(M)))
 		alert("Invalid mob")
@@ -534,8 +536,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
-		if(initial(O.can_be_admin_equipped))
-			outfits[initial(O.name)] = path
+		outfits[initial(O.name)] = path
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in baseoutfits + sortList(outfits)
 	if (isnull(dresscode))
@@ -549,8 +550,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/list/job_outfits = list()
 		for(var/path in job_paths)
 			var/datum/outfit/O = path
-			if(initial(O.can_be_admin_equipped))
-				job_outfits[initial(O.name)] = path
+			job_outfits[initial(O.name)] = path
 
 		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
 		dresscode = job_outfits[dresscode]
@@ -562,8 +562,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/list/plasmaman_outfits = list()
 		for(var/path in plasmaman_paths)
 			var/datum/outfit/O = path
-			if(initial(O.can_be_admin_equipped))
-				plasmaman_outfits[initial(O.name)] = path
+			plasmaman_outfits[initial(O.name)] = path
 
 		dresscode = input("Select plasmeme equipment", "Robust quick dress shop") as null|anything in sortList(plasmaman_outfits)
 		dresscode = plasmaman_outfits[dresscode]
@@ -748,7 +747,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] cleared dynamic transit space.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Clear Dynamic Transit") // If...
 	log_admin("[key_name(src)] cleared dynamic transit space.")
-	SSmapping.wipe_reservations()				//this goes after it's logged, incase something horrible happens.
+	SSmapping.wipe_reservations() //this goes after it's logged, incase something horrible happens.
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
@@ -815,9 +814,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Shows tracked profiling info from code lines that support it"
 
 	var/sortlist = list(
-		"Avg time"		=	/proc/cmp_profile_avg_time_dsc,
-		"Total Time"	=	/proc/cmp_profile_time_dsc,
-		"Call Count"	=	/proc/cmp_profile_count_dsc
+		"Avg time" = /proc/cmp_profile_avg_time_dsc,
+		"Total Time" = /proc/cmp_profile_time_dsc,
+		"Call Count" = /proc/cmp_profile_count_dsc
 	)
 	var/sort = input(src, "Sort type?", "Sort Type", "Avg time") as null|anything in sortlist
 	if (!sort)
