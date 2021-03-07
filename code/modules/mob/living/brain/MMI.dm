@@ -3,6 +3,7 @@
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity, that nevertheless has become standard-issue on Nanotrasen stations."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_off"
+	base_icon_state = "mmi"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/braintype = "Cyborg"
 	var/obj/item/radio/radio = null //Let's give it a radio.
@@ -33,11 +34,10 @@
 
 /obj/item/mmi/update_icon_state()
 	if(!brain)
-		icon_state = "mmi_off"
-	else if(istype(brain, /obj/item/organ/brain/alien))
-		icon_state = "mmi_brain_alien"
-	else
-		icon_state = "mmi_brain"
+		icon_state = "[base_icon_state]_off"
+		return ..()
+	icon_state = "[base_icon_state]_brain[istype(brain, /obj/item/organ/brain/alien) ? "_alien" : null]"
+	return ..()
 
 /obj/item/mmi/update_overlays()
 	. = ..()
@@ -46,7 +46,8 @@
 /obj/item/mmi/proc/add_mmi_overlay()
 	if(brainmob && brainmob.stat != DEAD)
 		. += "mmi_alive"
-	else if(brain)
+		return
+	if(brain)
 		. += "mmi_dead"
 
 /obj/item/mmi/attackby(obj/item/O, mob/user, params)
@@ -74,8 +75,6 @@
 		var/fubar_brain = newbrain.suicided || brainmob.suiciding //brain is from a suicider
 		if(!fubar_brain && !(newbrain.organ_flags & ORGAN_FAILING)) // the brain organ hasn't been beaten to death, nor was from a suicider.
 			brainmob.set_stat(CONSCIOUS) //we manually revive the brain mob
-			brainmob.remove_from_dead_mob_list()
-			brainmob.add_to_alive_mob_list()
 		else if(!fubar_brain && newbrain.organ_flags & ORGAN_FAILING) // the brain is damaged, but not from a suicider
 			to_chat(user, "<span class='warning'>[src]'s indicator light turns yellow and its brain integrity alarm beeps softly. Perhaps you should check [newbrain] for damage.</span>")
 			playsound(src, 'sound/machines/synth_no.ogg', 5, TRUE)
@@ -88,7 +87,7 @@
 		brain.organ_flags |= ORGAN_FROZEN
 
 		name = "[initial(name)]: [brainmob.real_name]"
-		update_icon()
+		update_appearance()
 		if(istype(brain, /obj/item/organ/brain/alien))
 			braintype = "Xenoborg" //HISS....Beep.
 		else
@@ -109,7 +108,7 @@
 		to_chat(user, "<span class='notice'>You toggle [src]'s radio system [radio.on==1 ? "on" : "off"].</span>")
 	else
 		eject_brain(user)
-		update_icon()
+		update_appearance()
 		name = initial(name)
 		to_chat(user, "<span class='notice'>You unlock and upend [src], spilling the brain onto the floor.</span>")
 
@@ -119,15 +118,12 @@
 	brainmob.set_stat(DEAD)
 	brainmob.emp_damage = 0
 	brainmob.reset_perspective() //so the brainmob follows the brain organ instead of the mmi. And to update our vision
-	brainmob.remove_from_alive_mob_list() //Get outta here
-	brainmob.add_to_dead_mob_list()
 	brain.brainmob = brainmob //Set the brain to use the brainmob
 	log_game("[key_name(user)] has ejected the brain of [key_name(brainmob)] from an MMI at [AREACOORD(src)]")
 	brainmob = null //Set mmi brainmob var to null
-	if(user)
-		user.put_in_hands(brain) //puts brain in the user's hand or otherwise drops it on the user's turf
-	else
-		brain.forceMove(get_turf(src))
+	brain.forceMove(drop_location())
+	if(Adjacent(user))
+		user.put_in_hands(brain)
 	brain.organ_flags &= ~ORGAN_FROZEN
 	brain = null //No more brain in here
 
@@ -154,7 +150,7 @@
 	brain.organ_flags |= ORGAN_FROZEN
 
 	name = "[initial(name)]: [brainmob.real_name]"
-	update_icon()
+	update_appearance()
 	if(istype(brain, /obj/item/organ/brain/alien))
 		braintype = "Xenoborg" //HISS....Beep.
 	else
