@@ -1,6 +1,5 @@
 name: Update TGS DMAPI
 
-
 on:
   schedule:
     - cron: "0 0 * * *"
