@@ -25,12 +25,12 @@ map deltastation
 	votable
 endmap
 
-<<<<<<< HEAD
 map omegastation
 	maxplayers 25
-=======
+	votable
+endmap
+
 map kilostation
->>>>>>> 3d1a0a5b367a080c42fba0e85ce0382b2cbcb284
 	votable
 endmap
 
