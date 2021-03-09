@@ -14,9 +14,7 @@ Format:
 endmap
 
 map metastation
-	#default
 	minplayers 25
-	#voteweight 0.5
 	votable
 endmap
 
@@ -28,6 +26,7 @@ endmap
 map omegastation
 	maxplayers 25
 	votable
+	default
 endmap
 
 map kilostation
