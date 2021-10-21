@@ -10,6 +10,10 @@
 		#include "map_files\Deltastation\DeltaStation2.dmm"
 		#include "map_files\KiloStation\KiloStation.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
+<<<<<<< HEAD
+		#include "map_files\OmegaStation\OmegaStation.dmm"
+=======
+>>>>>>> 3d1a0a5b367a080c42fba0e85ce0382b2cbcb284
 		#include "map_files\IceBoxStation\IceBoxStation.dmm"
 		#include "map_files\tramstation\tramstation.dmm"
 
