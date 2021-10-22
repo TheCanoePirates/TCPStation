@@ -10,10 +10,8 @@
 * **Website:** https://www.thecanoepirates.oorg
 * **Code:** https://github.com/tgstation/tgstation
 * **Wiki:** https://tgstation13.org/wiki/Main_Page
-* **Codedocs:** https://codedocs.tgstation13.org/
-* **/tg/station Discord:** https://tgstation13.org/phpBB/viewforum.php?f=60
-* **Coderbus Discord:** https://discord.gg/Vh8TJp9
-* ~~**IRC:** irc://irc.rizon.net/coderbus~~ (dead)
+* **Codedocs:** https://dmdocs.tcpcommunity.net
+* **TCP Discord:** https://discord.gg/BHc2szh
 
 This is the codebase for the /tg/station flavoured fork of SpaceStation 13.
 
