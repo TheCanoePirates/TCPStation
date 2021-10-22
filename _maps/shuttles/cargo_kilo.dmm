@@ -93,10 +93,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/supply)
@@ -132,17 +132,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/supply)
-"o" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/supply)
@@ -196,7 +186,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/supply)
@@ -281,6 +271,16 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
+"G" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/supply)
 
 (1,1,1) = {"
 a
@@ -313,11 +313,11 @@ C
 (3,1,1) = {"
 a
 c
-f
+G
 k
-o
-g
 f
+g
+G
 k
 k
 e

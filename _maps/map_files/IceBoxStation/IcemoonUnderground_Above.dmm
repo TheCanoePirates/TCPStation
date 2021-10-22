@@ -1033,7 +1033,7 @@
 /area/medical/chemistry)
 "fa" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
@@ -1340,18 +1340,6 @@
 /obj/item/flashlight/lantern,
 /turf/open/floor/plating,
 /area/mine/production)
-"gl" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/iron/dark,
-/area/service/chapel/office)
 "gm" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/structure/disposalpipe/segment{
@@ -2019,6 +2007,18 @@
 	dir = 1
 	},
 /area/service/hydroponics)
+"iG" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron/dark,
+/area/service/chapel/office)
 "iL" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -2929,7 +2929,7 @@
 	id = "mining_internal"
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -3889,7 +3889,7 @@
 /area/service/chapel/office)
 "qT" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/structure/sign/warning/gasmask{
 	pixel_y = 32
@@ -5462,7 +5462,7 @@
 /area/science/xenobiology)
 "xd" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/service/hydroponics)
@@ -5947,7 +5947,7 @@
 /area/service/bar/atrium)
 "zr" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -7672,7 +7672,7 @@
 /area/service/chapel)
 "Gm" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
@@ -57598,7 +57598,7 @@ uO
 gb
 UK
 Pw
-gl
+OE
 wK
 wv
 Hx
@@ -58112,7 +58112,7 @@ UK
 UK
 UK
 qo
-OE
+iG
 wK
 wv
 Hx

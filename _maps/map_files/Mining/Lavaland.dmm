@@ -1388,7 +1388,7 @@
 	},
 /obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/mine/production)
@@ -3445,7 +3445,7 @@
 /area/mine/living_quarters)
 "Au" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/structure/sign/warning/gasmask{
 	pixel_y = 32
@@ -3540,7 +3540,7 @@
 /area/mine/living_quarters)
 "Cg" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,

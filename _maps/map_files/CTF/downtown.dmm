@@ -141,7 +141,7 @@
 /area/ctf)
 "dd" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -160,12 +160,6 @@
 	dir = 1
 	},
 /turf/open/floor/eighties,
-/area/ctf)
-"dw" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/iron,
 /area/ctf)
 "dC" = (
 /obj/structure/fluff/bus/passable/seat{
@@ -658,6 +652,12 @@
 /area/ctf)
 "mj" = (
 /turf/open/floor/plating/grass,
+/area/ctf)
+"ml" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron,
 /area/ctf)
 "mm" = (
 /obj/effect/turf_decal/trimline/red/corner{
@@ -1755,7 +1755,7 @@
 /area/ctf)
 "GE" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -1854,7 +1854,7 @@
 /area/ctf)
 "Is" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -2632,7 +2632,7 @@
 /area/ctf)
 "Yb" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
@@ -3326,7 +3326,7 @@ TD
 td
 Is
 Ym
-vY
+ml
 jS
 jS
 jS
@@ -4808,7 +4808,7 @@ da
 td
 tp
 fi
-dw
+vY
 jS
 jS
 jS
