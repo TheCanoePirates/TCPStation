@@ -224,17 +224,17 @@
 /area/icemoon/surface/outdoors)
 "aX" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/icemoon,
 /area/icemoon/surface/outdoors)
 "ba" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/iron/icemoon,
@@ -353,7 +353,7 @@
 "bx" = (
 /obj/machinery/power/apc/unlocked{
 	dir = 4;
-	pixel_x = 26
+	pixel_x = 24
 	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
@@ -695,7 +695,7 @@
 "cQ" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
 	},
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/icemoon,
@@ -706,7 +706,7 @@
 /area/icemoon/surface/outdoors)
 "cS" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/iron/icemoon,
 /area/icemoon/surface/outdoors)

@@ -877,7 +877,7 @@
 /area/hallway/secondary/entry)
 "dc" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1413,12 +1413,6 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"eW" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/commons/storage/primary)
 "eY" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -1672,7 +1666,7 @@
 "fH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1953,7 +1947,7 @@
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/cargo/miningoffice)
@@ -2222,7 +2216,7 @@
 /area/commons/storage/primary)
 "vy" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/cargo/miningoffice)
@@ -2412,6 +2406,12 @@
 	},
 /turf/open/floor/iron,
 /area/cargo/miningoffice)
+"IX" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/commons/storage/primary)
 "JF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -6045,7 +6045,7 @@ gG
 ii
 dy
 dm
-dM
+cZ
 cN
 Vr
 vm
@@ -7046,18 +7046,18 @@ cD
 bE
 bE
 cN
+dM
+do
+dz
+EG
+gy
+dz
+dz
+gy
+EG
+dz
+do
 dK
-do
-dz
-EG
-gy
-dz
-dz
-gy
-EG
-dz
-do
-cZ
 cN
 Tt
 Rb
@@ -7327,13 +7327,13 @@ dC
 dC
 dC
 dC
-eW
 nq
+IX
 dC
 dC
 dC
 dC
-eW
+nq
 vv
 fO
 fO

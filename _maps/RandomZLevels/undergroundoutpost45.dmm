@@ -3994,7 +3994,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/iron/white{
 	heat_capacity = 1e+006
@@ -6176,7 +6176,7 @@
 /obj/item/flashlight,
 /obj/item/flashlight,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/iron/dark{
 	heat_capacity = 1e+006
@@ -7887,7 +7887,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 1
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/dark{
@@ -7920,15 +7920,6 @@
 /area/awaymission/undergroundoutpost45/engineering)
 "pC" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable,
-/turf/open/floor/iron/dark{
-	heat_capacity = 1e+006
-	},
-/area/awaymission/undergroundoutpost45/engineering)
-"pD" = (
-/obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/structure/cable,
@@ -12796,6 +12787,15 @@
 	temperature = 363.9
 	},
 /area/awaymission/undergroundoutpost45/caves)
+"KB" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/open/floor/iron/dark{
+	heat_capacity = 1e+006
+	},
+/area/awaymission/undergroundoutpost45/engineering)
 "KE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -54340,10 +54340,10 @@ ln
 ln
 ln
 ni
-nL
+KB
 ov
 oY
-pD
+nL
 qb
 qI
 rt
