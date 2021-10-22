@@ -11,7 +11,6 @@
 * **Wiki:** https://tgstation13.org/wiki/Main_Page
 * **Codedocs:** https://dmdocs.tcpcommunity.net
 * **TCP Discord:** https://discord.gg/BHc2szh
-* **Coderbus Discord:** https://discord.gg/Vh8TJp9
 
 This is the codebase for the TCPNetwork fork of the /tg/station flavoured fork of SpaceStation 13.
 
