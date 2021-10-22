@@ -682,3 +682,7 @@
       a bad filter, somehow) are set. Instead, it will go through to the main output,
       as before, or if the main output is full, be returned back to the input, as
       if never removed.
+2021-10-22:
+  Coolguy3289:
+  - bugfix: Fix OmegaStation Map and repair atmos
+  - refactor: Code README updated
