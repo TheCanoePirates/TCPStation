@@ -774,11 +774,28 @@
   AdipemDragon:
   - imageadd: When looking out into nearby space, your local planet might show off
       more cleanely, now! Check it out, next time you have a mandated break!
+  ArcaneMusic:
+  - imageadd: Resprites many of the grenades used and made in-game.
   DrDiasyl:
   - soundadd: Virology got new mysterious ambient sounds.
+  Echriser:
+  - qol: Added a holopad to Mining Labor Camp.
+  Jacquerel:
+  - qol: Adds contextual screentips to explain whether you are going to destroy, remove,
+      or place a trap into a poster.
+  - bugfix: Midround traitors can happen again.
+  Jolly:
+  - bugfix: On KS13, the northern most solar room no longer has duped windows.
   Pickle-Coding:
   - balance: Reduces CO2 heat penalty to 2, from 6.
   - balance: Removes CO2 power transmission bonus.
+  RandomGamer123:
+  - bugfix: Asimov supremacy shows up as a human perk for default servers
+  - config: Added a config option to make Asimov supremacy show up as a perk for humans
+      even if the default lawset is not Asimov (intended for use with Asimov variants,
+      notably Asimov++)
+  - bugfix: Storage implant stacking (and the implant being rejected when you hit
+      the limit of 4 slots) now works
   Rhials:
   - rscadd: Bananas now have a 1% chance to be boomerang-bananas. These look identical
       to normal bananas, aside from a slightly unique examine text. Make sure to check
@@ -793,8 +810,27 @@
   - bugfix: Drones will no longer by shy when invisible mobs are around! (eg phased
       revenants, bloodcrawling slaughter demons, ect)
   - admin: Admin deletion messages are now a little more verbose.
+  - rscadd: Space ants will now turn into space fire ants when burned with fire.
+  Y0SH1M4S73R:
+  - bugfix: Returning a recursive table from lua will no longer crash the server.
+  - bugfix: Running an empty string as lua code will no longer crash the server.
+  - qol: '`args`, `contents`, `vis_contents`, and `vis_locs` lists are now directly
+      accessible through lua scripting.'
+  - qol: In lua scripting, datums have a `vars` field and lists have a `entries` field.
+      These fields allow you to access and modify the vars of a datum and the entries
+      of a list, respectively, by index, instead of needing to use the `get_var` and
+      `set_var` methods on datums, and the `get` and `set` methods on lists.
+  - bugfix: Fixed repeat lua chunks not being viewable through the admin message href.
+  - qol: In the lua UI, strings will be wrapped in double quotes and have their own
+      double quotes escaped, to distinguish them from nulls, functions, threads, and
+      DM resources.
   san7890:
   - bugfix: You should now no longer need thousands of hours to unlock your favorite
       head of staff role.
+  - bugfix: On IceBoxStation, the Psychologist's Locker should now be accessible once
+      again.
+  scriptis:
+  - spellcheck: the syndicate no longer use secuirty shutters
+  - bugfix: tesla blast works again
   tralezab:
   - rscadd: You can now ask critters their name with voice of god. Their ACTUAL name.
