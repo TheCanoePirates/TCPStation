@@ -38,7 +38,7 @@
 			else
 				qdel(cone)
 
-	create_reagents(100, NO_REACT | OPENCONTAINER)
+	create_reagents(300, NO_REACT | OPENCONTAINER)
 	reagents.chem_temp = T0C //So ice doesn't melt
 	for(var/flavour in GLOB.ice_cream_flavours)
 		if(GLOB.ice_cream_flavours[flavour].hidden)
@@ -80,7 +80,7 @@
 	popup.open()
 
 /obj/machinery/icecream_vat/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/reagent_containers) && !(O.item_flags & ABSTRACT) && O.is_open_container())
+	if(is_reagent_container(O) && !(O.item_flags & ABSTRACT) && O.is_open_container())
 		. = TRUE //no afterattack
 		var/obj/item/reagent_containers/B = O
 		if(!user.transferItemToLoc(B, src))

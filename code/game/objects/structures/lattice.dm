@@ -6,7 +6,7 @@
 	base_icon_state = "lattice"
 	density = FALSE
 	anchored = TRUE
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
@@ -95,6 +95,14 @@
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
 	..()
+
+/obj/structure/lattice/catwalk/mining
+	name = "reinforced catwalk"
+	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
+	return
 
 /obj/structure/lattice/lava
 	name = "heatproof support lattice"

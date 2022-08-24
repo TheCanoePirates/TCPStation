@@ -14,7 +14,7 @@ Slimecrossing Potions
 /obj/item/slimepotion/extract_cloner/afterattack(obj/item/target, mob/user , proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/item/reagent_containers))
+	if(is_reagent_container(target))
 		return ..(target, user, proximity)
 	if(istype(target, /obj/item/slimecross))
 		to_chat(user, span_warning("[target] is too complex for the potion to clone!"))
@@ -43,7 +43,7 @@ Slimecrossing Potions
 	if(!isliving(peace_target) || peace_target.stat == DEAD)
 		to_chat(user, span_warning("[src] only works on the living."))
 		return ..()
-	if(istype(peace_target, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(peace_target))
 		to_chat(user, span_warning("[src] does not work on beings of pure evil!"))
 		return ..()
 	if(peace_target != user)
@@ -77,13 +77,13 @@ Slimecrossing Potions
 	if(!isliving(love_target) || love_target.stat == DEAD)
 		to_chat(user, span_warning("The love potion only works on living things, sicko!"))
 		return ..()
-	if(istype(love_target, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(love_target))
 		to_chat(user, span_warning("The love potion does not work on beings of pure evil!"))
 		return ..()
 	if(user == love_target)
 		to_chat(user, span_warning("You can't drink the love potion. What are you, a narcissist?"))
 		return ..()
-	if(love_target.has_status_effect(STATUS_EFFECT_INLOVE))
+	if(love_target.has_status_effect(/datum/status_effect/in_love))
 		to_chat(user, span_warning("[love_target] is already lovestruck!"))
 		return ..()
 
@@ -95,7 +95,7 @@ Slimecrossing Potions
 	to_chat(user, span_notice("You feed [love_target] the love potion!"))
 	to_chat(love_target, span_notice("You develop feelings for [user], and anyone [user.p_they()] like[user.p_s()]."))
 	love_target.faction |= "[REF(user)]"
-	love_target.apply_status_effect(STATUS_EFFECT_INLOVE, user)
+	love_target.apply_status_effect(/datum/status_effect/in_love, user)
 	qdel(src)
 
 //Pressure potion - Charged Dark Blue
@@ -164,7 +164,7 @@ Slimecrossing Potions
 	C.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	C.add_atom_colour("#800000", FIXED_COLOUR_PRIORITY)
 	C.resistance_flags |= LAVA_PROOF
-	if (istype(C, /obj/item/clothing))
+	if (isclothing(C))
 		var/obj/item/clothing/CL = C
 		CL.clothing_flags |= LAVAPROTECT
 	uses--

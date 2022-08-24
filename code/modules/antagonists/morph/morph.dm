@@ -20,7 +20,7 @@
 	obj_damage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = FALSE
@@ -35,16 +35,19 @@
 	var/eat_while_disguised = FALSE
 	var/atom/movable/form = null
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/atom/movable/screen,
-	/obj/singularity,
-	/obj/energy_ball,
-	/obj/narsie,
-	/mob/living/simple_animal/hostile/morph,
-	/obj/effect))
+		/atom/movable/screen,
+		/obj/singularity,
+		/obj/energy_ball,
+		/obj/narsie,
+		/mob/living/simple_animal/hostile/morph,
+		/obj/effect,
+	))
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_ALERT_GHOSTS_ON_DEATH, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	AddElement(/datum/element/content_barfer)
 
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
@@ -146,18 +149,7 @@
 		visible_message(span_warning("[src] twists and dissolves into a pile of green flesh!"), \
 						span_userdanger("Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--"))
 		restore()
-	barf_contents()
 	..()
-
-/mob/living/simple_animal/hostile/morph/proc/barf_contents()
-	for(var/atom/movable/AM in src)
-		AM.forceMove(loc)
-		if(prob(90))
-			step(AM, pick(GLOB.alldirs))
-
-/mob/living/simple_animal/hostile/morph/wabbajack_act(mob/living/new_mob)
-	barf_contents()
-	. = ..()
 
 /mob/living/simple_animal/hostile/morph/Aggro() // automated only
 	..()
@@ -208,6 +200,8 @@
 	typepath = /datum/round_event/ghost_role/morph
 	weight = 0 //Admin only
 	max_occurrences = 1
+	category = EVENT_CATEGORY_ENTITIES
+	description = "Spawns a hungry shapeshifting blobby creature."
 
 /datum/round_event/ghost_role/morph
 	minimum_required = 1
@@ -231,6 +225,6 @@
 	player_mind.add_antag_datum(/datum/antagonist/morph)
 	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a morph by an event.")
-	log_game("[key_name(S)] was spawned as a morph by an event.")
+	S.log_message("was spawned as a morph by an event.", LOG_GAME)
 	spawned_mobs += S
 	return SUCCESSFUL_SPAWN

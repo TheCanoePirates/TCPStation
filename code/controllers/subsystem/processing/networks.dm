@@ -312,13 +312,13 @@ SUBSYSTEM_DEF(networks)
 	if(!A.network_root_id) // not assigned?  Then lets use some defaults
 		// Anything in Centcom is completely isolated
 		// Special case for holodecks.
-		if(istype(A,/area/holodeck))
-			A.network_root_id =  "HOLODECK" // isolated from the station network
+		if(istype(A,/area/station/holodeck))
+			A.network_root_id = "HOLODECK" // isolated from the station network
 		else if(SSmapping.level_trait(A.z, ZTRAIT_CENTCOM))
-			A.network_root_id =  CENTCOM_NETWORK_ROOT
+			A.network_root_id = CENTCOM_NETWORK_ROOT
 		// Otherwise the default is the station
 		else
-			A.network_root_id =  STATION_NETWORK_ROOT
+			A.network_root_id = STATION_NETWORK_ROOT
 
 /datum/controller/subsystem/networks/proc/assign_area_network_id(area/A, datum/map_template/M=null)
 	if(!istype(A))
@@ -471,7 +471,7 @@ SUBSYSTEM_DEF(networks)
 #endif
 		network_tree += network_string_to_list(part)
 
-	var/datum/ntnet/network =  _hard_create_network(network_tree)
+	var/datum/ntnet/network = _hard_create_network(network_tree)
 	log_telecomms("create_network:  created final [network.network_id]")
 	return network
 
