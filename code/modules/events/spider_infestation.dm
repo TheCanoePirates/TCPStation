@@ -5,6 +5,8 @@
 	max_occurrences = 1
 	min_players = 20
 	dynamic_should_hijack = TRUE
+	category = EVENT_CATEGORY_ENTITIES
+	description = "Spawns spider eggs, ready to hatch."
 
 /datum/round_event/spider_infestation
 	announceWhen = 400
@@ -31,7 +33,7 @@
 		return MAP_ERROR
 	var/turf/spawn_loc = pick_n_take(spawn_locs)
 	while(amount > 0)
-		var/obj/effect/mob_spawn/spider/midwife/new_eggs = new /obj/effect/mob_spawn/spider/midwife(spawn_loc)
+		var/obj/effect/mob_spawn/ghost_role/spider/midwife/new_eggs = new /obj/effect/mob_spawn/ghost_role/spider/midwife(spawn_loc)
 		new_eggs.amount_grown = 98
 		amount--
 	log_game("Midwife spider eggs were spawned via an event.")

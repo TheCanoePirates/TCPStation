@@ -1,6 +1,6 @@
 /mob/living/simple_animal/mouse
 	name = "mouse"
-	desc = "They're a nasty, ugly, evil, disease-ridden rodent."
+	desc = "This cute little guy just loves the taste of uninsulated electrical cables. Isn't he adorable?"
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"
 	icon_dead = "mouse_gray_dead"
@@ -91,7 +91,7 @@
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))
 		var/turf/open/floor/F = get_turf(src)
-		if(istype(F) && !F.intact)
+		if(istype(F) && F.underfloor_accessibility >= UNDERFLOOR_INTERACTABLE)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				var/powered = C.avail()
@@ -200,9 +200,10 @@
 	bite_consumption = 3
 	eatverbs = list("devour")
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	foodtypes = GROSS | MEAT | RAW
+	foodtypes = GORE | MEAT | RAW
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 	decomp_req_handle = TRUE
+	ant_attracting = FALSE
 	decomp_type = /obj/item/food/deadmouse/moldy
 
 /obj/item/food/deadmouse/Initialize(mapload)
@@ -232,20 +233,16 @@
 		var/trans_amount = reagents.maximum_volume - reagents.total_volume * (4 / 3)
 		if(target_reagents.has_reagent(/datum/reagent/fuel) && target_reagents.trans_to(src, trans_amount))
 			to_chat(user, span_notice("You dip [src] into [target]."))
-			reagents.trans_to(target, reagents.total_volume)
 		else
 			to_chat(user, span_warning("That's a terrible idea."))
 	else
 		return ..()
-
-/obj/item/food/deadmouse/on_grind()
-	. = ..()
-	reagents.clear_reagents()
 
 /obj/item/food/deadmouse/moldy
 	name = "moldy dead mouse"
 	desc = "A dead rodent, consumed by mold and rot. There is a slim chance that a lizard might still eat it."
 	icon_state = "mouse_gray_dead"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/mold = 10)
+	foodtypes = GORE | MEAT | RAW | GROSS
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5, /datum/reagent/consumable/mold = 10)
 	preserved_food = TRUE

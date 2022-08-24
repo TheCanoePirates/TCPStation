@@ -12,15 +12,11 @@
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))
 		user.transferItemToLoc(W, src)
-	else if(SEND_SIGNAL(W, COMSIG_CONTAINS_STORAGE))
-		SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/stack/ore, src)
+	else if(W.atom_storage)
+		W.atom_storage.remove_type(/obj/item/stack/ore, src)
 		to_chat(user, span_notice("You empty the ore in [W] into \the [src]."))
 	else
 		return ..()
-
-/obj/structure/ore_box/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/rad_insulation, 0.01) //please datum mats no more cancer
 
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
 	if(I.use_tool(src, user, 50, volume=50))
@@ -93,7 +89,7 @@
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
 	var/obj/item/stack/sheet/mineral/wood/WD = new (loc, 4)
-	if(user)
+	if(user && !QDELETED(WD))
 		WD.add_fingerprint(user)
 	dump_box_contents()
 	qdel(src)

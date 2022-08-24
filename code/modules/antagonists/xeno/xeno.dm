@@ -9,7 +9,7 @@
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 /datum/antagonist/xeno
-	name = "Xenomorph"
+	name = "\improper Xenomorph"
 	job_rank = ROLE_ALIEN
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
@@ -40,3 +40,5 @@
 	..()
 	if(!mind.has_antag_datum(/datum/antagonist/xeno))
 		mind.add_antag_datum(/datum/antagonist/xeno)
+		mind.set_assigned_role(SSjob.GetJobType(/datum/job/xenomorph))
+		mind.special_role = ROLE_ALIEN

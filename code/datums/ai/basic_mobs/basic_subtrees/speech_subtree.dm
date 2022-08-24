@@ -25,7 +25,7 @@
 
 		var/total_choices_length = audible_emotes_length + non_audible_emotes_length + speak_lines_length
 
-		var/random_number_in_range =  rand(1, total_choices_length)
+		var/random_number_in_range = rand(1, total_choices_length)
 
 		if(random_number_in_range <= audible_emotes_length)
 			controller.queue_behavior(/datum/ai_behavior/perform_emote, pick(emote_hear))
@@ -37,6 +37,10 @@
 /datum/ai_planning_subtree/random_speech/cockroach
 	speech_chance = 5
 	emote_hear = list("chitters")
+
+/datum/ai_planning_subtree/random_speech/mothroach
+	speech_chance = 15
+	emote_hear = list("flutters.")
 
 /datum/ai_planning_subtree/random_speech/cow
 	speech_chance = 1

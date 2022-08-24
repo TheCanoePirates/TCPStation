@@ -13,13 +13,15 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	/mob/living/simple_animal/hostile/retaliate/snake,
 	/mob/living/simple_animal/hostile/retaliate/goose/vomit,
 	/mob/living/simple_animal/bot/mulebot,
-	/mob/living/simple_animal/bot/secbot/beepsky
+	/mob/living/simple_animal/bot/secbot/beepsky,
 )))
 
 /datum/round_event_control/sentience
 	name = "Random Human-level Intelligence"
 	typepath = /datum/round_event/ghost_role/sentience
 	weight = 10
+	category = EVENT_CATEGORY_FRIENDLY
+	description = "An animal or robot becomes sentient!"
 
 
 /datum/round_event/ghost_role/sentience
@@ -105,6 +107,8 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	name = "Station-wide Human-level Intelligence"
 	typepath = /datum/round_event/ghost_role/sentience/all
 	weight = 0
+	category = EVENT_CATEGORY_FRIENDLY
+	description = "ALL animals and robots become sentient, provided there is enough ghosts."
 
 /datum/round_event/ghost_role/sentience/all
 	one = "all"
