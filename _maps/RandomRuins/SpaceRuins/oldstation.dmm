@@ -540,7 +540,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/button/door/directional/east{
 	id = "proto";
@@ -3460,10 +3460,10 @@
 "kI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/white/textured,
@@ -4022,7 +4022,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/beta/mining)
@@ -5152,7 +5152,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/beta/mining)
@@ -7012,7 +7012,7 @@
 "GP" = (
 /obj/machinery/pipedispenser/disposal,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/beta/atmos)
@@ -12106,9 +12106,9 @@ eI
 By
 eK
 fc
-HW
-zB
 Wn
+zB
+YM
 hl
 hO
 id

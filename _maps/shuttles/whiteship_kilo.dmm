@@ -616,7 +616,7 @@
 "BL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/airalarm/all_access{

@@ -80,9 +80,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "aC" = (

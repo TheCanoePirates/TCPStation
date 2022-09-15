@@ -844,7 +844,7 @@
 /area/station/hallway/secondary/entry)
 "dc" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1612,7 +1612,7 @@
 "fH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1888,7 +1888,7 @@
 /obj/machinery/camera/autoname/directional/south,
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/station/cargo/miningoffice)
@@ -2159,7 +2159,7 @@
 /area/station/commons/storage/primary)
 "vy" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/station/cargo/miningoffice)
@@ -6002,7 +6002,7 @@ gG
 ii
 dy
 dm
-cZ
+dM
 cN
 Vr
 vm
@@ -7003,18 +7003,18 @@ cD
 bE
 bE
 cN
-dM
-do
-dz
-EG
-gy
-dz
-dz
-gy
-EG
-dz
-do
 dK
+do
+dz
+EG
+gy
+dz
+dz
+gy
+EG
+dz
+do
+cZ
 cN
 Tt
 Rb
@@ -7284,13 +7284,13 @@ dC
 dC
 dC
 dC
+eW
 nq
-IX
 dC
 dC
 dC
 dC
-nq
+eW
 vv
 fO
 fO

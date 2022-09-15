@@ -671,7 +671,7 @@
 /area/ruin/syndicate_lava_base/chemistry)
 "eY" = (
 /obj/effect/turf_decal/box/white/corners{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets{
@@ -999,7 +999,7 @@
 /area/ruin/syndicate_lava_base/cargo)
 "gS" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/light/small/directional/east,
 /obj/machinery/button/door{
@@ -1590,7 +1590,7 @@
 /area/ruin/syndicate_lava_base/main)
 "je" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/lavaland_atmos,
@@ -2289,7 +2289,7 @@
 /area/ruin/syndicate_lava_base/engineering)
 "no" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4

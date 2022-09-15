@@ -6454,12 +6454,6 @@
 /obj/structure/window/reinforced/plasma/unanchored,
 /turf/open/lava/plasma,
 /area/awaymission/snowdin/cave/cavern)
-"rX" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/mining_main/mechbay)
 "rY" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/random/exotic/snow_gear,
@@ -7393,7 +7387,7 @@
 /area/awaymission/snowdin/post/mining_dock)
 "xj" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/spawner/nether{
 	max_mobs = 4;
@@ -7787,7 +7781,7 @@
 /area/awaymission/snowdin/post/mining_dock)
 "yy" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -7831,7 +7825,7 @@
 /area/awaymission/snowdin/outside)
 "yE" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable,
 /obj/effect/mapping_helpers/broken_floor,
@@ -8382,7 +8376,7 @@
 /area/awaymission/snowdin/cave/cavern)
 "AL" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/fence/corner,
 /turf/open/floor/plating/snowed/cavern,
@@ -8687,7 +8681,7 @@
 "BP" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/lava/plasma,
 /area/awaymission/snowdin/cave/cavern)
@@ -8702,7 +8696,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/plating/snowed/cavern,
 /area/awaymission/snowdin/cave/cavern)
@@ -8714,10 +8708,10 @@
 /area/awaymission/snowdin/cave)
 "BT" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/snowed/cavern,
 /area/awaymission/snowdin/cave/cavern)
@@ -8736,7 +8730,7 @@
 /area/awaymission/snowdin/cave)
 "BY" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed/cavern,
@@ -8765,7 +8759,7 @@
 /area/awaymission/snowdin/cave/cavern)
 "Cd" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/fence{
 	dir = 4
@@ -9662,7 +9656,7 @@
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "GI" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/table,
 /turf/open/floor/iron,
@@ -9966,6 +9960,12 @@
 /mob/living/simple_animal/hostile/netherworld/migo,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
+/area/awaymission/snowdin/post/mining_main/mechbay)
+"HR" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "HS" = (
 /obj/effect/turf_decal/bot,
@@ -10468,7 +10468,7 @@
 /area/awaymission/snowdin/post/mining_main)
 "Jz" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -10562,7 +10562,7 @@
 /area/awaymission/snowdin/post/mining_dock)
 "JJ" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -10991,6 +10991,19 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main)
+"KV" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/awaymission/snowdin/post/mining_main)
 "KX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -11013,6 +11026,19 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/turf/open/floor/iron,
+/area/awaymission/snowdin/post/mining_dock)
+"KZ" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_dock)
@@ -11272,10 +11298,10 @@
 /area/awaymission/snowdin/outside)
 "MJ" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/light/directional/north,
 /obj/effect/decal/cleanable/dirt,
@@ -27513,7 +27539,7 @@ JP
 Km
 JP
 KO
-TK
+KV
 GP
 ac
 ac
@@ -29055,7 +29081,7 @@ JU
 Ko
 JU
 JU
-fb
+TK
 GP
 ac
 ac
@@ -56611,7 +56637,7 @@ WN
 WN
 rS
 sl
-By
+Jq
 sO
 fr
 fr
@@ -61350,7 +61376,7 @@ fr
 fr
 rV
 Bo
-By
+Jq
 qi
 Cb
 WN
@@ -61694,7 +61720,7 @@ xO
 Ks
 Ka
 KQ
-Xu
+KZ
 wE
 bh
 bh
@@ -63224,7 +63250,7 @@ Gm
 GJ
 Hh
 Hg
-rX
+Um
 Io
 IE
 wL
@@ -63236,7 +63262,7 @@ Kb
 Ku
 Kb
 Kb
-UD
+Xu
 wD
 bh
 bh
@@ -63478,7 +63504,7 @@ Nz
 WN
 Vy
 Gk
-Um
+HR
 Hi
 Hh
 HS
@@ -65028,7 +65054,7 @@ sG
 rV
 rV
 Ji
-sD
+By
 eL
 eL
 eL
@@ -65711,7 +65737,7 @@ fr
 fr
 eJ
 eJ
-By
+Jq
 rT
 fr
 fr

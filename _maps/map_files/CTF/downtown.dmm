@@ -158,7 +158,7 @@
 /area/centcom/ctf)
 "dd" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -1609,7 +1609,7 @@
 /area/centcom/ctf)
 "GE" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -2406,7 +2406,7 @@
 /area/centcom/ctf)
 "Yb" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
@@ -3054,7 +3054,7 @@ TD
 td
 II
 Ym
-ml
+vY
 jS
 jS
 jS
@@ -4536,7 +4536,7 @@ da
 td
 BK
 fi
-vY
+dw
 jS
 jS
 jS

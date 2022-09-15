@@ -236,7 +236,7 @@
 "aE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/freezer{
 	locked = 0;
@@ -1635,7 +1635,7 @@
 	anchored = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/iron/white/side{
 	dir = 4

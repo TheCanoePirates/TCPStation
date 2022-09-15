@@ -3505,7 +3505,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/iron/white{
 	heat_capacity = 1e+006
@@ -5530,7 +5530,7 @@
 /obj/item/flashlight,
 /obj/item/flashlight,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /turf/open/floor/iron/dark{
 	heat_capacity = 1e+006
@@ -7166,7 +7166,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/dark{
@@ -7199,6 +7199,15 @@
 /area/awaymission/undergroundoutpost45/engineering)
 "pC" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/iron/dark{
+	heat_capacity = 1e+006
+	},
+/area/awaymission/undergroundoutpost45/engineering)
+"pD" = (
+/obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/structure/cable,
@@ -53828,10 +53837,10 @@ ln
 ln
 ln
 ni
-KB
+nL
 ov
 oY
-nL
+pD
 qb
 qI
 rt
