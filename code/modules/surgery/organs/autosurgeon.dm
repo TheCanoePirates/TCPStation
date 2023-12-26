@@ -1,10 +1,8 @@
-#define INFINITE -1
-
 /obj/item/autosurgeon
 	name = "autosurgeon"
 	desc = "A device that automatically inserts an implant, skillchip or organ into the user without the hassle of extensive surgery. \
 		It has a slot to insert implants or organs and a screwdriver slot for removing accidentally added items."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/devices/tool.dmi'
 	icon_state = "autosurgeon"
 	inhand_icon_state = "nothing"
 	w_class = WEIGHT_CLASS_SMALL
@@ -34,7 +32,7 @@
 	. = ..()
 	if(stored_organ)
 		. += loaded_overlay
-		. += emissive_appearance(icon, loaded_overlay)
+		. += emissive_appearance(icon, loaded_overlay, src)
 
 /obj/item/autosurgeon/proc/load_organ(obj/item/organ/loaded_organ, mob/living/user)
 	if(user)
@@ -76,15 +74,21 @@
 		return
 
 	if(implant_time)
-		user.visible_message( "[user] prepares to use [src] on [target].", "You begin to prepare to use [src] on [target].")
-		if(!do_after(user, (8 SECONDS * surgery_speed), target))
+		user.visible_message(
+			span_notice("[user] prepares to use [src] on [target]."),
+			span_notice("You begin to prepare to use [src] on [target]."),
+		)
+		if(!do_after(user, (implant_time * surgery_speed), target))
 			return
 
 	if(target != user)
 		log_combat(user, target, "autosurgeon implanted [stored_organ] into", "[src]", "in [AREACOORD(target)]")
 		user.visible_message(span_notice("[user] presses a button on [src] as it plunges into [target]'s body."), span_notice("You press a button on [src] as it plunges into [target]'s body."))
 	else
-		user.visible_message(span_notice("[user] pressses a button on [src] as it plunges into [user.p_their()] body."), "You press a button on [src] as it plunges into your body.")
+		user.visible_message(
+			span_notice("[user] pressses a button on [src] as it plunges into [user.p_their()] body."),
+			span_notice("You press a button on [src] as it plunges into your body."),
+		)
 
 	stored_organ.Insert(target)//insert stored organ into the user
 	stored_organ = null
@@ -121,10 +125,15 @@
 		var/atom/drop_loc = user.drop_location()
 		for(var/atom/movable/stored_implant as anything in src)
 			stored_implant.forceMove(drop_loc)
+			to_chat(user, span_notice("You remove the [stored_organ] from [src]."))
 			stored_organ = null
 
-		to_chat(user, span_notice("You remove the [stored_organ] from [src]."))
 		screwtool.play_tool_sound(src)
+		if (uses)
+			uses--
+		if(!uses)
+			desc = "[initial(desc)] Looks like it's been used up."
+		update_appearance(UPDATE_ICON)
 	return TRUE
 
 /obj/item/autosurgeon/medical_hud
@@ -162,7 +171,9 @@
 	modified this one to only insert... tongues. Horrifying."
 	starting_organ = /obj/item/organ/internal/tongue
 
-
 /obj/item/autosurgeon/syndicate/commsagent/Initialize(mapload)
 	. = ..()
 	organ_whitelist += /obj/item/organ/internal/tongue
+
+/obj/item/autosurgeon/syndicate/emaggedsurgerytoolset
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/surgery/emagged

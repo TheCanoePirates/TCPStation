@@ -1,9 +1,8 @@
-#define SSLUA_INIT_FAILED 2
-
 SUBSYSTEM_DEF(lua)
 	name = "Lua Scripting"
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	wait = 0.1 SECONDS
+	flags = SS_OK_TO_FAIL_INIT
 
 	/// A list of all lua states
 	var/list/datum/lua_state/states = list()
@@ -19,11 +18,15 @@ SUBSYSTEM_DEF(lua)
 	var/list/current_run = list()
 
 	/// Protects return values from getting GCed before getting converted to lua values
-	var/gc_guard
+	/// Gets cleared every tick.
+	var/list/gc_guard = list()
 
-/datum/controller/subsystem/lua/Initialize(start_timeofday)
+/datum/controller/subsystem/lua/Initialize()
+	if(!CONFIG_GET(flag/auxtools_enabled))
+		warning("SSlua requires auxtools to be enabled to run.")
+		return SS_INIT_NO_NEED
+
 	try
-
 		// Initialize the auxtools library
 		AUXTOOLS_CHECK(AUXLUA)
 
@@ -32,16 +35,11 @@ SUBSYSTEM_DEF(lua)
 		__lua_set_datum_proc_call_wrapper("/proc/wrap_lua_datum_proc_call")
 		__lua_set_global_proc_call_wrapper("/proc/wrap_lua_global_proc_call")
 		__lua_set_print_wrapper("/proc/wrap_lua_print")
-		return ..()
+		return SS_INIT_SUCCESS
 	catch(var/exception/e)
 		// Something went wrong, best not allow the subsystem to run
-		initialized = SSLUA_INIT_FAILED
-		can_fire = FALSE
-		var/time = (REALTIMEOFDAY - start_timeofday) / 10
-		var/msg = "Failed to initialize [name] subsystem after [time] seconds!"
-		to_chat(world, span_boldwarning("[msg]"))
-		warning(e.name)
-		return time
+		warning("Error initializing SSlua: [e.name]")
+		return SS_INIT_FAILURE
 
 /datum/controller/subsystem/lua/OnConfigLoad()
 	// Read the paths from the config file
@@ -55,7 +53,7 @@ SUBSYSTEM_DEF(lua)
 	AUXTOOLS_SHUTDOWN(AUXLUA)
 
 /datum/controller/subsystem/lua/proc/queue_resume(datum/lua_state/state, index, arguments)
-	if(initialized != TRUE)
+	if(!initialized)
 		return
 	if(!istype(state))
 		return
@@ -102,6 +100,7 @@ SUBSYSTEM_DEF(lua)
 		sleeps.Cut()
 		resumes.Cut()
 
+	gc_guard.Cut()
 	var/list/current_sleeps = current_run["sleeps"]
 	var/list/affected_states = list()
 	while(length(current_sleeps))
@@ -139,6 +138,4 @@ SUBSYSTEM_DEF(lua)
 
 	// Update every lua editor TGUI open for each state that had a task awakened or resumed
 	for(var/datum/lua_state/state in affected_states)
-		INVOKE_ASYNC(state, /datum/lua_state.proc/update_editors)
-
-#undef SSLUA_INIT_FAILED
+		INVOKE_ASYNC(state, TYPE_PROC_REF(/datum/lua_state, update_editors))

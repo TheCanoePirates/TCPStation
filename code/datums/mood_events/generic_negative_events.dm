@@ -4,7 +4,8 @@
 
 /datum/mood_event/broken_vow //Used for when mimes break their vow of silence
 	description = "I have brought shame upon my name, and betrayed my fellow mimes by breaking our sacred vow..."
-	mood_change = -8
+	mood_change = -4
+	timeout = 3 MINUTES
 
 /datum/mood_event/on_fire
 	description = "I'M ON FIRE!!!"
@@ -48,7 +49,7 @@
 	timeout = 4 MINUTES
 
 /datum/mood_event/cascade // Big boi delamination
-	description = "The engineers have finally done it, we are all going to die..."
+	description = "I never thought I'd see a resonance cascade, let alone experience one..."
 	mood_change = -8
 	timeout = 5 MINUTES
 
@@ -78,9 +79,22 @@
 	timeout = 60 SECONDS
 
 /datum/mood_event/dismembered
-	description = "AHH! I WAS USING THAT LIMB!"
+	description = "AHH! MY LIMB! I WAS USING THAT!"
 	mood_change = -10
 	timeout = 8 MINUTES
+
+/datum/mood_event/dismembered/add_effects(obj/item/bodypart/limb)
+	if(limb)
+		description = "AHH! MY [uppertext(limb.plaintext_zone)]! I WAS USING THAT!"
+
+/datum/mood_event/reattachment
+	description = "Ouch! My limb feels like I fell asleep on it."
+	mood_change = -3
+	timeout = 2 MINUTES
+
+/datum/mood_event/reattachment/add_effects(obj/item/bodypart/limb)
+	if(limb)
+		description = "Ouch! My [limb.plaintext_zone] feels like I fell asleep on it."
 
 /datum/mood_event/tased
 	description = "There's no \"z\" in \"taser\". It's in the zap."
@@ -128,6 +142,10 @@
 	mood_change = -3
 	timeout = 5 MINUTES
 
+/datum/mood_event/photophobia
+	description = "The lights are too bright..."
+	mood_change = -3
+
 /datum/mood_event/nyctophobia
 	description = "It sure is dark around here..."
 	mood_change = -3
@@ -150,9 +168,16 @@
 	mood_change = -4
 	timeout = 2 MINUTES
 
+/datum/mood_event/healsbadman/long_term
+	timeout = 10 MINUTES
+
 /datum/mood_event/jittery
 	description = "I'm nervous and on edge and I can't stand still!!"
 	mood_change = -2
+
+/datum/mood_event/choke
+	description = "I CAN'T BREATHE!!!"
+	mood_change = -10
 
 /datum/mood_event/vomit
 	description = "I just threw up. Gross."
@@ -197,10 +222,10 @@
 	var/unhinged = uppertext(unstable.Join(""))//example Tinea Luxor > TINEA LUXORRRR (with randomness in how long that slur is)
 	description = "THEY NEEEEEEED [unhinged]!!"
 
-/datum/mood_event/sapped
-	description = "Some unexplainable sadness is consuming me..."
-	mood_change = -15
-	timeout = 90 SECONDS
+/datum/mood_event/tower_of_babel
+	description = "My ability to communicate is an incoherent babel..."
+	mood_change = -1
+	timeout = 15 SECONDS
 
 /datum/mood_event/back_pain
 	description = "Bags never sit right on my back, this hurts like hell!"
@@ -291,6 +316,11 @@
 /datum/mood_event/bald
 	description = "I need something to cover my head..."
 	mood_change = -3
+
+/datum/mood_event/bald_reminder
+	description = "I was reminded that I can't grow my hair back at all! This is awful!"
+	mood_change = -5
+	timeout = 4 MINUTES
 
 /datum/mood_event/bad_touch
 	description = "I don't like when people touch me."
@@ -389,3 +419,33 @@
 	description = "I just got squeezed way too hard."
 	mood_change = -1
 	timeout = 2 MINUTES
+
+/datum/mood_event/rippedtail
+	description = "I ripped their tail right off, what have I done!"
+	mood_change = -5
+	timeout = 30 SECONDS
+
+/datum/mood_event/sabrage_fail
+	description = "Blast it! That stunt didn't go as planned!"
+	mood_change = -2
+	timeout = 4 MINUTES
+
+/datum/mood_event/body_purist
+	description = "I feel cybernetics attached to me, and I HATE IT!"
+
+/datum/mood_event/body_purist/add_effects(power)
+	mood_change = power
+
+/datum/mood_event/unsatisfied_nomad
+	description = "I've been here too long! I want to go out and explore space!"
+	mood_change = -3
+
+///Wizard cheesy grand finale - what everyone but the wizard gets
+/datum/mood_event/madness_despair
+	description = "UNWORTHY, UNWORTHY, UNWORTHY!!!"
+	mood_change = -200
+	special_screen_obj = "mood_despair"
+
+/datum/mood_event/all_nighter
+	description = "I didn't sleep at all last night. I'm exhausted."
+	mood_change = -5

@@ -1,7 +1,7 @@
-import { BountyBoardContent } from './BountyBoard';
 import { NtosWindow } from '../layouts';
+import { BountyBoardContent } from './BountyBoard';
 
-export const NtosBountyBoard = () => {
+export const NtosBountyBoard = (props) => {
   return (
     <NtosWindow width={550} height={600}>
       <NtosWindow.Content scrollable>

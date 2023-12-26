@@ -18,6 +18,8 @@
 		return
 
 	if(GET_MUTATION_POWER(src) <= 1) // we only care about power from here on
+		to_modify.cone_levels = initial(to_modify.cone_levels) //resets to default if no power chromosome
+		to_modify.self_throw_range = initial(to_modify.self_throw_range)
 		return
 
 	to_modify.cone_levels += 2  // Cone fwooshes further, and...
@@ -65,7 +67,7 @@
 	// When casting, throw the caster backwards a few tiles.
 	var/original_dir = living_cast_on.dir
 	living_cast_on.throw_at(
-		get_edge_target_turf(living_cast_on, turn(living_cast_on.dir, 180)),
+		get_edge_target_turf(living_cast_on, REVERSE_DIR(living_cast_on.dir)),
 		range = self_throw_range,
 		speed = 2,
 		gentle = TRUE,
@@ -74,10 +76,8 @@
 	living_cast_on.setDir(original_dir)
 
 /datum/action/cooldown/spell/cone/staggered/fire_breath/calculate_cone_shape(current_level)
-	// This makes the cone shoot out into a 3 wide column of flames.
-	// You may be wondering, "that equation doesn't seem like it'd make a 3 wide column"
-	// well it does, and that's all that matters.
-	return (2 * current_level) - 1
+	// This makes the cone shoot out into a 3 wide column of flames no matter the distance
+	return 3
 
 /datum/action/cooldown/spell/cone/staggered/fire_breath/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	// Further turfs experience less exposed_temperature and exposed_volume

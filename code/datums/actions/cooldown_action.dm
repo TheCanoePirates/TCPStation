@@ -17,36 +17,97 @@
 	var/next_melee_use_time = 0
 	/// Whether or not you want the cooldown for the ability to display in text form
 	var/text_cooldown = TRUE
-	/// Setting for intercepting clicks before activating the ability
-	var/click_to_activate = FALSE
-	/// What icon to replace our mouse cursor with when active. Optional, Requires click_to_activate
-	var/ranged_mousepointer
-	/// The cooldown added onto the user's next click. Requires click_to_activate
-	var/click_cd_override = CLICK_CD_CLICK_ABILITY
-	/// If TRUE, we will unset after using our click intercept. Requires click_to_activate
-	var/unset_after_click = TRUE
+	/// Significant figures to round cooldown to
+	var/cooldown_rounding = 0.1
 	/// Shares cooldowns with other abiliies, bitflag
-	var/shared_cooldown
+	var/shared_cooldown = NONE
 	/// List of prerequisite actions that are used in this sequenced ability, you cannot put other sequenced abilities in this
 	var/list/sequence_actions
 	/// List of prerequisite actions that have been initialized
 	var/list/initialized_actions
 
+	// These are only used for click_to_activate actions
+	/// Setting for intercepting clicks before activating the ability
+	var/click_to_activate = FALSE
+	/// The cooldown added onto the user's next click.
+	var/click_cd_override = CLICK_CD_CLICK_ABILITY
+	/// If TRUE, we will unset after using our click intercept.
+	var/unset_after_click = TRUE
+	/// What icon to replace our mouse cursor with when active. Optional
+	var/ranged_mousepointer
+	/// The base icon_state of this action's background
+	var/base_background_icon_state
+	/// The icon state the background uses when active
+	var/active_background_icon_state
+	/// The base icon_state of the overlay we apply
+	var/base_overlay_icon_state
+	/// The active icon_state of the overlay we apply
+	var/active_overlay_icon_state
+	/// The base icon state of the spell's button icon, used for editing the icon "off"
+	var/base_icon_state
+	/// The active icon state of the spell's button icon, used for editing the icon "on"
+	var/active_icon_state
+
 /datum/action/cooldown/New(Target, original = TRUE)
-	..()
+	. = ..()
+	if(active_background_icon_state)
+		base_background_icon_state ||= background_icon_state
+	if(active_overlay_icon_state)
+		base_overlay_icon_state ||= overlay_icon_state
+	if(active_icon_state)
+		base_icon_state ||= button_icon_state
+
 	if(isnull(melee_cooldown_time))
 		melee_cooldown_time = cooldown_time
+
 	if(original)
 		create_sequence_actions()
 
-/datum/action/cooldown/CreateButton()
+/datum/action/cooldown/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
-	button.maptext_x = 8
-	button.maptext_y = 0
-	button.maptext_width = 24
-	button.maptext_height = 12
+	button.maptext_x = 4
+	button.maptext_y = 2
+	button.maptext_width = 32
+	button.maptext_height = 16
 	return button
+
+/datum/action/cooldown/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	. = ..()
+	var/time_left = max(next_use_time - world.time, 0)
+	if(!text_cooldown || !owner || time_left == 0 || time_left >= COOLDOWN_NO_DISPLAY_TIME)
+		button.maptext = ""
+	else
+		if (cooldown_rounding > 0)
+			button.maptext = MAPTEXT_TINY_UNICODE("[round(time_left/10, cooldown_rounding)]")
+		else
+			button.maptext = MAPTEXT_TINY_UNICODE("[round(time_left/10)]")
+
+	if(!IsAvailable() || !is_action_active(button))
+		return
+	// If we don't change the icon state, or don't apply a special overlay,
+	if(active_background_icon_state || active_icon_state || active_overlay_icon_state)
+		return
+	// ...we need to show it's active somehow. So, make it greeeen
+	button.color = COLOR_GREEN
+
+/datum/action/cooldown/apply_button_background(atom/movable/screen/movable/action_button/current_button, force)
+	if(active_background_icon_state)
+		background_icon_state = is_action_active(current_button) ? active_background_icon_state : base_background_icon_state
+	return ..()
+
+/datum/action/cooldown/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force)
+	if(active_icon_state)
+		button_icon_state = is_action_active(current_button) ? active_icon_state : base_icon_state
+	return ..()
+
+/datum/action/cooldown/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
+	if(active_overlay_icon_state)
+		overlay_icon_state = is_action_active(current_button) ? active_overlay_icon_state : base_overlay_icon_state
+	return ..()
+
+/datum/action/cooldown/is_action_active(atom/movable/screen/movable/action_button/current_button)
+	return click_to_activate && current_button.our_hud?.mymob?.click_intercept == src
 
 /datum/action/cooldown/Destroy()
 	QDEL_LIST(initialized_actions)
@@ -56,10 +117,10 @@
 	. = ..()
 	if(!owner)
 		return
-	UpdateButtons()
+	build_all_button_icons()
 	if(next_use_time > world.time)
 		START_PROCESSING(SSfastprocess, src)
-	RegisterSignal(granted_to, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, .proc/handle_melee_attack)
+	RegisterSignal(granted_to, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(handle_melee_attack))
 	for(var/datum/action/cooldown/ability as anything in initialized_actions)
 		ability.Grant(granted_to)
 
@@ -71,7 +132,7 @@
 		ability.Remove(removed_from)
 	return ..()
 
-/datum/action/cooldown/IsAvailable()
+/datum/action/cooldown/IsAvailable(feedback = FALSE)
 	return ..() && (next_use_time <= world.time)
 
 /// Initializes any sequence actions
@@ -93,7 +154,7 @@
 /datum/action/cooldown/proc/StartCooldown(override_cooldown_time, override_melee_cooldown_time)
 	// "Shared cooldowns" covers actions which are not the same type,
 	// but have the same cooldown group and are on the same mob
-	if(shared_cooldown)
+	if(shared_cooldown != NONE)
 		StartCooldownOthers(override_cooldown_time)
 
 	StartCooldownSelf(override_cooldown_time)
@@ -110,12 +171,14 @@
 		next_use_time = world.time + override_cooldown_time
 	else
 		next_use_time = world.time + cooldown_time
-	UpdateButtons()
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
 	START_PROCESSING(SSfastprocess, src)
 
 /// Starts a cooldown time for other abilities that share a cooldown with this. Has some niche usage with more complicated attack ai!
 /// Will use default cooldown time if an override is not specified
 /datum/action/cooldown/proc/StartCooldownOthers(override_cooldown_time)
+	if(!length(owner.actions))
+		return // Possible if they have an action they don't control
 	for(var/datum/action/cooldown/shared_ability in owner.actions - src)
 		if(!(shared_cooldown & shared_ability.shared_cooldown))
 			continue
@@ -160,7 +223,7 @@
 
 /// Intercepts client owner clicks to activate the ability
 /datum/action/cooldown/proc/InterceptClickOn(mob/living/caller, params, atom/target)
-	if(!IsAvailable())
+	if(!IsAvailable(feedback = TRUE))
 		return FALSE
 	if(!target)
 		return FALSE
@@ -177,7 +240,7 @@
 
 /// For signal calling
 /datum/action/cooldown/proc/PreActivate(atom/target)
-	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
+	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
 		return
 	// Note, that PreActivate handles no cooldowns at all by default.
 	// Be sure to call StartCooldown() in Activate() where necessary.
@@ -192,21 +255,9 @@
 	for(var/datum/action/cooldown/ability as anything in initialized_actions)
 		if(LAZYLEN(ability.initialized_actions) > 0)
 			ability.initialized_actions = list()
-		addtimer(CALLBACK(ability, .proc/Activate, target), total_delay)
+		addtimer(CALLBACK(ability, PROC_REF(Activate), target), total_delay)
 		total_delay += initialized_actions[ability]
 	StartCooldown()
-
-/datum/action/cooldown/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
-	. = ..()
-	if(!button)
-		return
-	var/time_left = max(next_use_time - world.time, 0)
-	if(text_cooldown && time_left < COOLDOWN_NO_DISPLAY_TIME)
-		button.maptext = MAPTEXT("<b>[round(time_left/10, 0.1)]</b>")
-	if(!owner || time_left == 0 || time_left >= COOLDOWN_NO_DISPLAY_TIME)
-		button.maptext = ""
-	if(IsAvailable() && (button.our_hud.mymob.click_intercept == src))
-		button.color = COLOR_GREEN
 
 /// Cancels melee attacks if they are on cooldown.
 /datum/action/cooldown/proc/handle_melee_attack(mob/source, mob/target)
@@ -216,11 +267,11 @@
 
 /datum/action/cooldown/process()
 	if(!owner || (next_use_time - world.time) <= 0)
-		UpdateButtons()
+		build_all_button_icons(UPDATE_BUTTON_STATUS)
 		STOP_PROCESSING(SSfastprocess, src)
 		return
 
-	UpdateButtons()
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
 
 /**
  * Set our action as the click override on the passed mob.
@@ -232,7 +283,7 @@
 	if(ranged_mousepointer)
 		on_who.client?.mouse_override_icon = ranged_mousepointer
 		on_who.update_mouse_pointer()
-	UpdateButtons()
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
 	return TRUE
 
 /**
@@ -248,7 +299,7 @@
 	if(ranged_mousepointer)
 		on_who.client?.mouse_override_icon = initial(on_who.client?.mouse_override_icon)
 		on_who.update_mouse_pointer()
-	UpdateButtons()
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
 	return TRUE
 
 /// Formats the action to be returned to the stat panel.
@@ -286,3 +337,5 @@
 	SEND_SIGNAL(src, COMSIG_ACTION_SET_STATPANEL, stat_panel_data)
 
 	return stat_panel_data
+
+#undef COOLDOWN_NO_DISPLAY_TIME

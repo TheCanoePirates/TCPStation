@@ -4,10 +4,12 @@
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	suicide_cry = "FOR MY LOVE!!"
+	// Not 'true' antags, this disables certain interactions that assume the owner is a baddie
+	antag_flags = FLAG_FAKE_ANTAG
 	var/datum/mind/date
 	count_against_dynamic_roll_chance = FALSE
 
-/datum/antagonist/valentine/proc/forge_objectives()
+/datum/antagonist/valentine/forge_objectives()
 	var/datum/objective/protect/protect_objective = new /datum/objective/protect
 	protect_objective.owner = owner
 	protect_objective.target = date

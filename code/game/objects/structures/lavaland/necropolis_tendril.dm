@@ -3,30 +3,33 @@
 	name = "necropolis tendril"
 	desc = "A vile tendril of corruption, originating deep underground. Terrible monsters are pouring out of it."
 
-	icon = 'icons/mob/nest.dmi'
+	icon = 'icons/mob/simple/lavaland/nest.dmi'
 	icon_state = "tendril"
 
-	faction = list("mining")
+	faction = list(FACTION_MINING)
 	max_mobs = 3
 	max_integrity = 250
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
+	mob_types = list(/mob/living/basic/mining/watcher)
 
 	move_resist=INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
-
-	var/gps = null
 	var/obj/effect/light_emitter/tendril/emitted_light
-
+	scanner_taggable = TRUE
+	mob_gps_id = "WT"
+	spawner_gps_id = "Necropolis Tendril"
 
 /obj/structure/spawner/lavaland/goliath
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
+	mob_types = list(/mob/living/basic/mining/goliath)
+	mob_gps_id = "GL"
 
 /obj/structure/spawner/lavaland/legion
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
+	mob_types = list(/mob/living/basic/mining/legion/spawner_made)
+	mob_gps_id = "LG"
 
 /obj/structure/spawner/lavaland/icewatcher
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing)
+	mob_types = list(/mob/living/basic/mining/watcher/icewing)
+	mob_gps_id = "WT|I" // icewing
 
 GLOBAL_LIST_INIT(tendrils, list())
 /obj/structure/spawner/lavaland/Initialize(mapload)
@@ -63,7 +66,6 @@ GLOBAL_LIST_INIT(tendrils, list())
 				L.client.give_award(/datum/award/score/tendril_score, L) //Progresses score by one
 	GLOB.tendrils -= src
 	QDEL_NULL(emitted_light)
-	QDEL_NULL(gps)
 	return ..()
 
 /obj/effect/light_emitter/tendril
@@ -75,7 +77,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	name = "collapsing necropolis tendril"
 	desc = "Get your loot and get clear!"
 	layer = TABLE_LAYER
-	icon = 'icons/mob/nest.dmi'
+	icon = 'icons/mob/simple/lavaland/nest.dmi'
 	icon_state = "tendril"
 	anchored = TRUE
 	density = TRUE
@@ -90,7 +92,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	visible_message(span_boldannounce("The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!"))
 	balloon_alert_to_viewers("interact to grab loot before collapse!", vision_distance = 7)
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
-	addtimer(CALLBACK(src, .proc/collapse), 50)
+	addtimer(CALLBACK(src, PROC_REF(collapse)), 50)
 
 /obj/effect/collapse/examine(mob/user)
 	var/list/examine_messages = ..()

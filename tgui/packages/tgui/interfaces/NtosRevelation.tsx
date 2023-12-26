@@ -1,18 +1,19 @@
-import { Section, Button, LabeledList } from '../components';
-import { useBackend } from '../backend';
-import { NtosWindow } from '../layouts';
 import { BooleanLike } from 'common/react';
+
+import { useBackend } from '../backend';
+import { Button, LabeledList, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 type Data = {
   armed: BooleanLike;
 };
 
-export const NtosRevelation = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const NtosRevelation = (props) => {
+  const { act, data } = useBackend<Data>();
   const { armed } = data;
 
   return (
-    <NtosWindow width={400} height={250} theme="syndicate">
+    <NtosWindow width={400} height={250}>
       <NtosWindow.Content>
         <Section>
           <Button.Input
@@ -44,6 +45,7 @@ export const NtosRevelation = (props, context) => {
             textAlign="center"
             color="bad"
             disabled={!armed}
+            onClick={() => act('PRG_activate')}
           />
         </Section>
       </NtosWindow.Content>

@@ -8,7 +8,7 @@
 	desc = "Holemaker Deluxe: A sporty model with a good stop power. Any cannon enthusiast should be expected to start here."
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/cannons.dmi'
+	icon = 'icons/obj/weapons/cannons.dmi'
 	icon_state = "falconet_patina"
 	max_integrity = 300
 	///whether the cannon can be unwrenched from the ground.
@@ -51,7 +51,7 @@
 	if(!anchorable_cannon)
 		return FALSE
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/cannon/attackby(obj/item/used_item, mob/user, params)
 	if(charge_ignited)
@@ -77,7 +77,7 @@
 		visible_message(ignition_message)
 		user.log_message("fired a cannon", LOG_ATTACK)
 		log_game("[key_name(user)] fired a cannon in [AREACOORD(src)]")
-		addtimer(CALLBACK(src, .proc/fire), fire_delay)
+		addtimer(CALLBACK(src, PROC_REF(fire)), fire_delay)
 		charge_ignited = TRUE
 		return
 
@@ -101,11 +101,11 @@
 			to_chat(user, span_warning("[powder_keg] doesn't have at least 15u of gunpowder to fill [src]!"))
 			return
 		if(has_enough_gunpowder)
-			powder_keg.reagents.trans_id_to(src, /datum/reagent/gunpowder, amount = charge_size)
+			powder_keg.reagents.trans_to(src, charge_size, target_id = /datum/reagent/gunpowder)
 			balloon_alert(user, "[src] loaded with gunpowder")
 			return
 		if(has_enough_alt_fuel)
-			powder_keg.reagents.trans_id_to(src, /datum/reagent/fuel, amount = charge_size)
+			powder_keg.reagents.trans_to(src, charge_size, target_id = /datum/reagent/fuel)
 			balloon_alert(user, "[src] loaded with welding fuel")
 			return
 	..()

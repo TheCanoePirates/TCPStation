@@ -34,7 +34,7 @@
 	var/obj/item/radio/radio
 	var/radio_key
 	var/subspace_transmission = FALSE
-	icon = 'icons/obj/radio.dmi'
+	icon = 'icons/obj/devices/voice.dmi'
 	icon_state = "walkietalkie"
 
 /obj/item/implant/radio/activate()
@@ -69,7 +69,7 @@
 
 /obj/item/implant/radio/slime
 	name = "slime radio"
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "adamantine_resonator"
 	radio_key = /obj/item/encryptionkey/headset_sci
 	subspace_transmission = TRUE

@@ -10,7 +10,6 @@ Assistant
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "absolutely everyone"
-	selection_color = "#dddddd"
 	exp_granted_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/assistant
 	plasmaman_outfit = /datum/outfit/plasmaman
@@ -18,6 +17,8 @@ Assistant
 
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+
+	liver_traits = list(TRAIT_MAINTENANCE_METABOLISM)
 
 	department_for_prefs = /datum/job_department/assistant
 
@@ -32,17 +33,27 @@ Assistant
 		/obj/item/crowbar/large = 1
 	)
 
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Lout"
+	config_tag = "ASSISTANT"
 
 /datum/outfit/job/assistant
 	name = JOB_ASSISTANT
 	jobtype = /datum/job/assistant
 	id_trim = /datum/id_trim/job/assistant
+	belt = /obj/item/modular_computer/pda/assistant
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/target)
 	..()
+	give_hat()
 	give_jumpsuit(target)
+
+/datum/outfit/job/assistant/proc/give_hat()
+	for(var/holidayname in GLOB.holidays)
+		var/datum/holiday/holiday_today = GLOB.holidays[holidayname]
+		var/obj/item/special_hat = holiday_today.holiday_hat
+		if(prob(HOLIDAY_HAT_CHANCE) && !isnull(special_hat) && isnull(head))
+			head = special_hat
 
 /datum/outfit/job/assistant/proc/give_jumpsuit(mob/living/carbon/human/target)
 	var/static/jumpsuit_number = 0
@@ -63,6 +74,9 @@ Assistant
 
 /datum/outfit/job/assistant/consistent
 	name = "Assistant - Consistent"
+
+/datum/outfit/job/assistant/consistent/give_hat()
+	return
 
 /datum/outfit/job/assistant/consistent/give_jumpsuit(mob/living/carbon/human/target)
 	uniform = /obj/item/clothing/under/color/grey

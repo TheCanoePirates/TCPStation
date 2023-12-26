@@ -7,8 +7,10 @@
 /// Just the mobs apparently.
 /datum/sm_delam/proc/effect_irradiate(obj/machinery/power/supermatter_crystal/sm)
 	var/turf/sm_turf = get_turf(sm)
-	for (var/mob/living/victim in range(20, sm))
-		if(victim.z != sm_turf.z)
+	for (var/mob/living/victim in range(DETONATION_RADIATION_RANGE, sm))
+		if(!is_valid_z_level(get_turf(victim), sm_turf))
+			continue
+		if(victim.z == 0)
 			continue
 		SSradiation.irradiate(victim)
 	return TRUE
@@ -17,20 +19,28 @@
 /datum/sm_delam/proc/effect_demoralize(obj/machinery/power/supermatter_crystal/sm)
 	var/turf/sm_turf = get_turf(sm)
 	for(var/mob/living/victim as anything in GLOB.alive_mob_list)
-		if(!istype(victim) || victim.z != sm_turf.z)
+		if(!istype(victim) || !is_valid_z_level(get_turf(victim), sm_turf))
 			continue
-		if(ishuman(victim))
-			//Hilariously enough, running into a closet should make you get hit the hardest.
-			var/mob/living/carbon/human/human = victim
-			human.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(victim, sm) + 1)) ) )
+		if(victim.z == 0)
+			continue
+
+		//Hilariously enough, running into a closet should make you get hit the hardest.
+		var/hallucination_amount = max(100 SECONDS, min(600 SECONDS, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(victim, src) + 1))))
+		victim.adjust_hallucinations(hallucination_amount)
 
 	for(var/mob/victim as anything in GLOB.player_list)
-		var/turf/mob_turf = get_turf(victim)
-		if(sm_turf.z != mob_turf.z)
+		var/turf/victim_turf = get_turf(victim)
+		if(!is_valid_z_level(victim_turf, sm_turf))
 			continue
-		SEND_SOUND(victim, 'sound/magic/charge.ogg')
-		if (victim.z != sm_turf.z)
-			to_chat(victim, span_boldannounce("You hold onto \the [victim.loc] as hard as you can, as reality distorts around you. You feel safe."))
+		victim.playsound_local(victim_turf, 'sound/magic/charge.ogg')
+		if(victim.z == 0) //victim is inside an object, this is to maintain an old bug turned feature with lockers n shit i guess. tg issue #69687
+			var/message = ""
+			var/location = victim.loc
+			if(istype(location, /obj/structure/disposalholder)) // sometimes your loc can be a disposalsholder when you're inside a disposals type, so let's just pass a message that makes sense.
+				message = "You hear a lot of rattling in the disposal pipes around you as reality itself distorts. Yet, you feel safe."
+			else
+				message = "You hold onto \the [victim.loc] as hard as you can, as reality distorts around you. You feel safe."
+			to_chat(victim, span_boldannounce(message))
 			continue
 		to_chat(victim, span_boldannounce("You feel reality distort for a moment..."))
 		if (isliving(victim))
@@ -41,7 +51,7 @@
 /// Spawns anomalies all over the station. Half instantly, the other half over time.
 /datum/sm_delam/proc/effect_anomaly(obj/machinery/power/supermatter_crystal/sm)
 	var/anomalies = 10
-	var/list/anomaly_types = list(GRAVITATIONAL_ANOMALY = 55, HALLUCINATION_ANOMALY = 45, DELIMBER_ANOMALY = 35, FLUX_ANOMALY = 25, PYRO_ANOMALY = 5, VORTEX_ANOMALY = 1)
+	var/list/anomaly_types = list(GRAVITATIONAL_ANOMALY = 55, HALLUCINATION_ANOMALY = 45, DIMENSIONAL_ANOMALY = 35, BIOSCRAMBLER_ANOMALY = 35, FLUX_ANOMALY = 25, PYRO_ANOMALY = 5, VORTEX_ANOMALY = 1)
 	var/list/anomaly_places = GLOB.generic_event_spawns
 
 	// Spawns this many anomalies instantly. Spawns the rest with callbacks.
@@ -58,15 +68,15 @@
 		var/current_spawn = rand(5 SECONDS, 10 SECONDS)
 		var/next_spawn = rand(5 SECONDS, 10 SECONDS)
 		var/extended_spawn = 0
-		if(DT_PROB(1, next_spawn))
+		if(SPT_PROB(1, next_spawn))
 			extended_spawn = rand(5 MINUTES, 15 MINUTES)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/supermatter_anomaly_gen, anomaly_location, anomaly_to_spawn, TRUE), current_spawn + extended_spawn)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(supermatter_anomaly_gen), anomaly_location, anomaly_to_spawn, TRUE), current_spawn + extended_spawn)
 	return TRUE
 
 /// Explodes
 /datum/sm_delam/proc/effect_explosion(obj/machinery/power/supermatter_crystal/sm)
 	var/explosion_power = sm.explosion_power
-	var/power_scaling = sm.gasmix_power_ratio
+	var/power_scaling = sm.gas_heat_power_generation
 	var/turf/sm_turf = get_turf(sm)
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	explosion(origin = sm_turf,
@@ -110,7 +120,7 @@
 	// set supermatter cascade to true, to prevent auto evacuation due to no way of calling the shuttle
 	SSshuttle.supermatter_cascade = TRUE
 	// set hijack completion timer to infinity, so that you cant prematurely end the round with a hijack
-	for(var/obj/machinery/computer/emergency_shuttle/console in GLOB.machines)
+	for(var/obj/machinery/computer/emergency_shuttle/console as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/emergency_shuttle))
 		console.hijack_completion_flight_time_set = INFINITY
 
 	/* This logic is to keep uncalled shuttles uncalled
@@ -127,8 +137,13 @@
 
 	// say goodbye to that shuttle of yours
 	if(SSshuttle.emergency.mode != SHUTTLE_ESCAPE)
-		priority_announce("Fatal error occurred in emergency shuttle uplink during transit. Unable to reestablish connection.",
-			"Emergency Shuttle Uplink Alert", 'sound/misc/announce_dig.ogg')
+		priority_announce(
+			text = "Fatal error occurred in emergency shuttle uplink during transit. Unable to reestablish connection.",
+			title = "Shuttle Failure",
+			sound =  'sound/misc/announce_dig.ogg',
+			sender_override = "Emergency Shuttle Uplink Alert",
+			color_override = "grey",
+		)
 	else
 	// except if you are on it already, then you are safe c:
 		minor_announce("ERROR: Corruption detected in navigation protocols. Connection with Transponder #XCC-P5831-ES13 lost. \
@@ -154,7 +169,7 @@
 	if(SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_DELTA)
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA) // skip the announcement and shuttle timer adjustment in set_security_level()
 	make_maint_all_access()
-	for(var/obj/machinery/light/light_to_break in GLOB.machines)
+	for(var/obj/machinery/light/light_to_break as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 		if(prob(35))
 			light_to_break.set_major_emergency_light()
 			continue
@@ -201,7 +216,7 @@
 	sleep(10 SECONDS)
 
 	SSticker.news_report = SUPERMATTER_CASCADE
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = FORCE_END_ROUND
 
 /// Scatters crystal mass over the event spawns as long as they are at least 30 tiles away from whatever we want to avoid.
 /datum/sm_delam/proc/effect_crystal_mass(obj/machinery/power/supermatter_crystal/sm, avoid)

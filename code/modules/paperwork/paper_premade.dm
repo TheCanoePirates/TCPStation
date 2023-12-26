@@ -31,6 +31,60 @@
 	name = "paper- 'Holopad Notice'"
 	default_raw_text = "<B>Can't get any botanists at the table? Have you tried using the damn holopad?</B><BR>\n<BR>\nStep onto the pad, and interface with it<BR>\nthen make your dang ol' call!<BR>\n<BR>\nYou want to call \"Hydroponics\" to reach them."
 
+/obj/item/paper/guides/jobs/engineering/bsa
+	name = "Bluespace Artillery (BSA) Assembly Instructions"
+	default_raw_text = {"<b>Below is a quick guide on setting up your new Bluespace Artillery Cannon.</b>
+	<br>
+	Featuring the newest in Nanotrasen technology, the Bluespace Artillery Cannon is your surefire ticket to complete and total threat elimination.
+	<br>
+	<h1>1. Acquire necessary resources.</h1>
+	* Bluespace Artillery Bore
+	* Bluespace Artillery Fusor
+	* Bluespace Artillery Generator
+	* Bluespace Artillery Controls
+	* 26 cable pieces
+	* 20 iron
+	* 20 bluespace crystals (or artificial)
+	* 5 quadratic capacitors
+	* 5 femto servos
+	* 1 glass sheet
+	<h1>2. Find suitable location</h1>
+	The BSA has a steep power requirement and functions best when it is on its own APC; keep other items in the room to a minimum. Ensure the BSA is placed at the edge of the station, so that it won't shoot through another portion of the station..  Make sure the room isn't easily accessible by someone who shouldn't be there.
+	<h1>3. Construction</h1>
+	1. Build three machine frames.
+	2. Determine the desired direction you want your artillery to face.
+	3. Leave six spaces in front, four behind.  The artillery cannon finishes itself after the assemblies are aligned.
+	4. Place the machine frames in a horizontal line.
+	5. Wrench the three machine frames in place.
+	6. Install wires in the three machine frames.
+	7. Install the bore in the front machine frame. this is your barrel.
+	8. Install the fusor in the center machine frame.
+	9. Install the generator in the back machine frame.
+	10. Examine the three machines and see what else they need, you can use a screwdriver to finish the assembly when parts are installed.
+	11. Construct a computer terminal in the same room as the BSA assembly, make sure they draw power from the same APC or ask the Chief Engineer to check the blueprints for you.
+	12. Use a screwdriver to fasten the board, install wires and one glass sheet, use screwdriver again to turn on.
+	13. Use a multitool and interact with the generator, then the fusor.
+	14. Use a multitool again to interact with the bore, then the fusor.
+	15. Use the console to finalize construction, make sure there's enough empty space around the BSA for the assembly to commence.
+	And with that, you are done!
+	<b>Commencing firing protocols requires the access of at least two heads, the console will be locked down until this requirement is met.</b>
+	<b>Always make sure you are certain before attempting to fire the BSA.<b>
+	<br>
+	<i>Keep this manual for your records, failure to do so will void your 2 day limited liability warranty from Nanotrasen.</i>"}
+
+/obj/item/paper/fluff/jobs/engineering/frequencies
+	name = "Station Frequencies"
+	default_raw_text = {"Please remember the frequencies of each radio channel used on station:
+		* AI Private - 144.7
+		* Command - 135.3
+		* Common - 145.9
+		* Engineering - 135.7
+		* Medical - 135.5
+		* Science - 135.1
+		* Security - 135.9
+		* Service - 134.9
+		* Supply - 134.7"}
+
 /obj/item/paper/fluff/jobs/security/beepsky_mom
 	name = "Note from Beepsky's Mom"
 	default_raw_text = "01001001 00100000 01101000 01101111 01110000 01100101 00100000 01111001 01101111 01110101 00100000 01110011 01110100 01100001 01111001 00100000 01110011 01100001 01100110 01100101 00101110 00100000 01001100 01101111 01110110 01100101 00101100 00100000 01101101 01101111 01101101 00101110"
@@ -135,3 +189,37 @@
 	<br>
 	<br> Best of luck!
 	<br> Josh."}
+
+/// instructions for nuclear operatives on how to use their medipen
+
+/obj/item/paper/fluff/operative
+	name = "ATTENTION: How to prevent your untimely demise."
+	color = "#b94030"
+	desc = "Seems important. That's why it's red."
+	default_raw_text = {"
+Greetings operative.
+
+<br>As you may be aware, since your financial backers do not wish to provide our collective enemies access to any trace of you or your physical form, we've had to augment
+you with an explosive located in the base of your neck: a microbomb implant. This implant activates a blood-based explosive the moment your heart stops beating, destroying all
+evidence of your physical body and brain, eradicating you permanently so those freaks at Nanotrasen can't interrogate your brain. Or worse, clone you and mindwipe you.
+We much prefer you free to die red than a slave to the corporation. I'm sure you agree. <B><i>Right, comrade?</i></B>
+<br>
+<br>Now, don't fret. While this is beneficial for our needs, we understand that operatives sometimes would prefer themselves to be able to have more
+precise control over their own total oblivion. This is why our microbomb implants come equipped with a few useful features.
+<br>
+<br><B>Firstly, the bombs autodetonation is neutralized by atropine</B>. So, if you have atropine in your system when your heart stops beating, your implant does not automatically detonate.
+This is why you are equipped with an atropine autoinjector. If you see a fellow operative fall, immediately inject them with the autoinjector before they expire. If you're lucky,
+you'll potentially be able to recover their body for revival. Atropine also just so happens to be an incredibly powerful stablizer, so maybe use it before you fall. You might just
+be able to save yourself for a few seconds and keep fighting.
+<br>
+<br><B>Secondly, the bomb can be activated posthumously</B>. There is a small onboard, low-level AI built into the microbomb. Based on a series of arbitrary factors, the bomb can still be activated
+despite the presence of atropine by releasing a failsafe vial of monkey blood (notoriously volatile), the timing of which is determined by the onboard AI.
+<br>The only factor is whether or not, and for give me for what I'm about to write, your 'animating spirit' still resides within your body to guide the AI and activate the bomb manually.
+<br>Please, do not ask your fellow operatives what this means.
+<br>
+<br>They'll probably say something absurd like <B>'your ghost needs to still be in your body to use the microbomb'</B>. That's stupid, do not listen to these ridiculous assertions. It is likely Nanotrasen propaganda.
+<br>
+<br>Ghosts are not real. Necromancy is <B>bullshit</B>.
+<br>
+<br>Anyway, best of luck on your mission, operative.
+	"}

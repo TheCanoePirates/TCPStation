@@ -50,14 +50,14 @@
 	var/obj/structure/ladder/L
 
 	if (!down)
-		L = locate() in SSmapping.get_turf_below(T)
+		L = locate() in GET_TURF_BELOW(T)
 		if (L)
 			if(crafted == L.crafted)
 				down = L
 				L.up = src  // Don't waste effort looping the other way
 				L.update_appearance()
 	if (!up)
-		L = locate() in SSmapping.get_turf_above(T)
+		L = locate() in GET_TURF_ABOVE(T)
 		if (L)
 			if(crafted == L.crafted)
 				up = L
@@ -94,8 +94,11 @@
 	if(going_up ? !up : !down)
 		balloon_alert(user, "can't go any further [going_up ? "up" : "down"]")
 		return
+	if(user.buckled && user.buckled.anchored)
+		balloon_alert(user, "buckled to something anchored!")
+		return
 	if(travel_time)
-		INVOKE_ASYNC(src, .proc/start_travelling, user, going_up)
+		INVOKE_ASYNC(src, PROC_REF(start_travelling), user, going_up)
 	else
 		travel(user, going_up)
 	add_fingerprint(user)
@@ -148,7 +151,7 @@
 
 	var/datum/callback/check_menu
 	if(!is_ghost)
-		check_menu = CALLBACK(src, .proc/check_menu, user)
+		check_menu = CALLBACK(src, PROC_REF(check_menu), user)
 	var/result = show_radial_menu(user, src, tool_list, custom_check = check_menu, require_near = !is_ghost, tooltips = TRUE)
 
 	var/going_up
@@ -157,13 +160,13 @@
 			going_up = TRUE
 		if("Down")
 			going_up = FALSE
-		if("Cancel")
+		else
 			return
 
 	if(is_ghost || !travel_time)
 		travel(user, going_up, is_ghost)
 	else
-		INVOKE_ASYNC(src, .proc/start_travelling, user, going_up)
+		INVOKE_ASYNC(src, PROC_REF(start_travelling), user, going_up)
 
 /obj/structure/ladder/proc/check_menu(mob/user, is_ghost)
 	if(user.incapacitated() || (!user.Adjacent(src)))
@@ -251,7 +254,18 @@
 /obj/structure/ladder/attack_robot_secondary(mob/living/silicon/robot/user)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || !user.Adjacent(src))
-		return SECONDARY_ATTACK_CONTINUE_CHAIN
+		return
+	use(user, going_up = FALSE)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/structure/ladder/attack_pai(mob/user, list/modifiers)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_pai_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
 	use(user, going_up = FALSE)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 

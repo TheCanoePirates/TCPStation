@@ -18,13 +18,11 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/tank/internals/emergency_oxygen/engi,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_fighter3)
 "g" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/power/shuttle_engine/propulsion/burst,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/sbc_fighter3)
 "n" = (
@@ -43,7 +41,7 @@
 "y" = (
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SBC_Fighter2")
+	network = list("SBC_Fighter3")
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_fighter3)
@@ -89,6 +87,13 @@
 /obj/machinery/computer/shuttle/starfury/fighter/fighter_three,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_fighter3)
+"N" = (
+/obj/machinery/camera/directional/west{
+	network = list("SBC_Fighter3");
+	c_tag = "Fighter 3 - Starboard"
+	},
+/turf/template_noop,
+/area/shuttle/sbc_fighter3)
 "Q" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/end,
 /turf/open/floor/mineral/plastitanium/red,
@@ -99,19 +104,24 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_fighter3)
+"Y" = (
+/obj/machinery/camera/directional/east{
+	network = list("SBC_Fighter3");
+	c_tag = "Fighter 3 - Port"
+	},
+/turf/template_noop,
+/area/shuttle/sbc_fighter3)
 "Z" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_fighter3)
 
 (1,1,1) = {"
 a
-a
+Y
 F
 n
 n
@@ -147,7 +157,7 @@ g
 "}
 (5,1,1) = {"
 a
-a
+N
 H
 n
 n

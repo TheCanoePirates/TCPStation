@@ -9,8 +9,11 @@
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
+	antagpanel_category = ANTAG_GROUP_ERT
 	suicide_cry = "FOR NANOTRASEN!!"
 	count_against_dynamic_roll_chance = FALSE
+	// Not 'true' antags, this disables certain interactions that assume the owner is a baddie
+	antag_flags = FLAG_FAKE_ANTAG
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security
@@ -222,7 +225,7 @@
 	role = "Synthetic Bounty Hunter"
 	outfit = /datum/outfit/bountysynth/ert
 
-/datum/antagonist/ert/proc/forge_objectives()
+/datum/antagonist/ert/forge_objectives()
 	if(ert_team)
 		objectives |= ert_team.objectives
 
@@ -232,7 +235,7 @@
 		return
 	if(isplasmaman(H))
 		H.equipOutfit(plasmaman_outfit)
-		H.internal = H.get_item_for_held_index(2)
+		H.open_internals(H.get_item_for_held_index(2))
 	H.equipOutfit(outfit)
 
 
@@ -272,3 +275,13 @@
 	name = "Marine Medic"
 	outfit = /datum/outfit/centcom/ert/marine/medic
 	role = "Medical Officer"
+
+/datum/antagonist/ert/militia
+	name = "Frontier Militia"
+	outfit = /datum/outfit/centcom/militia
+	role = "Volunteer"
+
+/datum/antagonist/ert/militia/general
+	name = "Frontier Militia General"
+	outfit = /datum/outfit/centcom/militia/general
+	role = "General"

@@ -28,7 +28,7 @@ GLOBAL_LIST(labor_sheet_values)
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_list += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		GLOB.labor_sheet_values = sort_list(sheet_list, /proc/cmp_sheet_list)
+		GLOB.labor_sheet_values = sort_list(sheet_list, GLOBAL_PROC_REF(cmp_sheet_list))
 
 /obj/machinery/mineral/labor_claim_console/Destroy()
 	QDEL_NULL(security_radio)
@@ -120,18 +120,24 @@ GLOBAL_LIST(labor_sheet_values)
 					if(!(obj_flags & EMAGGED))
 						security_radio.set_frequency(FREQ_SECURITY)
 						security_radio.talk_into(src, "A prisoner has returned to the station. Minerals and Prisoner ID card ready for retrieval.", FREQ_SECURITY)
+					user_mob.log_message("has completed their labor points goal and is now sending the gulag shuttle back to the station.", LOG_GAME)
 					to_chat(user_mob, span_notice("Shuttle received message and will be sent shortly."))
 					return TRUE
 
 /obj/machinery/mineral/labor_claim_console/proc/locate_stacking_machine()
-	stacking_machine = locate(/obj/machinery/mineral/stacking_machine) in view(2, src)
+	stacking_machine = locate(/obj/machinery/mineral/stacking_machine) in dview(2, get_turf(src))
 	if(stacking_machine)
 		stacking_machine.labor_console = src
 
-/obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
-	if(!(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		to_chat(user, span_warning("PZZTTPFFFT"))
+/obj/machinery/mineral/labor_claim_console/emag_act(mob/user, obj/item/card/emag/emag_card)
+	if (obj_flags & EMAGGED)
+		return FALSE
+
+	obj_flags |= EMAGGED
+	balloon_alert(user, "id authenticator short-circuited")
+	visible_message(span_warning("[src] lets out a few sparks!"))
+	do_sparks(2, TRUE, src)
+	return TRUE
 
 /**********************Prisoner Collection Unit**************************/
 

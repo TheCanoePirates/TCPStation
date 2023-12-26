@@ -36,10 +36,6 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 		if(VALID_RANDOM_RECIPE_REAGENT(chem_flags))
 			. += reagent
 
-#define RNGCHEM_INPUT "input"
-#define RNGCHEM_CATALYSTS "catalysts"
-#define RNGCHEM_OUTPUT "output"
-
 /datum/chemical_reaction/randomized
 
 	//Increase default leniency because these are already hard enough
@@ -148,7 +144,7 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 
 		var/in_reagent_count = min(rand(min_input_reagents,max_input_reagents),remaining_possible_reagents.len)
 		if(in_reagent_count <= 0)
-			return FALSE
+			CRASH("SECRET CHEM: Couldn't generate reagents for [type]!")
 
 		required_reagents = list()
 		for(var/i in 1 to in_reagent_count)
@@ -221,6 +217,9 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 		return FALSE
 	required_reagents = req_reag
 
+	if (required_reagents.len == 0)
+		return FALSE
+
 	var/req_catalysts = unwrap_reagent_list(recipe_data["required_catalysts"])
 	if(!req_catalysts)
 		return FALSE
@@ -281,11 +280,15 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 /datum/chemical_reaction/randomized/metalgen/GetPossibleReagents(kind)
 	switch(kind)
 		if(RNGCHEM_INPUT)
-			return GLOB.medicine_reagents
+			var/list/possible_ingredients = list()
+			for(var/datum/reagent/compound as anything in GLOB.medicine_reagents)
+				if(initial(compound.chemical_flags) & REAGENT_CAN_BE_SYNTHESIZED)
+					possible_ingredients += compound
+			return possible_ingredients
 	return ..()
 
 /obj/item/paper/secretrecipe
-	name = "old recipe"
+	name = "Old Recipe"
 
 	///List of possible recipes we could display
 	var/list/possible_recipes = list(/datum/chemical_reaction/randomized/secret_sauce, /datum/chemical_reaction/randomized/metalgen)
@@ -300,7 +303,7 @@ GLOBAL_LIST_INIT(medicine_reagents, build_medicine_reagents())
 	if(SSpersistence.initialized)
 		UpdateInfo()
 	else
-		SSticker.OnRoundstart(CALLBACK(src,.proc/UpdateInfo))
+		SSticker.OnRoundstart(CALLBACK(src, PROC_REF(UpdateInfo)))
 
 /obj/item/paper/secretrecipe/ui_static_data(mob/living/user)
 	. = ..()

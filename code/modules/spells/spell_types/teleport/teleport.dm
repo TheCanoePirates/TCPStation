@@ -7,7 +7,8 @@
 
 	school = SCHOOL_TRANSLOCATION
 	cooldown_time = 1 MINUTES
-	cooldown_reduction_per_rank = 10 SECONDS
+	cooldown_reduction_per_rank = 20 SECONDS
+	spell_max_level = 3
 
 	invocation = "SCYAR NILA"
 	invocation_type = INVOCATION_SHOUT
@@ -38,7 +39,7 @@
 
 	invocation_says_area = FALSE
 
-/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/IsAvailable()
+/datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/IsAvailable(feedback = FALSE)
 	return ..() && owner.is_holding(target)
 
 /datum/action/cooldown/spell/teleport/area_teleport/wizard/scroll/before_cast(atom/cast_on)

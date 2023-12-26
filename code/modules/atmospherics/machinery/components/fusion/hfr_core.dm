@@ -4,7 +4,7 @@
 /obj/machinery/atmospherics/components/unary/hypertorus/core
 	name = "HFR core"
 	desc = "This is the Hypertorus Fusion Reactor core, an advanced piece of technology to finely tune the reaction inside of the machine. It has I/O for cooling gases."
-	icon = 'icons/obj/atmospherics/components/hypertorus.dmi'
+	icon = 'icons/obj/machines/atmospherics/hypertorus.dmi'
 	icon_state = "core_off"
 	circuit = /obj/item/circuitboard/machine/HFR_core
 	use_power = IDLE_POWER_USE
@@ -175,14 +175,9 @@
 	radio.recalculateChannels()
 	investigate_log("has been created.", INVESTIGATE_HYPERTORUS)
 
-	RegisterSignal(src.loc, COMSIG_ATOM_ENTERED, .proc/on_entered)
-
-	for(var/atom/movable/movable_object in src.loc)
-		SEND_SIGNAL(movable_object, COMSIG_MOVABLE_SECLUDED_LOCATION)
-
-/obj/machinery/atmospherics/components/unary/hypertorus/core/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER
-	SEND_SIGNAL(arrived, COMSIG_MOVABLE_SECLUDED_LOCATION) // to prevent stationloving items (eg. nuke disk) being teleported onto core
+	// Our center is unreachable, so prevent stuff from getting stuck in there
+	var/static/list/turf_traits = list(TRAIT_SECLUDED_LOCATION)
+	AddElement(/datum/element/give_turf_traits, turf_traits)
 
 /obj/machinery/atmospherics/components/unary/hypertorus/core/Destroy()
 	unregister_signals(TRUE)

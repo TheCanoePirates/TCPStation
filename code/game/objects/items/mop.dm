@@ -1,8 +1,9 @@
 /obj/item/mop
 	desc = "The world of janitalia wouldn't be complete without a mop."
 	name = "mop"
-	icon = 'icons/obj/janitor.dmi'
+	icon = 'icons/obj/service/janitor.dmi'
 	icon_state = "mop"
+	inhand_icon_state = "mop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 8
@@ -19,16 +20,37 @@
 	var/mopspeed = 1.5 SECONDS
 	force_string = "robust... against germs"
 	var/insertable = TRUE
+	var/static/list/clean_blacklist = typecacheof(list(
+		/obj/item/reagent_containers/cup/bucket,
+		/obj/structure/mop_bucket,
+	))
+
+/obj/item/mop/apply_fantasy_bonuses(bonus)
+	. = ..()
+	mopspeed = modify_fantasy_variable("mopspeed", mopspeed, -bonus)
+
+/obj/item/mop/remove_fantasy_bonuses(bonus)
+	mopspeed = reset_fantasy_variable("mopspeed", mopspeed)
+	return ..()
 
 /obj/item/mop/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/cleaner, mopspeed, on_cleaned_callback=CALLBACK(src, .proc/apply_reagents))
+	AddComponent(/datum/component/cleaner, mopspeed, pre_clean_callback=CALLBACK(src, PROC_REF(should_clean)), on_cleaned_callback=CALLBACK(src, PROC_REF(apply_reagents)))
 	create_reagents(max_reagent_volume)
 	GLOB.janitor_devices += src
 
 /obj/item/mop/Destroy(force)
 	GLOB.janitor_devices -= src
 	return ..()
+
+///Checks whether or not we should clean.
+/obj/item/mop/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
+	if(clean_blacklist[atom_to_clean.type])
+		return DO_NOT_CLEAN
+	if(reagents.total_volume < 0.1)
+		cleaner.balloon_alert(cleaner, "mop is dry!")
+		return DO_NOT_CLEAN
+	return reagents.has_reagent(amount = 1, chemical_flags = REAGENT_CLEANS)
 
 /**
  * Applies reagents to the cleaned floor and removes them from the mop.
@@ -38,30 +60,14 @@
  * * cleaned_turf the turf that is being cleaned
  * * cleaner the mob that is doing the cleaning
  */
-/obj/item/mop/proc/apply_reagents(datum/cleaning_source, turf/cleaned_turf, mob/living/cleaner)
+/obj/item/mop/proc/apply_reagents(datum/cleaning_source, turf/cleaned_turf, mob/living/cleaner, clean_succeeded)
+	if(!clean_succeeded)
+		return
 	reagents.expose(cleaned_turf, TOUCH, 10) //Needed for proper floor wetting.
 	var/val2remove = 1
 	if(cleaner?.mind)
-		val2remove = round(cleaner.mind.get_skill_modifier(/datum/skill/cleaning, SKILL_SPEED_MODIFIER),0.1)
+		val2remove = round(cleaner.mind.get_skill_modifier(/datum/skill/cleaning, SKILL_SPEED_MODIFIER), 0.1)
 	reagents.remove_any(val2remove) //reaction() doesn't use up the reagents
-
-/obj/item/mop/afterattack(atom/A, mob/user, proximity)
-	. = ..()
-	if(!proximity)
-		return
-
-	if(reagents.total_volume < 0.1)
-		to_chat(user, span_warning("Your mop is dry!"))
-		return
-
-	var/turf/T = get_turf(A)
-
-	if(istype(A, /obj/item/reagent_containers/cup/bucket) || istype(A, /obj/structure/janitorialcart))
-		return
-
-	if(T)
-		var/should_clean = reagents.has_chemical_flag(REAGENT_CLEANS, 1)
-		start_cleaning(src, T, user, clean_target = should_clean)
 
 /obj/item/mop/cyborg/Initialize(mapload)
 	. = ..()
@@ -72,7 +78,7 @@
 	name = "advanced mop"
 	max_reagent_volume = 10
 	icon_state = "advmop"
-	inhand_icon_state = "mop"
+	inhand_icon_state = "advmop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 12
@@ -94,11 +100,11 @@
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj,src)
-	to_chat(user, span_notice("You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position."))
+	user.balloon_alert(user, "condenser switch [refill_enabled ? "on" : "off"]")
 	playsound(user, 'sound/machines/click.ogg', 30, TRUE)
 
-/obj/item/mop/advanced/process(delta_time)
-	var/amadd = min(max_reagent_volume - reagents.total_volume, refill_rate * delta_time)
+/obj/item/mop/advanced/process(seconds_per_tick)
+	var/amadd = min(max_reagent_volume - reagents.total_volume, refill_rate * seconds_per_tick)
 	if(amadd > 0)
 		reagents.add_reagent(refill_reagent, amadd)
 

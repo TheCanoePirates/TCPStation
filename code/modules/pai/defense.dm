@@ -14,17 +14,16 @@
 	//Ask and you shall receive
 	switch(rand(1, 3))
 		if(1)
-			adjust_timed_status_effect(1 MINUTES / severity, /datum/status_effect/speech/stutter)
+			adjust_stutter(1 MINUTES / severity)
 			to_chat(src, span_danger("Warning: Feedback loop detected in speech module."))
 		if(2)
-			adjust_timed_status_effect(INFINITY, /datum/status_effect/speech/slurring/drunk)
+			adjust_slurring(INFINITY)
 			to_chat(src, span_danger("Warning: Audio synthesizer CPU stuck."))
 		if(3)
-			adjust_timed_status_effect(INFINITY, /datum/status_effect/speech/stutter/derpspeech)
+			set_derpspeech(INFINITY)
 			to_chat(src, span_danger("Warning: Vocabulary databank corrupted."))
 	if(prob(40))
-		mind.language_holder.selected_language = get_random_spoken_language()
-
+		set_active_language(get_random_spoken_language())
 
 /mob/living/silicon/pai/ex_act(severity, target)
 	take_holo_damage(50 * severity)
@@ -39,6 +38,8 @@
 			fold_in(force = 1)
 			Paralyze(200)
 
+	return TRUE
+
 /mob/living/silicon/pai/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	if(!user.combat_mode)
 		visible_message(span_notice("[user] gently pats [src] on the head, eliciting an off-putting buzzing from its holographic field."))
@@ -49,19 +50,19 @@
 		take_holo_damage(2)
 		return
 	visible_message(span_notice("Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence."))
-	if(!do_after(user, 1 SECONDS, TRUE, src))
+	if(!do_after(user, 1 SECONDS, src))
 		return
 	fold_in()
 	if(user.put_in_hands(card))
 		user.visible_message(span_notice("[user] promptly scoops up [user.p_their()] pAI's card."))
 
-/mob/living/silicon/pai/bullet_act(obj/projectile/Proj)
-	if(Proj.stun)
+/mob/living/silicon/pai/bullet_act(obj/projectile/hitting_projectile, def_zone, piercing_hit = FALSE)
+	. = ..()
+	if(. == BULLET_ACT_HIT && (hitting_projectile.stun || hitting_projectile.paralyze))
 		fold_in(force = TRUE)
-		src.visible_message(span_warning("The electrically-charged projectile disrupts [src]'s holomatrix, forcing [src] to fold in!"))
-	. = ..(Proj)
+		visible_message(span_warning("The electrically-charged projectile disrupts [src]'s holomatrix, forcing [p_them()] to fold in!"))
 
-/mob/living/silicon/pai/ignite_mob()
+/mob/living/silicon/pai/ignite_mob(silent)
 	return FALSE
 
 /mob/living/silicon/pai/proc/take_holo_damage(amount)
@@ -72,17 +73,17 @@
 		to_chat(src, span_userdanger("The impact degrades your holochassis!"))
 	return amount
 
-/mob/living/silicon/pai/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
-	return take_holo_damage(amount)
+/// Called when we take burn or brute damage, pass it to the shell instead
+/mob/living/silicon/pai/proc/on_shell_damaged(datum/hurt, type, amount, forced)
+	SIGNAL_HANDLER
+	take_holo_damage(amount)
+	return COMPONENT_IGNORE_CHANGE
 
-/mob/living/silicon/pai/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
-	return take_holo_damage(amount)
-
-/mob/living/silicon/pai/adjustStaminaLoss(amount, updating_health, forced = FALSE)
-	if(forced)
-		take_holo_damage(amount)
-	else
-		take_holo_damage(amount * 0.25)
+/// Called when we take stamina damage, pass it to the shell instead
+/mob/living/silicon/pai/proc/on_shell_weakened(datum/hurt, type, amount, forced)
+	SIGNAL_HANDLER
+	take_holo_damage(amount * ((forced) ? 1 : 0.25))
+	return COMPONENT_IGNORE_CHANGE
 
 /mob/living/silicon/pai/getBruteLoss()
 	return HOLOCHASSIS_MAX_HEALTH - holochassis_health

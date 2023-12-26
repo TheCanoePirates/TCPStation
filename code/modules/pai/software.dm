@@ -38,7 +38,7 @@
 		return TRUE
 	// Software related ui actions
 	if(available_software[action] && !installed_software.Find(action))
-		balloon_alert(usr, "software unavailable")
+		balloon_alert(ui.user, "software unavailable!")
 		return FALSE
 	switch(action)
 		if("Atmospheric Sensor")
@@ -116,8 +116,6 @@
 			atmos_analyzer = new(src)
 		if("Digital Messenger")
 			create_modularInterface()
-		if("Host Scan")
-			host_scan = new(src)
 		if("Internal GPS")
 			internal_gps = new(src)
 		if("Music Synthesizer")
@@ -125,7 +123,7 @@
 		if("Newscaster")
 			newscaster = new(src)
 		if("Photography Module")
-			camera = new(src)
+			aicamera = new /obj/item/camera/siliconcam/pai_camera(src)
 		if("Remote Signaler")
 			signaler = new(src)
 	return TRUE
@@ -160,13 +158,13 @@
 	if(!iscarbon(holder))
 		balloon_alert(src, "not being carried")
 		return FALSE
-	balloon_alert(src, "requesting DNA sample")
+	balloon_alert(src, "requesting dna sample")
 	if(tgui_alert(holder, "[src] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "Checking DNA", list("Yes", "No")) != "Yes")
-		balloon_alert(src, "DNA sample refused")
+		balloon_alert(src, "dna sample refused!")
 		return FALSE
 	holder.visible_message(span_notice("[holder] presses [holder.p_their()] thumb against [src]."), span_notice("You press your thumb against [src]."), span_notice("[src] makes a sharp clicking sound as it extracts DNA material from [holder]."))
 	if(!holder.has_dna())
-		balloon_alert(src, "no DNA detected")
+		balloon_alert(src, "no dna detected!")
 		return FALSE
 	to_chat(src, span_boldannounce(("[holder]'s UE string: [holder.dna.unique_enzymes]")))
 	to_chat(src, span_notice("DNA [holder.dna.unique_enzymes == master_dna ? "matches" : "does not match"] our stored Master's DNA."))
@@ -180,7 +178,7 @@
 /mob/living/silicon/pai/proc/grant_languages()
 	if(languages_granted)
 		return FALSE
-	grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_SOFTWARE)
+	grant_all_languages(source = LANGUAGE_SOFTWARE)
 	languages_granted = TRUE
 	return TRUE
 
@@ -193,28 +191,27 @@
  * @returns {boolean} - TRUE if the scan was successful, FALSE otherwise.
  */
 /mob/living/silicon/pai/proc/host_scan(mode)
-	if(isnull(mode))
-		return FALSE
-	if(mode == PAI_SCAN_TARGET)
-		var/mob/living/target = get_holder()
-		if(!target || !isliving(target))
-			balloon_alert(src, "not being carried")
-			return FALSE
-		host_scan.attack(target, src)
-		return TRUE
-	if(mode == PAI_SCAN_MASTER)
-		if(!master_ref)
-			balloon_alert(src, "no master detected")
-			return FALSE
-		var/mob/living/resolved_master = find_master()
-		if(!resolved_master)
-			balloon_alert(src, "cannot locate master")
-			return FALSE
-		if(src.z != resolved_master.z)
-			balloon_alert(src, "master out of range")
-			return FALSE
-		host_scan.attack(resolved_master, src)
-		return TRUE
+	switch(mode)
+		if(PAI_SCAN_TARGET)
+			var/mob/living/target = get_holder()
+			if(!isliving(target))
+				balloon_alert(src, "not being carried!")
+				return FALSE
+			healthscan(src, target)
+			return TRUE
+
+		if(PAI_SCAN_MASTER)
+			var/mob/living/resolved_master = find_master()
+			if(isnull(resolved_master))
+				balloon_alert(src, "no master detected!")
+				return FALSE
+			if(!is_valid_z_level(get_turf(src), get_turf(resolved_master)))
+				balloon_alert(src, "master out of range!")
+				return FALSE
+			healthscan(src, resolved_master)
+			return TRUE
+
+	stack_trace("Invalid mode passed to host scan: [mode || "null"]")
 	return FALSE
 
 /**

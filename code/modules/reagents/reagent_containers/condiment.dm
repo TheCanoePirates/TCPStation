@@ -9,10 +9,10 @@
 	name = "condiment bottle"
 	desc = "Just your average condiment bottle."
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "emptycondiment"
+	icon_state = "bottle"
 	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
-	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	reagent_flags = OPENCONTAINER
 	obj_flags = UNIQUE_RENAME
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
@@ -55,14 +55,14 @@
 	else
 		M.visible_message(span_warning("[user] attempts to feed [M] from [src]."), \
 			span_warning("[user] attempts to feed you from [src]."))
-		if(!do_mob(user, M))
+		if(!do_after(user, 3 SECONDS, M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
 		M.visible_message(span_warning("[user] fed [M] from [src]."), \
 			span_warning("[user] fed you from [src]."))
 		log_combat(user, M, "fed", reagents.get_reagent_log_string())
-	reagents.trans_to(M, 10, transfered_by = user, methods = INGEST)
+	reagents.trans_to(M, 10, transferred_by = user, methods = INGEST)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	return TRUE
 
@@ -70,6 +70,7 @@
 	. = ..()
 	if(!proximity)
 		return
+	. |= AFTERATTACK_PROCESSED_ITEM
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume)
@@ -80,7 +81,7 @@
 			to_chat(user, span_warning("[src] is full!"))
 			return
 
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
+		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transferred_by = user)
 		to_chat(user, span_notice("You fill [src] with [trans] units of the contents of [target]."))
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
@@ -91,7 +92,7 @@
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
 			to_chat(user, span_warning("you can't add anymore to [target]!"))
 			return
-		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transferred_by = user)
 		to_chat(user, span_notice("You transfer [trans] units of the condiment to [target]."))
 
 /obj/item/reagent_containers/condiment/enzyme
@@ -114,8 +115,8 @@
 	desc = "Tasty spacey sugar!"
 	icon_state = "sugar"
 	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/sugar = 50)
 	fill_icon_thresholds = null
 
@@ -139,19 +140,20 @@
 	list_reagents = list(/datum/reagent/consumable/salt = 20)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
+/obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/newname = "[name]"
 	name = "[user.name]"
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/reagent_containers/condiment/saltshaker/afterattack(obj/target, mob/living/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
+	. |= AFTERATTACK_PROCESSED_ITEM
 	if(isturf(target))
 		if(!reagents.has_reagent(/datum/reagent/consumable/salt, 2))
 			to_chat(user, span_warning("You don't have enough salt to make a pile!"))
@@ -178,8 +180,8 @@
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
 	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/milk = 50)
 	fill_icon_thresholds = null
 
@@ -196,8 +198,8 @@
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
 	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/flour = 30)
 	fill_icon_thresholds = null
 
@@ -219,8 +221,8 @@
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
 	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/soymilk = 50)
 	fill_icon_thresholds = null
 
@@ -229,8 +231,8 @@
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
 	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/rice = 30)
 	fill_icon_thresholds = null
 
@@ -239,8 +241,8 @@
 	desc = "A big box of cornmeal. Great for southern style cooking."
 	icon_state = "cornmeal"
 	inhand_icon_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/cornmeal = 30)
 	fill_icon_thresholds = null
 
@@ -271,11 +273,18 @@
 	list_reagents = list(/datum/reagent/consumable/vinegar = 50)
 	fill_icon_thresholds = null
 
-/obj/item/reagent_containers/condiment/quality_oil
+/obj/item/reagent_containers/condiment/vegetable_oil
+	name = "cooking oil"
+	desc = "For all your deep-frying needs."
+	icon_state = "cooking_oil"
+	list_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/olive_oil
 	name = "quality oil"
 	desc = "For the fancy chef inside everyone."
 	icon_state = "oliveoil"
-	list_reagents = list(/datum/reagent/consumable/quality_oil = 50)
+	list_reagents = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 50)
 	fill_icon_thresholds = null
 
 /obj/item/reagent_containers/condiment/yoghurt
@@ -291,6 +300,103 @@
 	icon_state = "peanutbutter"
 	list_reagents = list(/datum/reagent/consumable/peanut_butter = 50)
 	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/cherryjelly
+	name = "cherry jelly"
+	desc = "A jar of super-sweet cherry jelly."
+	icon_state = "cherryjelly"
+	list_reagents = list(/datum/reagent/consumable/cherryjelly = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/honey
+	name = "honey"
+	desc = "A jar of sweet and viscous honey."
+	icon_state = "honey"
+	list_reagents = list(/datum/reagent/consumable/honey = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/ketchup
+	name = "ketchup"
+	// At time of writing, "ketchup" mechanically, is just ground tomatoes,
+	// rather than // tomatoes plus vinegar plus sugar.
+	desc = "A tomato slurry in a tall plastic bottle. Somehow still vaguely American."
+	icon_state = "ketchup"
+	list_reagents = list(/datum/reagent/consumable/ketchup = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/worcestershire
+	name = "worcestershire sauce"
+	desc = "A fermented sauce of legend from old England. Makes almost anything better."
+	icon_state = "worcestershire"
+	list_reagents = list(/datum/reagent/consumable/worcestershire = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/red_bay
+	name = "\improper Red Bay seasoning"
+	desc = "Mars' favourite seasoning."
+	icon_state = "red_bay"
+	list_reagents = list(/datum/reagent/consumable/red_bay = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/curry_powder
+	name = "curry powder"
+	desc = "It's this yellow magic that makes curry taste like curry."
+	icon_state = "curry_powder"
+	list_reagents = list(/datum/reagent/consumable/curry_powder = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/dashi_concentrate
+	name = "dashi concentrate"
+	desc = "A bottle of Amagi brand dashi concentrate. Simmer with water in a 1:8 ratio for a perfect dashi broth."
+	icon_state = "dashi_concentrate"
+	list_reagents = list(/datum/reagent/consumable/dashi_concentrate = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/coconut_milk
+	name = "coconut milk"
+	desc = "It's coconut milk. Toasty!"
+	icon_state = "coconut_milk"
+	inhand_icon_state = "carton"
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
+	list_reagents = list(/datum/reagent/consumable/coconut_milk = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/grounding_solution
+	name = "grounding solution"
+	desc = "A food-safe ionic solution designed to neutralise the enigmatic \"liquid electricity\" that is common to food from Sprout, forming harmless salt on contact."
+	icon_state = "grounding_solution"
+	list_reagents = list(/datum/reagent/consumable/grounding_solution = 50)
+	fill_icon_thresholds = null
+
+//technically condiment packs but they are non transparent
+
+/obj/item/reagent_containers/condiment/creamer
+	name = "coffee creamer pack"
+	desc = "Better not think about what they're making this from."
+	icon_state = "condi_creamer"
+	volume = 5
+	list_reagents = list(/datum/reagent/consumable/creamer = 5)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/chocolate
+	name = "chocolate sprinkle pack"
+	desc= "The amount of sugar thats already there wasn't enough for you?"
+	icon_state = "condi_chocolate"
+	list_reagents = list(/datum/reagent/consumable/choccyshake = 10)
+
+
+/obj/item/reagent_containers/condiment/hotsauce
+	name = "hotsauce bottle"
+	desc= "You can almost TASTE the stomach ulcers!"
+	icon_state = "hotsauce"
+	list_reagents = list(/datum/reagent/consumable/capsaicin = 50)
+
+/obj/item/reagent_containers/condiment/coldsauce
+	name = "coldsauce bottle"
+	desc= "Leaves the tongue numb from its passage."
+	icon_state = "coldsauce"
+	list_reagents = list(/datum/reagent/consumable/frostoil = 50)
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
@@ -312,19 +418,20 @@
 		/datum/reagent/consumable/frostoil = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in its passage"),
 		/datum/reagent/consumable/salt = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
 		/datum/reagent/consumable/blackpepper = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
-		/datum/reagent/consumable/cornoil = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
+		/datum/reagent/consumable/nutriment/fat/oil = list("condi_cornoil", "Vegetable Oil", "A delicious oil used in cooking."),
 		/datum/reagent/consumable/sugar = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
 		/datum/reagent/consumable/astrotame = list("condi_astrotame", "Astrotame", "The sweetness of a thousand sugars but none of the calories."),
 		/datum/reagent/consumable/bbqsauce = list("condi_bbq", "BBQ sauce", "Hand wipes not included."),
 		/datum/reagent/consumable/peanut_butter = list("condi_peanutbutter", "Peanut Butter", "A creamy paste made from ground peanuts."),
+		/datum/reagent/consumable/cherryjelly = list("condi_cherryjelly", "Cherry Jelly", "A jar of super-sweet cherry jelly."),
 	)
 	/// Can't use initial(name) for this. This stores the name set by condimasters.
 	var/originalname = "condiment"
 
 /obj/item/reagent_containers/condiment/pack/create_reagents(max_vol, flags)
 	. = ..()
-	RegisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), .proc/on_reagent_add, TRUE)
-	RegisterSignal(reagents, COMSIG_REAGENTS_DEL_REAGENT, .proc/on_reagent_del, TRUE)
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_add), TRUE)
+	RegisterSignal(reagents, COMSIG_REAGENTS_DEL_REAGENT, PROC_REF(on_reagent_del), TRUE)
 
 /obj/item/reagent_containers/condiment/pack/update_icon()
 	SHOULD_CALL_PARENT(FALSE)
@@ -336,7 +443,7 @@
 /obj/item/reagent_containers/condiment/pack/afterattack(obj/target, mob/user , proximity)
 	if(!proximity)
 		return
-
+	. |= AFTERATTACK_PROCESSED_ITEM
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(IS_EDIBLE(target))
 		if(!reagents.total_volume)
@@ -349,17 +456,20 @@
 			return
 		else
 			to_chat(user, span_notice("You tear open [src] above [target] and the condiments drip onto it."))
-			src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+			src.reagents.trans_to(target, amount_per_transfer_from_this, transferred_by = user)
 			qdel(src)
 			return
-	. = ..()
+	return . | ..()
 
 /// Handles reagents getting added to the condiment pack.
 /obj/item/reagent_containers/condiment/pack/proc/on_reagent_add(datum/reagents/reagents)
 	SIGNAL_HANDLER
-	var/main_reagent = reagents.get_master_reagent_id()
-	if(main_reagent in possible_states)
-		var/list/temp_list = possible_states[main_reagent]
+
+	var/datum/reagent/main_reagent = reagents.get_master_reagent()
+
+	var/main_reagent_type = main_reagent?.type
+	if(main_reagent_type in possible_states)
+		var/list/temp_list = possible_states[main_reagent_type]
 		icon_state = temp_list[1]
 		desc = temp_list[3]
 	else
@@ -387,6 +497,7 @@
 /obj/item/reagent_containers/condiment/pack/astrotame
 	name = "astrotame pack"
 	originalname = "astrotame"
+	volume = 5
 	list_reagents = list(/datum/reagent/consumable/astrotame = 5)
 
 /obj/item/reagent_containers/condiment/pack/bbqsauce
@@ -397,9 +508,11 @@
 /obj/item/reagent_containers/condiment/pack/creamer
 	name = "creamer pack"
 	originalname = "creamer"
-	list_reagents = list(/datum/reagent/consumable/creamer = 5)
+	volume = 5
+	list_reagents = list(/datum/reagent/consumable/cream = 5)
 
 /obj/item/reagent_containers/condiment/pack/sugar
 	name = "sugar pack"
 	originalname = "sugar"
+	volume = 5
 	list_reagents = list(/datum/reagent/consumable/sugar = 5)

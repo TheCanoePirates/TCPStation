@@ -90,6 +90,8 @@ Things you **CAN'T** do:
 * [Close PRs](https://imgur.com/w2RqpX8.png): Only maintainers are allowed to close PRs. Do not hit that button.
 * Close issues purely for breaking a template if the same information is contained without it.
 
+For more information reference the [Issue Manager Guide](.github/guides/ISSUE_MANAGER.md).
+
 </details>
 
 ## Development Guides
@@ -105,17 +107,17 @@ Things you **CAN'T** do:
 
 #### Misc
 
-[Policy configuration system](./guides/POLICYCONFIG.md)
+- [AI Datums](../code/datums/ai/learn_ai.md)
+- [Embedding TGUI Components in Chat](../tgui/docs/chat-embedded-components.md)
+- [Hard Deletes](./guides/HARDDELETES.md)
+- [MC Tab Guide](./guides/MC_tab.md)
+- [Policy Configuration System](./guides/POLICYCONFIG.md)
+- [Quickly setting up a development database with ezdb](./guides/EZDB.md)
+- [Required Tests (Continuous Integration)](./guides/CI.md)
+- [Splitting up pull requests, aka atomization](./guides/ATOMIZATION.md)
+- [UI Development](../tgui/README.md)
+- [Visual Effects and Systems](./guides/VISUALS.md)
 
-[Hard deletes](./guides/HARDDELETES.md)
-
-[UI Development](../tgui/README.md)
-
-[AI Datums](../code/datums/ai/making_your_ai.md)
-
-[MC Tab Guide](./guides/MC_tab.md)
-
-[Embedding tgui components in chat](../tgui/docs/chat-embedded-components.md)
 ## Pull Request Process
 
 There is no strict process when it comes to merging pull requests. Pull requests will sometimes take a while before they are looked at by a maintainer; the bigger the change, the more time it will take before they are accepted into the code. Every team member is a volunteer who is giving up their own time to help maintain and contribute, so please be courteous and respectful. Here are some helpful ways to make it easier for you and for the maintainers when making a pull request.

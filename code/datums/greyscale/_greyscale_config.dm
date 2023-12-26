@@ -70,7 +70,7 @@
 		return QDEL_HINT_LETMELIVE
 	return ..()
 
-/datum/greyscale_config/process(delta_time)
+/datum/greyscale_config/process(seconds_per_tick)
 	if(!Refresh(loadFromDisk=TRUE))
 		return
 	if(!live_edit_types)
@@ -176,7 +176,7 @@
 	if(!islist(data[1]))
 		var/layer_type = SSgreyscale.layer_types[data["type"]]
 		if(!layer_type)
-			CRASH("An unknown layer type was specified in the json of greyscale configuration [DebugName()]: [data["layer_type"]]")
+			CRASH("An unknown layer type was specified in the json of greyscale configuration [DebugName()]: [data["type"]]")
 		return new layer_type(icon_file, data.Copy()) // We don't want anything in there touching our version of the data
 	var/list/output = list()
 	for(var/list/group as anything in data)
@@ -187,9 +187,9 @@
 
 /// Reads layer configurations to take out some useful overall information
 /datum/greyscale_config/proc/ReadMetadata()
-	var/icon/source = icon(icon_file)
-	height = source.Height()
-	width = source.Width()
+	var/list/icon_dimensions = get_icon_dimensions(icon_file)
+	height = icon_dimensions["width"]
+	width = icon_dimensions["height"]
 
 	var/list/datum/greyscale_layer/all_layers = list()
 	for(var/state in icon_states)

@@ -1,4 +1,4 @@
-#define SHY_COMPONENT_CACHE_TIME 0.5 SECONDS
+#define SHY_COMPONENT_CACHE_TIME (0.5 SECONDS)
 
 /// You can't use items on anyone other than yourself if there are other living mobs around you
 /datum/component/shy
@@ -44,17 +44,17 @@
 		src.machine_whitelist = machine_whitelist
 
 /datum/component/shy/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOB_CLICKON, .proc/on_clickon)
-	RegisterSignal(parent, COMSIG_LIVING_TRY_PULL, .proc/on_try_pull)
-	RegisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HUMAN_EARLY_UNARMED_ATTACK), .proc/on_unarmed_attack)
-	RegisterSignal(parent, COMSIG_TRY_STRIP, .proc/on_try_strip)
-	RegisterSignal(parent, COMSIG_TRY_ALT_ACTION, .proc/on_try_alt_action)
+	RegisterSignal(parent, COMSIG_MOB_CLICKON, PROC_REF(on_clickon))
+	RegisterSignal(parent, COMSIG_LIVING_TRY_PULL, PROC_REF(on_try_pull))
+	RegisterSignal(parent, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
+	RegisterSignal(parent, COMSIG_TRY_STRIP, PROC_REF(on_try_strip))
+	RegisterSignal(parent, COMSIG_TRY_ALT_ACTION, PROC_REF(on_try_alt_action))
 
 /datum/component/shy/UnregisterFromParent()
 	UnregisterSignal(parent, list(
 		COMSIG_MOB_CLICKON,
 		COMSIG_LIVING_TRY_PULL,
-		COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HUMAN_EARLY_UNARMED_ATTACK,
+		COMSIG_LIVING_UNARMED_ATTACK,
 		COMSIG_TRY_STRIP,
 		COMSIG_TRY_ALT_ACTION,
 	))
@@ -137,4 +137,3 @@
 	return is_shy(target) && COMPONENT_CANT_ALT_ACTION
 
 #undef SHY_COMPONENT_CACHE_TIME
-

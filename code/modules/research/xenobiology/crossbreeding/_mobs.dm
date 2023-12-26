@@ -14,14 +14,13 @@ Slimecrossing Mobs
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
-	convert_damage = TRUE
-	convert_damage_type = CLONE
+	convert_damage_type = TOX
 	possible_shapes = list(/mob/living/simple_animal/slime/transformed_slime)
 
 	/// If TRUE, we self-delete (remove ourselves) the next time we turn back into a human
 	var/remove_on_restore = FALSE
 
-/datum/action/cooldown/spell/shapeshift/slime_form/restore_form(mob/living/shape)
+/datum/action/cooldown/spell/shapeshift/slime_form/do_unshapeshift(mob/living/caster)
 	. = ..()
 	if(!.)
 		return
@@ -38,15 +37,18 @@ Slimecrossing Mobs
 	return
 
 //Slime corgi - Chilling Pink
-/mob/living/simple_animal/pet/dog/corgi/puppy/slime
+/mob/living/basic/pet/dog/corgi/puppy/slime
 	name = "\improper slime corgi puppy"
 	real_name = "slime corgi puppy"
 	desc = "An unbearably cute pink slime corgi puppy."
 	icon_state = "slime_puppy"
 	icon_living = "slime_puppy"
 	icon_dead = "slime_puppy_dead"
-	nofur = TRUE
+	can_be_shaved = FALSE
 	gold_core_spawnable = NO_SPAWN
 	speak_emote = list("blorbles", "bubbles", "borks")
-	emote_hear = list("bubbles!", "splorts.", "splops!")
-	emote_see = list("gets goop everywhere.", "flops.", "jiggles!")
+
+/mob/living/basic/pet/dog/corgi/puppy/slime/update_dog_speech(datum/ai_planning_subtree/random_speech/speech)
+	speech.speak = string_list(list())
+	speech.emote_hear = string_list(list("bubbles!", "splorts.", "splops!"))
+	speech.emote_see = string_list(list("gets goop everywhere.", "flops.", "jiggles!"))

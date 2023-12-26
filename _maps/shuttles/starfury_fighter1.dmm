@@ -19,13 +19,11 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/tank/internals/emergency_oxygen/engi,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/sbc_fighter1)
 "q" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/power/shuttle_engine/propulsion/burst,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/sbc_fighter1)
 "r" = (
@@ -47,15 +45,28 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/sbc_fighter1)
+"y" = (
+/obj/machinery/camera/directional/west{
+	network = list("SBC_Fighter1");
+	c_tag = "Fighter 1 - Starboard"
+	},
+/turf/template_noop,
+/area/shuttle/sbc_fighter1)
 "C" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/sbc_fighter1)
+"G" = (
+/obj/machinery/camera/directional/east{
+	network = list("SBC_Fighter1");
+	c_tag = "Fighter 1 - Port"
+	},
+/turf/template_noop,
 /area/shuttle/sbc_fighter1)
 "H" = (
 /obj/machinery/button/door{
@@ -113,7 +124,7 @@
 
 (1,1,1) = {"
 a
-a
+G
 v
 f
 f
@@ -149,7 +160,7 @@ q
 "}
 (5,1,1) = {"
 a
-a
+y
 x
 f
 f

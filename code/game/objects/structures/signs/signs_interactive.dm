@@ -1,6 +1,6 @@
 /obj/structure/sign/clock
 	name = "wall clock"
-	desc = "It's a bluespace-controlled wall clock showing both the local Coalition Standard Time and the galactic Treaty Coordinated Time. Perfect for staring at instead of working."
+	desc = "It's your run-of-the-mill wall clock showing both the local Coalition Standard Time and the galactic Treaty Coordinated Time. Perfect for staring at instead of working."
 	icon_state = "clock"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/clock, 32)
@@ -19,8 +19,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/calendar, 32)
 
 /obj/structure/sign/calendar/examine(mob/user)
 	. = ..()
-	. += span_info("The current date is: [time2text(world.realtime, "DDD, MMM DD")], [GLOB.year_integer+540].")
-	if(SSevents.holidays)
+	. += span_info("The current date is: [time2text(world.realtime, "DDD, MMM DD")], [CURRENT_STATION_YEAR].")
+	if(length(GLOB.holidays))
 		. += span_info("Events:")
-		for(var/holidayname in SSevents.holidays)
+		for(var/holidayname in GLOB.holidays)
 			. += span_info("[holidayname]")

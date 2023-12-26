@@ -4,7 +4,8 @@
 	desc = "<i>Various scrawled out drawings and sketches reside on the paper, apparently he didn't much care for these drawings.</i>"
 
 /obj/item/paper/pamphlet/ruin/originalcontent
-	icon = 'icons/obj/fluff.dmi'
+	icon = 'icons/obj/fluff/general.dmi'
+	icon_state = "painting1"
 
 /obj/item/paper/pamphlet/ruin/originalcontent/stickman
 	name = "Painting - 'BANG'"
@@ -14,7 +15,6 @@
 /obj/item/paper/pamphlet/ruin/originalcontent/treeside
 	name = "Painting - 'Treeside'"
 	default_raw_text = "<i>This picture depicts a sunny day on a lush hillside, set under a shaded tree.</i>"
-	icon_state = "painting1"
 
 /obj/item/paper/pamphlet/ruin/originalcontent/pennywise
 	name = "Painting - 'Pennywise'"

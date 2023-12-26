@@ -23,7 +23,7 @@
 	/// List of valid exit points
 	var/list/exit_point_list
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/enter_jaunt(mob/living/jaunter)
+/datum/action/cooldown/spell/jaunt/ethereal_jaunt/enter_jaunt(mob/living/jaunter, turf/loc_override)
 	. = ..()
 	if(!.)
 		return
@@ -49,16 +49,16 @@
 /datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/do_jaunt(mob/living/cast_on)
 	// Makes sure they don't die or get jostled or something during the jaunt entry
 	// Honestly probably not necessary anymore, but better safe than sorry
-	cast_on.notransform = TRUE
+	ADD_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(cast_on)
-	cast_on.notransform = FALSE
+	REMOVE_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 
 	if(!holder)
 		CRASH("[type] attempted do_jaunt but failed to create a jaunt holder via enter_jaunt.")
 
 	if(jaunt_out_time > 0)
 		ADD_TRAIT(cast_on, TRAIT_IMMOBILIZED, REF(src))
-		addtimer(CALLBACK(src, .proc/do_jaunt_out, cast_on, holder), jaunt_out_time)
+		addtimer(CALLBACK(src, PROC_REF(do_jaunt_out), cast_on, holder), jaunt_out_time)
 	else
 		start_jaunt(cast_on, holder)
 
@@ -87,8 +87,8 @@
 		return
 
 	LAZYINITLIST(exit_point_list)
-	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, .proc/update_exit_point, target)
-	addtimer(CALLBACK(src, .proc/stop_jaunt, cast_on, holder, get_turf(holder)), jaunt_duration)
+	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_exit_point), target)
+	addtimer(CALLBACK(src, PROC_REF(stop_jaunt), cast_on, holder, get_turf(holder)), jaunt_duration)
 
 /**
  * The stopping of the jaunt.
@@ -137,7 +137,7 @@
 	if(2.5 SECONDS - jaunt_in_time <= 0)
 		do_jaunt_in(cast_on, holder, found_exit)
 	else
-		addtimer(CALLBACK(src, .proc/do_jaunt_in, cast_on, holder, found_exit), 2.5 SECONDS - jaunt_in_time)
+		addtimer(CALLBACK(src, PROC_REF(do_jaunt_in), cast_on, holder, found_exit), 2.5 SECONDS - jaunt_in_time)
 
 /**
  * The wind-up (wind-out?) of exiting the jaunt.
@@ -153,7 +153,7 @@
 	cast_on.setDir(holder.dir)
 
 	if(jaunt_in_time > 0)
-		addtimer(CALLBACK(src, .proc/end_jaunt, cast_on, holder, final_point), jaunt_in_time)
+		addtimer(CALLBACK(src, PROC_REF(end_jaunt), cast_on, holder, final_point), jaunt_in_time)
 	else
 		end_jaunt(cast_on, holder, final_point)
 
@@ -167,9 +167,10 @@
 /datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/end_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/final_point)
 	if(QDELETED(cast_on) || QDELETED(holder) || QDELETED(src))
 		return
-	cast_on.notransform = TRUE
+
+	ADD_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 	exit_jaunt(cast_on)
-	cast_on.notransform = FALSE
+	REMOVE_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 
 	REMOVE_TRAIT(cast_on, TRAIT_IMMOBILIZED, REF(src))
 
@@ -207,7 +208,9 @@
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls."
 	background_icon_state = "bg_demon"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	overlay_icon_state = "bg_demon_border"
+
+	button_icon = 'icons/mob/actions/actions_cult.dmi'
 	button_icon_state = "phaseshift"
 
 	cooldown_time = 25 SECONDS

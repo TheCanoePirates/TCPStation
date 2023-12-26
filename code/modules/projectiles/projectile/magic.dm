@@ -1,9 +1,8 @@
 /obj/projectile/magic
 	name = "bolt"
 	icon_state = "energy"
-	damage = 0
+	damage = 0 // MOST magic projectiles pass the "not a hostile projectile" test, despite many having negative effects
 	damage_type = OXY
-	nodamage = TRUE
 	armour_penetration = 100
 	armor_flag = NONE
 	/// determines what type of antimagic can block the spell projectile
@@ -32,18 +31,19 @@
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
 
-/obj/projectile/magic/death/on_hit(atom/target)
+/obj/projectile/magic/death/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 
 	if(isliving(target))
 		var/mob/living/victim = target
 		if(victim.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
-			if(victim.revive(full_heal = TRUE, admin_revive = TRUE))
-				victim.grab_ghost(force = TRUE) // even suicides
+			if(victim.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE)) // This heals suicides
+				victim.grab_ghost(force = TRUE)
 				to_chat(victim, span_notice("You rise with a start, you're undead!!!"))
 			else if(victim.stat != DEAD)
 				to_chat(victim, span_notice("You feel great!"))
 			return
+		victim.investigate_log("has been killed by a bolt of death.", INVESTIGATE_DEATHS)
 		victim.death()
 
 	if(istype(target, /obj/machinery/hydroponics))
@@ -56,22 +56,19 @@
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
-	damage = 0
-	damage_type = OXY
-	nodamage = TRUE
 
-/obj/projectile/magic/resurrection/on_hit(atom/target)
+/obj/projectile/magic/resurrection/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 
 	if(isliving(target))
 		var/mob/living/victim = target
 
 		if(victim.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
+			victim.investigate_log("has been killed by a bolt of life.", INVESTIGATE_DEATHS)
 			victim.death()
 			return
 
-		if(victim.revive(full_heal = TRUE, admin_revive = TRUE))
-			victim.grab_ghost(force = TRUE) // even suicides
+		if(victim.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE)) // This heals suicides
 			to_chat(victim, span_notice("You rise with a start, you're alive!!!"))
 		else if(victim.stat != DEAD)
 			to_chat(victim, span_notice("You feel great!"))
@@ -85,13 +82,10 @@
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
 	icon_state = "bluespace"
-	damage = 0
-	damage_type = OXY
-	nodamage = TRUE
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/projectile/magic/teleport/on_hit(mob/target)
+/obj/projectile/magic/teleport/on_hit(mob/target, blocked = 0, pierce_hit)
 	. = ..()
 	var/teleammount = 0
 	var/teleloc = target
@@ -109,11 +103,8 @@
 /obj/projectile/magic/safety
 	name = "bolt of safety"
 	icon_state = "bluespace"
-	damage = 0
-	damage_type = OXY
-	nodamage = TRUE
 
-/obj/projectile/magic/safety/on_hit(atom/target)
+/obj/projectile/magic/safety/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(isturf(target))
 		return BULLET_ACT_HIT
@@ -130,12 +121,9 @@
 /obj/projectile/magic/door
 	name = "bolt of door creation"
 	icon_state = "energy"
-	damage = 0
-	damage_type = OXY
-	nodamage = TRUE
 	var/list/door_types = list(/obj/structure/mineral_door/wood, /obj/structure/mineral_door/iron, /obj/structure/mineral_door/silver, /obj/structure/mineral_door/gold, /obj/structure/mineral_door/uranium, /obj/structure/mineral_door/sandstone, /obj/structure/mineral_door/transparent/plasma, /obj/structure/mineral_door/transparent/diamond)
 
-/obj/projectile/magic/door/on_hit(atom/target)
+/obj/projectile/magic/door/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
@@ -153,22 +141,24 @@
 /obj/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
-		A.locked = FALSE
+		A.unlock()
 	D.open()
 
 /obj/projectile/magic/change
 	name = "bolt of change"
 	icon_state = "ice_1"
-	damage = 0
 	damage_type = BURN
-	nodamage = TRUE
+	/// If set, this projectile will only do a certain wabbajack effect
+	var/set_wabbajack_effect
+	/// If set, this projectile will only pass certain changeflags to wabbajack
+	var/set_wabbajack_changeflags
 
-/obj/projectile/magic/change/on_hit(atom/target)
+/obj/projectile/magic/change/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 
 	if(isliving(target))
 		var/mob/living/victim = target
-		victim.wabbajack()
+		victim.wabbajack(set_wabbajack_effect, set_wabbajack_changeflags)
 
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/plant_tray = target
@@ -179,21 +169,19 @@
 /obj/projectile/magic/animate
 	name = "bolt of animation"
 	icon_state = "red_1"
-	damage = 0
 	damage_type = BURN
-	nodamage = TRUE
 
-/obj/projectile/magic/animate/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/magic/animate/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	target.animate_atom_living(firer)
 
 /atom/proc/animate_atom_living(mob/living/owner = null)
-	if((isitem(src) || isstructure(src)) && !is_type_in_list(src, GLOB.mimic_blacklist))
+	if((isitem(src) || isstructure(src)) && !is_type_in_list(src, GLOB.animatable_blacklist))
 		if(istype(src, /obj/structure/statue/petrified))
 			var/obj/structure/statue/petrified/P = src
 			if(P.petrified_mob)
 				var/mob/living/L = P.petrified_mob
-				var/mob/living/simple_animal/hostile/netherworld/statue/S = new(P.loc, owner)
+				var/mob/living/basic/statue/S = new(P.loc, owner)
 				S.name = "statue of [L.name]"
 				if(owner)
 					S.faction = list("[REF(owner)]")
@@ -227,20 +215,17 @@
 	damage = 15
 	damage_type = BURN
 	dismemberment = 50
-	nodamage = FALSE
 
 /obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
 	icon_state = "arcane_barrage"
 	damage = 20
 	damage_type = BURN
-	nodamage = FALSE
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 
 /obj/projectile/magic/locker
 	name = "locker bolt"
 	icon_state = "locker"
-	nodamage = TRUE
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
 	var/locker_suck = TRUE
@@ -266,7 +251,7 @@
 		target.forceMove(src)
 		return PROJECTILE_PIERCE_PHASE
 
-/obj/projectile/magic/locker/on_hit(target)
+/obj/projectile/magic/locker/on_hit(atom/target, blocked = 0, pierce_hit)
 	if(created)
 		return ..()
 	if(LAZYLEN(contents))
@@ -291,21 +276,21 @@
 	breakout_time = 600
 	icon_welded = null
 	icon_state = "cursed"
+	paint_jobs = null
 	var/weakened_icon = "decursed"
 	var/auto_destroy = TRUE
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
 	if(auto_destroy)
-		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(bust_open)), 5 MINUTES)
+
+/obj/structure/closet/decay/after_open(mob/living/user, force)
+	. = ..()
+	unmagify()
 
 /obj/structure/closet/decay/after_weld(weld_state)
 	if(weld_state)
-		unmagify()
-
-/obj/structure/closet/decay/open(mob/living/user, force = FALSE)
-	. = ..()
-	if(.)
 		unmagify()
 
 ///Give it the lesser magic icon and tell it to delete itself
@@ -313,12 +298,12 @@
 	icon_state = weakened_icon
 	update_appearance()
 
-	addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 ///Fade away into nothing
 /obj/structure/closet/decay/proc/decay()
 	animate(src, alpha = 0, time = 3 SECONDS)
-	addtimer(CALLBACK(src, .proc/decay_finished), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(decay_finished)), 3 SECONDS)
 
 /obj/structure/closet/decay/proc/decay_finished()
 	dump_contents()
@@ -328,7 +313,7 @@
 	name = "bolt of flying"
 	icon_state = "flight"
 
-/obj/projectile/magic/flying/on_hit(mob/living/target)
+/obj/projectile/magic/flying/on_hit(mob/living/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(isliving(target))
 		var/atom/throw_target = get_edge_target_turf(target, angle2dir(Angle))
@@ -338,7 +323,7 @@
 	name = "bolt of bounty"
 	icon_state = "bounty"
 
-/obj/projectile/magic/bounty/on_hit(mob/living/target)
+/obj/projectile/magic/bounty/on_hit(mob/living/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(isliving(target))
 		target.apply_status_effect(/datum/status_effect/bounty, firer)
@@ -347,35 +332,36 @@
 	name = "bolt of antimagic"
 	icon_state = "antimagic"
 
-/obj/projectile/magic/antimagic/on_hit(mob/living/target)
+/obj/projectile/magic/antimagic/on_hit(mob/living/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(isliving(target))
+	if(istype(target))
 		target.apply_status_effect(/datum/status_effect/song/antimagic)
 
 /obj/projectile/magic/fetch
 	name = "bolt of fetching"
 	icon_state = "fetch"
 
-/obj/projectile/magic/fetch/on_hit(mob/living/target)
+/obj/projectile/magic/fetch/on_hit(mob/living/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(isliving(target))
 		var/atom/throw_target = get_edge_target_turf(target, get_dir(target, firer))
 		target.throw_at(throw_target, 200, 4)
 
-/obj/projectile/magic/sapping
-	name = "bolt of sapping"
-	icon_state = "sapping"
+/obj/projectile/magic/babel
+	name = "bolt of babel"
+	icon_state = "babel"
 
-/obj/projectile/magic/sapping/on_hit(mob/living/target)
+/obj/projectile/magic/babel/on_hit(mob/living/carbon/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(isliving(target))
-		target.add_mood_event(REF(src), /datum/mood_event/sapped)
+	if(iscarbon(target))
+		if(curse_of_babel(target))
+			target.add_mood_event("curse_of_babel", /datum/mood_event/tower_of_babel)
 
 /obj/projectile/magic/necropotence
 	name = "bolt of necropotence"
 	icon_state = "necropotence"
 
-/obj/projectile/magic/necropotence/on_hit(mob/living/target)
+/obj/projectile/magic/necropotence/on_hit(mob/living/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(!isliving(target))
 		return
@@ -392,7 +378,7 @@
 	name = "bolt of possession"
 	icon_state = "wipe"
 
-/obj/projectile/magic/wipe/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/wipe/on_hit(mob/living/carbon/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(iscarbon(target))
 		for(var/x in target.get_traumas())//checks to see if the victim is already going through possession
@@ -414,7 +400,7 @@
 		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist/)
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ROLE_PAI, FALSE, 10 SECONDS, target)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates_for_mob(poll_message, check_jobban = ROLE_PAI, poll_time = 10 SECONDS, target_mob = target, pic_source = target, role_name_text = "bolt of possession")
 	if(target.stat == DEAD)//boo.
 		return
 	if(LAZYLEN(candidates))
@@ -445,9 +431,9 @@
 	/// The duration of the trail before deleting.
 	var/trail_lifespan = 0 SECONDS
 	/// The icon the trail uses.
-	var/trail_icon = 'icons/obj/wizard.dmi'
+	var/trail_icon = 'icons/effects/magic.dmi'
 	/// The icon state the trail uses.
-	var/trail_icon_state = "trail"
+	var/trail_icon_state = "arrow"
 
 /obj/projectile/magic/aoe/Range()
 	if(trigger_range >= 1)
@@ -492,11 +478,10 @@
 	icon_state = "tesla_projectile" //Better sprites are REALLY needed and appreciated!~
 	damage = 15
 	damage_type = BURN
-	nodamage = FALSE
 	speed = 0.3
 
 	/// The power of the zap itself when it electrocutes someone
-	var/zap_power = 20000
+	var/zap_power = 2e4
 	/// The range of the zap itself when it electrocutes someone
 	var/zap_range = 15
 	/// The flags of the zap itself when it electrocutes someone
@@ -509,16 +494,16 @@
 		chain = firer.Beam(src, icon_state = "lightning[rand(1, 12)]")
 	return ..()
 
-/obj/projectile/magic/aoe/lightning/on_hit(target)
+/obj/projectile/magic/aoe/lightning/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	tesla_zap(src, zap_range, zap_power, zap_flags)
+	tesla_zap(source = src, zap_range = zap_range, power = zap_power, cutoff = 1e3, zap_flags = zap_flags)
 
 /obj/projectile/magic/aoe/lightning/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 
 /obj/projectile/magic/aoe/lightning/no_zap
-	zap_power = 10000
+	zap_power = 1e4
 	zap_range = 4
 	zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN
 
@@ -527,7 +512,6 @@
 	icon_state = "fireball"
 	damage = 10
 	damage_type = BRUTE
-	nodamage = FALSE
 
 	/// Heavy explosion range of the fireball
 	var/exp_heavy = 0
@@ -538,7 +522,7 @@
 	/// Flash radius of the fireball
 	var/exp_flash = 3
 
-/obj/projectile/magic/fireball/on_hit(atom/target, blocked = FALSE, pierce_hit)
+/obj/projectile/magic/fireball/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/mob_target = target
@@ -567,7 +551,6 @@
 	pixel_speed_multiplier = 0.2
 	trigger_range = 0
 	can_only_hit_target = TRUE
-	nodamage = FALSE
 	paralyze = 6 SECONDS
 	hitsound = 'sound/magic/mm_hit.ogg'
 
@@ -589,12 +572,12 @@
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
-	ignored_factions = list("cult")
+	ignored_factions = list(FACTION_CULT)
 	range = 105
 	speed = 1
 	pixel_speed_multiplier = 1/7
 
-/obj/projectile/magic/spell/juggernaut/on_hit(atom/target, blocked)
+/obj/projectile/magic/aoe/juggernaut/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	var/turf/target_turf = get_turf(src)
 	playsound(target_turf, 'sound/weapons/resonator_blast.ogg', 100, FALSE)
@@ -613,9 +596,7 @@
 /obj/projectile/temp/chill
 	name = "bolt of chills"
 	icon_state = "ice_2"
-	damage = 0
 	damage_type = BURN
-	nodamage = FALSE
 	armour_penetration = 100
 	temperature = -200 // Cools you down greatly per hit
 
@@ -628,5 +609,4 @@
 	icon_state = "spellcard"
 	damage_type = BURN
 	damage = 2
-	nodamage = FALSE
 	antimagic_charge_cost = 0 // since the cards gets spammed like a shotgun

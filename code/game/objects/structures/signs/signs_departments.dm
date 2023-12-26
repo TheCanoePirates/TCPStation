@@ -5,9 +5,24 @@
 
 ///////MEDBAY
 
-/obj/structure/sign/departments/medbay
+/obj/structure/sign/departments/med
 	name = "\improper Medbay sign"
 	sign_change_name = "Department - Medbay"
+	desc = "A sign labeling an area of medical department."
+	icon_state = "med"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/med, 32)
+
+/obj/structure/sign/departments/med_alt
+	name = "\improper Medbay sign"
+	sign_change_name = "Department - Medbay Alt"
+	icon_state = "medbay"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/med_alt, 32)
+
+/obj/structure/sign/departments/medbay
+	name = "\improper Medbay sign"
+	sign_change_name = "Generic Medical"
 	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
 	icon_state = "bluecross"
 
@@ -15,8 +30,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/medbay, 32)
 
 /obj/structure/sign/departments/medbay/alt
 	name = "\improper Medbay sign"
-	sign_change_name = "Department - Medbay Alt"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
+	sign_change_name = "Generic Medical Alt"
 	icon_state = "bluecross2"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/medbay/alt, 32)
@@ -37,6 +51,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/exam_room, 32)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/chemistry, 32)
 
+/obj/structure/sign/departments/chemistry/alt
+	sign_change_name = "Department - Medbay: Chemistry Alt"
+	icon_state = "chemistry2"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/chemistry/alt, 32)
+
 /obj/structure/sign/departments/chemistry/pharmacy
 	name = "\improper Pharmacy sign"
 	sign_change_name = "Department - Medbay: Pharmacy"
@@ -48,10 +68,26 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/chemistry/pharmacy, 
 /obj/structure/sign/departments/psychology
 	name = "\improper Psychology sign"
 	sign_change_name = "Department - Medbay: Psychology"
-	desc = "A sign labelling where the Psychologist works, they can probably help you get your head straight."
+	desc = "A sign labelling an area where the Psychologist works, they can probably help you get your head straight."
 	icon_state = "psychology"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/psychology, 32)
+
+/obj/structure/sign/departments/virology
+	name = "\improper Virology sign"
+	sign_change_name = "Department - Medbay: Virology"
+	desc = "A sign labelling an area where the virologist's laboratory is located."
+	icon_state = "pharmacy"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/virology, 32)
+
+/obj/structure/sign/departments/morgue
+	name = "\improper Morgue sign"
+	sign_change_name = "Department - Medbay: Morgue"
+	desc = "A sign labelling an area where station stores its ever-piling bodies."
+	icon_state = "morgue"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/morgue, 32)
 
 ///////ENGINEERING
 
@@ -74,9 +110,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/engineering, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/science, 32)
 
 /obj/structure/sign/departments/science/alt
-	name = "\improper Science sign"
 	sign_change_name = "Department - Science Alt"
-	desc = "A sign labelling an area where research and science is performed."
 	icon_state = "science2"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/science/alt, 32)
@@ -84,10 +118,24 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/science/alt, 32)
 /obj/structure/sign/departments/xenobio
 	name = "\improper Xenobiology sign"
 	sign_change_name = "Department - Science: Xenobiology"
-	desc = "A sign labelling an area as a place where xenobiological entities are researched."
-	icon_state = "xenobio"
+	desc = "A sign labelling an area where xenobiological entities are researched."
+	icon_state = "xenobio1"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/xenobio, 32)
+
+/obj/structure/sign/departments/xenobio/alt
+	sign_change_name = "Department - Science: Xenobiology Alt"
+	icon_state = "xenobio2"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/xenobio/alt, 32)
+
+/obj/structure/sign/departments/genetics
+	name = "\improper Genetics sign"
+	sign_change_name = "Department - Science: Genetics"
+	desc = "A sign labelling an area where the field of genetics is researched."
+	icon_state = "gene"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/genetics, 32)
 
 /obj/structure/sign/departments/rndserver
 	name ="\improper R&D Server sign"
@@ -101,11 +149,29 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/rndserver, 32)
 
 /obj/structure/sign/departments/botany
 	name = "\improper Botany sign"
-	sign_change_name = "Department - Botany"
+	sign_change_name = "Department - Botany (Flower)"
 	desc = "A sign labelling an area as a place where plants are grown."
 	icon_state = "hydro1"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/botany, 32)
+
+/obj/structure/sign/departments/botany/alt1
+	sign_change_name = "Department - Botany (Tray)"
+	icon_state = "hydro2"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/botany/alt1, 32)
+
+/obj/structure/sign/departments/botany/alt2
+	sign_change_name = "Department - Botany (Watering Can)"
+	icon_state = "hydro3"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/botany/alt2, 32)
+
+/obj/structure/sign/departments/botany/botany/alt3
+	sign_change_name = "Department - Botany (Tray) Alt"
+	icon_state = "botany"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/botany/alt3, 32)
 
 /obj/structure/sign/departments/custodian
 	name = "\improper Janitor sign"
@@ -120,6 +186,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/custodian, 32)
 	sign_change_name = "Department - Chapel"
 	desc = "A sign labelling a religious area."
 	icon_state = "holy"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/holy, 32)
+
+/obj/structure/sign/departments/holy_alt
+	name = "\improper Chapel sign"
+	sign_change_name = "Department - Chapel"
+	desc = "A sign labelling a religious area."
+	icon_state = "chapel"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/holy, 32)
 
@@ -211,6 +285,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/telecomms, 32)
 
 /obj/structure/sign/departments/telecomms/alt
 	icon_state = "telecomms2"
+	sign_change_name = "Location - Telecommunications Alt"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/telecomms/alt, 32)
 

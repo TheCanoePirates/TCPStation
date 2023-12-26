@@ -20,12 +20,13 @@
 /obj/machinery/rnd/experimentor
 	name = "\improper E.X.P.E.R.I-MENTOR"
 	desc = "A \"replacement\" for the destructive analyzer with a slight tendency to catastrophically fail."
-	icon = 'icons/obj/machines/heavy_lathe.dmi'
+	icon = 'icons/obj/machines/experimentator.dmi'
 	icon_state = "h_lathe"
 	base_icon_state = "h_lathe"
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	circuit = /obj/item/circuitboard/machine/experimentor
+	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN|INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_OPEN_SILICON|INTERACT_MACHINE_SET_MACHINE
 	var/recentlyExperimented = 0
 	/// Weakref to the first ian we can find at init
 	var/datum/weakref/tracked_ian_ref
@@ -37,23 +38,34 @@
 	var/malfunction_probability_coeff_modifier = 0
 	var/resetTime = 15
 	var/cloneMode = FALSE
-	var/list/item_reactions = list()
-	var/list/valid_items = list() //valid items for special reactions like transforming
+	var/list/item_reactions
+	var/static/list/valid_items //valid items for special reactions like transforming
 	var/list/critical_items_typecache //items that can cause critical reactions
 
-/obj/machinery/rnd/experimentor/proc/ConvertReqString2List(list/source_list)
-	var/list/temp_list = params2list(source_list)
-	for(var/O in temp_list)
-		temp_list[O] = text2num(temp_list[O])
-	return temp_list
+/obj/machinery/rnd/experimentor/proc/valid_items()
+	RETURN_TYPE(/list)
 
+	if (isnull(valid_items))
+		generate_valid_items_and_item_reactions()
 
-/obj/machinery/rnd/experimentor/proc/SetTypeReactions()
-	// Don't need to keep this typecache around, only used in this proc once.
+	return valid_items
+
+/obj/machinery/rnd/experimentor/proc/item_reactions()
+	RETURN_TYPE(/list)
+
+	if (isnull(item_reactions))
+		generate_valid_items_and_item_reactions()
+
+	return item_reactions
+
+/obj/machinery/rnd/experimentor/proc/generate_valid_items_and_item_reactions()
 	var/static/list/banned_typecache = typecacheof(list(
 		/obj/item/stock_parts/cell/infinite,
 		/obj/item/grenade/chem_grenade/tuberculosis
 	))
+
+	item_reactions = list()
+	valid_items = list()
 
 	for(var/I in typesof(/obj/item))
 		if(ispath(I, /obj/item/relic))
@@ -77,9 +89,8 @@
 /obj/machinery/rnd/experimentor/Initialize(mapload)
 	. = ..()
 
-	tracked_ian_ref = WEAKREF(locate(/mob/living/simple_animal/pet/dog/corgi/ian) in GLOB.mob_living_list)
-	tracked_runtime_ref = WEAKREF(locate(/mob/living/simple_animal/pet/cat/runtime) in GLOB.mob_living_list)
-	SetTypeReactions()
+	tracked_ian_ref = WEAKREF(locate(/mob/living/basic/pet/dog/corgi/ian) in GLOB.mob_living_list)
+	tracked_runtime_ref = WEAKREF(locate(/mob/living/basic/pet/cat/runtime) in GLOB.mob_living_list)
 
 	critical_items_typecache = typecacheof(list(
 		/obj/item/construction/rcd,
@@ -94,12 +105,12 @@
 	. = ..()
 	malfunction_probability_coeff = malfunction_probability_coeff_modifier
 	resetTime = initial(resetTime)
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		resetTime = max(1, resetTime - M.rating)
-	for(var/obj/item/stock_parts/scanning_module/M in component_parts)
-		malfunction_probability_coeff += M.rating*2
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		malfunction_probability_coeff += M.rating
+	for(var/datum/stock_part/servo/servo in component_parts)
+		resetTime = max(1, resetTime - servo.tier)
+	for(var/datum/stock_part/scanning_module/scanning_module in component_parts)
+		malfunction_probability_coeff += scanning_module.tier * 2
+	for(var/datum/stock_part/micro_laser/micro_laser in component_parts)
+		malfunction_probability_coeff += micro_laser.tier
 
 /obj/machinery/rnd/experimentor/examine(mob/user)
 	. = ..()
@@ -114,20 +125,22 @@
 			return FALSE
 	return TRUE
 
-/obj/machinery/rnd/experimentor/Insert_Item(obj/item/O, mob/living/user)
-	if(!user.combat_mode)
-		. = 1
-		if(!is_insertion_ready(user))
-			return
-		if(!user.transferItemToLoc(O, src))
-			return
-		loaded_item = O
-		to_chat(user, span_notice("You add [O] to the machine."))
-		flick("h_lathe_load", src)
+/obj/machinery/rnd/experimentor/attackby(obj/item/weapon, mob/living/user, params)
+	if(user.combat_mode)
+		return ..()
+	if(!is_insertion_ready(user))
+		return ..()
+	if(!user.transferItemToLoc(weapon, src))
+		to_chat(user, span_warning("\The [weapon] is stuck to your hand, you cannot put it in the [name]!"))
+		return TRUE
+	loaded_item = weapon
+	to_chat(user, span_notice("You add [weapon] to the machine."))
+	flick("h_lathe_load", src)
+	return TRUE
 
 /obj/machinery/rnd/experimentor/default_deconstruction_crowbar(obj/item/O)
 	ejectItem()
-	. = ..(O)
+	return ..(O)
 
 /obj/machinery/rnd/experimentor/ui_interact(mob/user)
 	var/list/dat = list("<center>")
@@ -144,21 +157,19 @@
 		if(istype(loaded_item,/obj/item/relic))
 			dat += "<b><a href='byond://?src=[REF(src)];item=[REF(loaded_item)];function=[SCANTYPE_DISCOVER]'>Discover</A></b>"
 		dat += "<b><a href='byond://?src=[REF(src)];function=eject'>Eject</A>"
-		var/list/listin = techweb_item_boost_check(src)
+		var/list/listin = techweb_item_unlock_check(src)
 		if(listin)
 			var/list/output = list("<b><font color='purple'>Research Boost Data:</font></b>")
 			var/list/res = list("<b><font color='blue'>Already researched:</font></b>")
-			var/list/boosted = list("<b><font color='red'>Already boosted:</font></b>")
 			for(var/node_id in listin)
 				var/datum/techweb_node/N = SSresearch.techweb_node_by_id(node_id)
 				var/str = "<b>[N.display_name]</b>: [listin[N]] points.</b>"
-				if(SSresearch.science_tech.researched_nodes[N.id])
+				var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+				if(science_web.researched_nodes[N.id])
 					res += str
-				else if(SSresearch.science_tech.boosted_nodes[N.id])
-					boosted += str
-				if(SSresearch.science_tech.visible_nodes[N.id]) //JOY OF DISCOVERY!
+				if(science_web.visible_nodes[N.id]) //JOY OF DISCOVERY!
 					output += str
-			output += boosted + res
+			output += res
 			dat += output
 	else
 		dat += "<b>Nothing loaded.</b>"
@@ -200,14 +211,15 @@
 			experiment(dotype,process)
 			use_power(750)
 			if(dotype != FAIL)
-				var/list/nodes = techweb_item_boost_check(process)
+				var/list/nodes = techweb_item_unlock_check(process)
 				var/picked = pick_weight(nodes) //This should work.
-				stored_research.boost_with_item(SSresearch.techweb_node_by_id(picked), process.type)
+				stored_research.unhide_node(SSresearch.techweb_node_by_id(picked))
 	updateUsrDialog()
 
 /obj/machinery/rnd/experimentor/proc/matchReaction(matching,reaction)
 	var/obj/item/D = matching
 	if(D)
+		var/list/item_reactions = item_reactions()
 		if(item_reactions.Find("[D.type]"))
 			var/tor = item_reactions["[D.type]"]
 			if(tor == text2num(reaction))
@@ -293,7 +305,7 @@
 		else if(prob(EFFECT_PROB_MEDIUM-malfunction_probability_coeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
-			var/newPath = text2path(pick_weight(valid_items))
+			var/newPath = text2path(pick_weight(valid_items()))
 			loaded_item = new newPath(src)
 			visible_message(span_warning("[src] malfunctions, transforming [savedName] into [loaded_item]!"))
 			investigate_log("Experimentor has transformed [savedName] into [loaded_item]", INVESTIGATE_EXPERIMENTOR)
@@ -373,14 +385,9 @@
 		else if(prob(EFFECT_PROB_MEDIUM-malfunction_probability_coeff))
 			visible_message(span_warning("[src] malfunctions, melting [exp_on] and leaking hot air!"))
 			var/datum/gas_mixture/env = loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = min((removed.temperature*heat_capacity + 100000)/heat_capacity, 1000)
-			env.merge(removed)
+			if(env)
+				var/heat_capacity = max(env.heat_capacity(), 1)
+				env.temperature = min((env.temperature * heat_capacity + 100000) / heat_capacity, 1000)
 			air_update_turf(FALSE, FALSE)
 			investigate_log("Experimentor has released hot air.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
@@ -419,14 +426,9 @@
 		else if(prob(EFFECT_PROB_LOW-malfunction_probability_coeff))
 			visible_message(span_warning("[src] malfunctions, shattering [exp_on] and leaking cold air!"))
 			var/datum/gas_mixture/env = loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = (removed.temperature*heat_capacity - 75000)/heat_capacity
-			env.merge(removed)
+			if(env)
+				var/heat_capacity = max(env.heat_capacity(), 1)
+				env.temperature = max((env.temperature * heat_capacity - 75000) / heat_capacity, TCMB)
 			air_update_turf(FALSE, FALSE)
 			investigate_log("Experimentor has released cold air.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
@@ -480,7 +482,7 @@
 		var/globalMalf = rand(1,100)
 		if(globalMalf < 15)
 			visible_message(span_warning("[src]'s onboard detection system has malfunctioned!"))
-			item_reactions["[exp_on.type]"] = pick(SCANTYPE_POKE,SCANTYPE_IRRADIATE,SCANTYPE_GAS,SCANTYPE_HEAT,SCANTYPE_COLD,SCANTYPE_OBLITERATE)
+			item_reactions()["[exp_on.type]"] = pick(SCANTYPE_POKE,SCANTYPE_IRRADIATE,SCANTYPE_GAS,SCANTYPE_HEAT,SCANTYPE_COLD,SCANTYPE_OBLITERATE)
 			ejectItem()
 		if(globalMalf > 16 && globalMalf < 35)
 			visible_message(span_warning("[src] melts [exp_on], ian-izing the air around it!"))
@@ -491,7 +493,7 @@
 				tracked_ian.forceMove(loc)
 				investigate_log("Experimentor has stolen Ian!", INVESTIGATE_EXPERIMENTOR) //...if anyone ever fixes it...
 			else
-				new /mob/living/simple_animal/pet/dog/corgi(loc)
+				new /mob/living/basic/pet/dog/corgi(loc)
 				investigate_log("Experimentor has spawned a new corgi.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(globalMalf > 36 && globalMalf < 50)
@@ -509,7 +511,7 @@
 				tracked_runtime.forceMove(drop_location())
 				investigate_log("Experimentor has stolen Runtime!", INVESTIGATE_EXPERIMENTOR)
 			else
-				new /mob/living/simple_animal/pet/cat(loc)
+				new /mob/living/basic/pet/cat(loc)
 				investigate_log("Experimentor failed to steal runtime, and instead spawned a new cat.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(globalMalf > 76 && globalMalf < 98)
@@ -518,12 +520,12 @@
 			investigate_log("Experimentor has drained power from its APC", INVESTIGATE_EXPERIMENTOR)
 		if(globalMalf == 99)
 			visible_message(span_warning("[src] begins to glow and vibrate. It's going to blow!"))
-			addtimer(CALLBACK(src, .proc/boom), 50)
+			addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 		if(globalMalf == 100)
 			visible_message(span_warning("[src] begins to glow and vibrate. It's going to blow!"))
-			addtimer(CALLBACK(src, .proc/honk), 50)
+			addtimer(CALLBACK(src, PROC_REF(honk)), 50)
 
-	addtimer(CALLBACK(src, .proc/reset_exp), resetTime)
+	addtimer(CALLBACK(src, PROC_REF(reset_exp)), resetTime)
 
 /obj/machinery/rnd/experimentor/proc/boom()
 	explosion(src, devastation_range = 1, heavy_impact_range = 5, light_impact_range = 10, flash_range = 5, adminlog = TRUE)
@@ -567,7 +569,7 @@
 /obj/item/relic
 	name = "strange object"
 	desc = "What mysteries could this hold? Maybe Research & Development could find out."
-	icon = 'icons/obj/assemblies.dmi'
+	icon = 'icons/obj/devices/assemblies.dmi'
 	var/realName = "defined object"
 	var/revealed = FALSE
 	var/realProc
@@ -586,7 +588,7 @@
 	revealed = TRUE
 	name = realName
 	reset_timer = rand(reset_timer, reset_timer * 5)
-	realProc = pick(.proc/teleport,.proc/explode,.proc/rapidDupe,.proc/petSpray,.proc/flash,.proc/clean,.proc/corgicannon)
+	realProc = pick(PROC_REF(teleport), PROC_REF(explode), PROC_REF(rapidDupe), PROC_REF(petSpray), PROC_REF(flash), PROC_REF(clean), PROC_REF(corgicannon))
 
 /obj/item/relic/attack_self(mob/user)
 	if(!revealed)
@@ -609,8 +611,8 @@
 
 /obj/item/relic/proc/corgicannon(mob/user)
 	playsound(src, SFX_SPARKS, rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	var/mob/living/simple_animal/pet/dog/corgi/C = new/mob/living/simple_animal/pet/dog/corgi(get_turf(user))
-	C.throw_at(pick(oview(10,user)), 10, rand(3,8), callback = CALLBACK(src, .proc/throwSmoke, C))
+	var/mob/living/basic/pet/dog/corgi/sad_corgi = new(get_turf(user))
+	sad_corgi.throw_at(pick(oview(10,user)), 10, rand(3,8), callback = CALLBACK(src, PROC_REF(throwSmoke), sad_corgi))
 	warn_admins(user, "Corgi Cannon", 0)
 
 /obj/item/relic/proc/clean(mob/user)
@@ -631,7 +633,20 @@
 	visible_message(message)
 	to_chat(user, message)
 
-	var/list/valid_animals = list(/mob/living/simple_animal/parrot/natural, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/crab, /mob/living/simple_animal/pet/fox, /mob/living/simple_animal/hostile/lizard, /mob/living/simple_animal/mouse, /mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/hostile/bear, /mob/living/simple_animal/hostile/bee, /mob/living/simple_animal/hostile/carp)
+	var/static/list/valid_animals = list(
+		/mob/living/basic/bear,
+		/mob/living/basic/bee,
+		/mob/living/basic/butterfly,
+		/mob/living/basic/carp,
+		/mob/living/basic/crab,
+		/mob/living/basic/lizard,
+		/mob/living/basic/mouse,
+		/mob/living/basic/parrot,
+		/mob/living/basic/pet/cat,
+		/mob/living/basic/pet/dog/corgi,
+		/mob/living/basic/pet/dog/pug,
+		/mob/living/basic/pet/fox,
+	)
 	for(var/counter in 1 to rand(1, 25))
 		var/mobType = pick(valid_animals)
 		new mobType(get_turf(src))
@@ -659,7 +674,7 @@
 
 /obj/item/relic/proc/explode(mob/user)
 	to_chat(user, span_danger("[src] begins to heat up!"))
-	addtimer(CALLBACK(src, .proc/do_explode, user), rand(35, 100))
+	addtimer(CALLBACK(src, PROC_REF(do_explode), user), rand(35, 100))
 
 /obj/item/relic/proc/do_explode(mob/user)
 	if(loc == user)
@@ -670,7 +685,7 @@
 
 /obj/item/relic/proc/teleport(mob/user)
 	to_chat(user, span_notice("[src] begins to vibrate!"))
-	addtimer(CALLBACK(src, .proc/do_the_teleport, user), rand(10, 30))
+	addtimer(CALLBACK(src, PROC_REF(do_the_teleport), user), rand(10, 30))
 
 /obj/item/relic/proc/do_the_teleport(mob/user)
 	var/turf/userturf = get_turf(user)

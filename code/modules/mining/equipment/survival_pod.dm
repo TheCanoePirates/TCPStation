@@ -5,7 +5,7 @@
 	static_lighting = TRUE
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
+	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	flags_1 = CAN_BE_DIRTY_1
 
 //Survival Capsule
@@ -43,7 +43,7 @@
 	if(!used)
 		loc.visible_message(span_warning("\The [src] begins to shake. Stand back!"))
 		used = TRUE
-		sleep(50)
+		sleep(5 SECONDS)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
 		switch(status)
@@ -79,6 +79,11 @@
 	desc = "A luxury bar in a capsule. Bartender required and not included."
 	template_id = "shelter_charlie"
 
+/obj/item/survivalcapsule/bathroom
+	name = "emergency relief capsule"
+	desc = "Provides vital emergency support to employees who are caught short in the field."
+	template_id = "shelter_toilet"
+
 //Pod objects
 
 //Window
@@ -88,22 +93,15 @@
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TITANIUM_POD)
-	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TITANIUM_POD)
-
-/obj/structure/window/reinforced/shuttle/survival_pod/spawner/north
-	dir = NORTH
-
-/obj/structure/window/reinforced/shuttle/survival_pod/spawner/east
-	dir = EAST
-
-/obj/structure/window/reinforced/shuttle/survival_pod/spawner/west
-	dir = WEST
+	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_SURVIVAL_TITANIUM_POD
+	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_POD
 
 /obj/structure/window/reinforced/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	icon_state = "pwindow"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/survival_pod/spawner, 0)
 
 //Door
 /obj/machinery/door/airlock/survival_pod
@@ -111,7 +109,7 @@
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
-	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SURVIVAL_TITANIUM_POD)
+	smoothing_groups = SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_SURVIVAL_TITANIUM_POD
 
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
@@ -127,13 +125,13 @@
 
 //Windoor
 /obj/machinery/door/window/survival_pod
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	icon_state = "windoor"
 	base_state = "windoor"
 
 //Table
 /obj/structure/table/survival_pod
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	icon_state = "table"
 	smoothing_flags = NONE
 	smoothing_groups = null
@@ -141,7 +139,7 @@
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	icon_state = "sleeper"
 	base_icon_state = "sleeper"
 
@@ -152,21 +150,21 @@
 
 //Lifeform Stasis Unit
 /obj/machinery/stasis/survival_pod
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	buckle_lying = 270
 
 //Computer
 /obj/item/gps/computer
 	name = "pod computer"
+	icon = 'icons/obj/mining_zones/pod_computer.dmi'
 	icon_state = "pod_computer"
-	icon = 'icons/obj/lavaland/pod_computer.dmi'
 	anchored = TRUE
 	density = TRUE
 	pixel_y = -32
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	..()
-	if(flags_1 & NODECONSTRUCT_1)
+	if(obj_flags & NO_DECONSTRUCTION)
 		return TRUE
 
 	user.visible_message(span_warning("[user] disassembles [src]."),
@@ -184,11 +182,11 @@
 
 //Bed
 /obj/structure/bed/pod
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	icon_state = "bed"
 
 /obj/structure/bed/double/pod
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	icon_state = "bed_double"
 
 //Survival Storage Unit
@@ -196,14 +194,14 @@
 	name = "survival pod storage"
 	desc = "A heated storage unit."
 	icon_state = "donkvendor"
-	icon = 'icons/obj/lavaland/donkvendor.dmi'
+	icon = 'icons/obj/mining_zones/donkvendor.dmi'
 	base_build_path = /obj/machinery/smartfridge/survival_pod
 	light_range = 5
 	light_power = 1.2
 	light_color = COLOR_VERY_PALE_LIME_GREEN
 	max_n_of_items = 10
 	pixel_y = -4
-	flags_1 = NODECONSTRUCT_1
+	obj_flags = /obj::obj_flags | NO_DECONSTRUCTION
 
 /obj/machinery/smartfridge/survival_pod/Initialize(mapload)
 	AddElement(/datum/element/update_icon_blocker)
@@ -227,7 +225,7 @@
 //Fluff
 /obj/structure/tubes
 	icon_state = "tubes"
-	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon = 'icons/obj/mining_zones/survival_pod.dmi'
 	name = "tubes"
 	anchored = TRUE
 	layer = BELOW_MOB_LAYER

@@ -32,7 +32,19 @@
 	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 	create_reagents(casing_holder_volume)
 	stage_change() // If no argument is set, it will change the stage to the current stage, useful for stock grenades that start READY.
-	wires = new /datum/wires/explosive/chem_grenade(src)
+	set_wires(new /datum/wires/explosive/chem_grenade(src))
+
+/obj/item/grenade/chem_grenade/Destroy(force)
+	QDEL_NULL(wires)
+	QDEL_NULL(landminemode)
+	QDEL_LIST(beakers)
+	return ..()
+
+/obj/item/grenade/chem_grenade/apply_grenade_fantasy_bonuses(quality)
+	threatscale = modify_fantasy_variable("threatscale", threatscale, quality/10)
+
+/obj/item/grenade/chem_grenade/remove_grenade_fantasy_bonuses(quality)
+	threatscale = reset_fantasy_variable("threatscale", threatscale)
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
 	display_timer = (stage == GRENADE_READY) //show/hide the timer based on assembly state
@@ -99,9 +111,9 @@
 /obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(dud_flags & GRENADE_USED)
-		balloon_alert(user, span_notice("resetting trigger..."))
+		balloon_alert(user, "resetting trigger...")
 		if (do_after(user, 2 SECONDS, src))
-			balloon_alert(user, span_notice("trigger reset"))
+			balloon_alert(user, "trigger reset")
 			dud_flags &= ~GRENADE_USED
 		return
 
@@ -145,7 +157,7 @@
 			beaker.forceMove(drop_location())
 			if(!beaker.reagents)
 				continue
-			var/reagent_list = pretty_string_from_reagent_list(beaker.reagents)
+			var/reagent_list = pretty_string_from_reagent_list(beaker.reagents.reagent_list)
 			user.log_message("removed [beaker] ([reagent_list]) from [src]", LOG_GAME)
 		beakers = list()
 		to_chat(user, span_notice("You open the [initial(name)] assembly and remove the payload."))
@@ -173,7 +185,7 @@
 					return
 				to_chat(user, span_notice("You add [item] to the [initial(name)] assembly."))
 				beakers += item
-				var/reagent_list = pretty_string_from_reagent_list(item.reagents)
+				var/reagent_list = pretty_string_from_reagent_list(item.reagents.reagent_list)
 				user.log_message("inserted [item] ([reagent_list]) into [src]", LOG_GAME)
 			else
 				to_chat(user, span_warning("[item] is empty!"))
@@ -227,7 +239,7 @@
 	if(landminemode)
 		landminemode.activate()
 		return
-	addtimer(CALLBACK(src, .proc/detonate), isnull(delayoverride)? det_time : delayoverride)
+	addtimer(CALLBACK(src, PROC_REF(detonate)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/chem_grenade/detonate(mob/living/lanced_by)
 	if(stage != GRENADE_READY)
@@ -283,7 +295,7 @@
 
 		if(istype(thing, /obj/item/slime_extract))
 			var/obj/item/slime_extract/extract = thing
-			if(!extract.Uses)
+			if(!extract.extract_uses)
 				continue
 
 			extract_total_volume += extract.reagents.total_volume
@@ -301,11 +313,11 @@
 	var/container_ratio = available_extract_volume / beaker_total_volume
 	var/datum/reagents/tmp_holder = new/datum/reagents(beaker_total_volume)
 	for(var/obj/item/container as anything in other_containers)
-		container.reagents.trans_to(tmp_holder, container.reagents.total_volume * container_ratio, 1, preserve_data = TRUE, no_react = TRUE)
+		container.reagents.trans_to(tmp_holder, container.reagents.total_volume * container_ratio, no_react = TRUE)
 
 	for(var/obj/item/slime_extract/extract as anything in extracts)
 		var/available_volume = extract.reagents.maximum_volume - extract.reagents.total_volume
-		tmp_holder.trans_to(extract, beaker_total_volume * (available_volume / available_extract_volume), 1, preserve_data = TRUE, no_react = TRUE)
+		tmp_holder.trans_to(extract, beaker_total_volume * (available_volume / available_extract_volume), no_react = TRUE)
 
 		extract.reagents.handle_reactions() // Reaction handling in the transfer proc is reciprocal and we don't want to blow up the tmp holder early.
 		if(QDELETED(extract))
@@ -355,7 +367,7 @@
 	if (active)
 		return
 	var/newspread = tgui_input_number(user, "Please enter a new spread amount", "Grenade Spread", 5, 100, 5)
-	if(!newspread || QDELETED(user) || QDELETED(src) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!newspread || QDELETED(user) || QDELETED(src) || !usr.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	unit_spread = newspread
 	to_chat(user, span_notice("You set the time release to [unit_spread] units per detonation."))
@@ -378,11 +390,16 @@
 	var/datum/reagents/reactants = new(unit_spread)
 	reactants.my_atom = src
 	for(var/obj/item/reagent_containers/reagent_container in beakers)
-		reagent_container.reagents.trans_to(reactants, reagent_container.reagents.total_volume*fraction, threatscale, 1, 1)
+		reagent_container.reagents.trans_to(
+			reactants,
+			reagent_container.reagents.total_volume * fraction,
+			threatscale,
+			no_react = TRUE
+		)
 	chem_splash(get_turf(src), reagents, affected_area, list(reactants), ignition_temp, threatscale)
 
 	var/turf/detonated_turf = get_turf(src)
-	addtimer(CALLBACK(src, .proc/detonate), det_time)
+	addtimer(CALLBACK(src, PROC_REF(detonate)), det_time)
 	log_game("A grenade detonated at [AREACOORD(detonated_turf)]")
 
 

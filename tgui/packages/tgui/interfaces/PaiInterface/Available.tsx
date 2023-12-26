@@ -1,7 +1,16 @@
 import { useBackend } from 'tgui/backend';
-import { Box, Button, Icon, ProgressBar, Section, Table, Tooltip } from 'tgui/components';
+import {
+  Box,
+  Button,
+  Icon,
+  ProgressBar,
+  Section,
+  Table,
+  Tooltip,
+} from 'tgui/components';
+
 import { SOFTWARE_DESC } from './constants';
-import { Data } from './types';
+import { PaiData } from './types';
 
 /**
  * Renders a list of available software and the ram with which to download it
@@ -12,15 +21,16 @@ export const AvailableDisplay = () => {
       buttons={<MemoryDisplay />}
       fill
       scrollable
-      title="Available Software">
+      title="Available Software"
+    >
       <SoftwareList />
     </Section>
   );
 };
 
 /** Displays the remaining RAM left as a progressbar. */
-const MemoryDisplay = (props, context) => {
-  const { data } = useBackend<Data>(context);
+const MemoryDisplay = (props) => {
+  const { data } = useBackend<PaiData>();
   const { ram } = data;
 
   return (
@@ -51,8 +61,8 @@ const MemoryDisplay = (props, context) => {
 /** A list of available software.
  *  creates table rows for each, like a vendor.
  */
-const SoftwareList = (props, context) => {
-  const { data } = useBackend<Data>(context);
+const SoftwareList = (props) => {
+  const { data } = useBackend<PaiData>();
   const { available } = data;
   if (!available) {
     return null;
@@ -72,8 +82,8 @@ const SoftwareList = (props, context) => {
 };
 
 /** A row for an individual software listing. */
-const ListItem = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const ListItem = (props) => {
+  const { act, data } = useBackend<PaiData>();
   const { installed, ram } = data;
   const { cost, name } = props;
   const purchased = installed.includes(name);
@@ -99,7 +109,8 @@ const ListItem = (props, context) => {
           disabled={ram < cost || purchased}
           onClick={() => act('buy', { selection: name })}
           tooltip={SOFTWARE_DESC[name]}
-          tooltipPosition="bottom-start">
+          tooltipPosition="bottom-start"
+        >
           <Icon ml={1} mr={-2} name="download" />
         </Button>
       </Table.Cell>
