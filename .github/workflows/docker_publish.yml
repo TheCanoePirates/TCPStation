@@ -1,7 +1,5 @@
 name: Docker Build
 on:
-  schedule:
-  - cron: "19 1 * * *"
   workflow_dispatch:
 jobs:
   publish:
