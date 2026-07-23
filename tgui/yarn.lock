@@ -1674,6 +1674,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/trusted-types@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "@types/trusted-types@npm:2.0.7"
+  checksum: 8e4202766a65877efcf5d5a41b7dd458480b36195e580a3b1085ad21e948bc417d55d6f8af1fd2a7ad008015d4117d5fdfe432731157da3c68678487174e4ba3
+  languageName: node
+  linkType: hard
+
 "@types/webpack-env@npm:^1.18.4":
   version: 1.18.4
   resolution: "@types/webpack-env@npm:1.18.4"
@@ -3520,10 +3527,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^2.4.4":
-  version: 2.4.7
-  resolution: "dompurify@npm:2.4.7"
-  checksum: 13c047e772a1998348191554dda403950d45ef2ec75fa0b9915cc179ccea0a39ef780d283109bd72cf83a2a085af6c77664281d4d0106a737bc5f39906364efe
+"dompurify@npm:^3.4.12":
+  version: 3.4.12
+  resolution: "dompurify@npm:3.4.12"
+  dependencies:
+    "@types/trusted-types": ^2.0.7
+  dependenciesMeta:
+    "@types/trusted-types":
+      optional: true
+  checksum: 477e944e669bac9247c9ebfa55c7ea5c73f3cc6cd6b21ee72e306000e3e53d308e7bdaac89e655a0e2661de2ffbdd877e6a92537d07ba1d70c6c441fcef8c65c
   languageName: node
   linkType: hard
 
@@ -9065,7 +9077,7 @@ resolve@^1.20.0:
     "@types/node": ^14.x
     "@types/react": ^18.2.42
     common: "workspace:*"
-    dompurify: ^2.4.4
+    dompurify: ^3.4.12
     react: ^18.2.0
     react-dom: ^18.2.0
     tgui: "workspace:*"
@@ -9146,7 +9158,7 @@ resolve@^1.20.0:
     "@types/react-dom": ^18.2.17
     common: "workspace:*"
     dateformat: ^4.6.2
-    dompurify: ^2.4.4
+    dompurify: ^3.4.12
     highlight.js: ^11.9.0
     js-yaml: ^4.1.0
     marked: ^4.2.12
