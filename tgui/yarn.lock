@@ -6339,6 +6339,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "js-yaml@npm:4.3.1"
+  dependencies:
+    argparse: ^2.0.1
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 482740e69a1769b355d7182234c0fa197237f02e6a5c8c0b70a763af6a712c9741de350d784a5659e00cf03cedd6ebfa506d59ca45967e3ee50dd4f4df18f2e7
+  languageName: node
+  linkType: hard
+
 "jsbn@npm:~0.1.0":
   version: 0.1.1
   resolution: "jsbn@npm:0.1.1"
@@ -9148,7 +9159,7 @@ resolve@^1.20.0:
     dateformat: ^4.6.2
     dompurify: ^2.4.4
     highlight.js: ^11.9.0
-    js-yaml: ^4.1.0
+    js-yaml: ^4.3.1
     marked: ^4.2.12
     react: ^18.2.0
     react-dom: ^18.2.0
